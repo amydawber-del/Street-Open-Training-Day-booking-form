@@ -279,6 +279,41 @@ body {
   border: 1.5px dashed var(--grey-30); border-radius: 10px;
   padding: 16px; background: #fafafa;
 }
+/* ── Email meta rows ─────────────────────────────────────── */
+.email-template-meta {
+  background: #fafafe; border-bottom: 1px solid var(--purple-mid);
+  padding: 0 14px;
+}
+.email-meta-row {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid rgba(91,75,231,0.1);
+  font-size: 12px;
+}
+.email-meta-row:last-child { border-bottom: none; }
+.email-meta-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.6px; color: var(--purple-txt); flex-shrink: 0; width: 52px;
+}
+.email-meta-value { color: var(--grey-70); font-weight: 500; line-height: 1.4; }
+
+/* ── Delegate day chips ──────────────────────────────────── */
+.delegate-day-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0; }
+.delegate-day-chip {
+  display: flex; align-items: center; cursor: pointer;
+}
+.delegate-day-chip input { display: none; }
+.ddc-inner {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border: 2px solid var(--grey-20); border-radius: 8px;
+  font-size: 12.5px; font-weight: 600; color: var(--grey-70);
+  transition: all 0.14s; background: #fff; user-select: none;
+}
+.ddc-inner:hover { border-color: var(--purple-mid); background: var(--purple-lt); color: var(--purple); }
+.delegate-day-chip input:checked + .ddc-inner { border-color: var(--purple); background: var(--purple-lt); color: var(--purple); }
+.ddc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.ddc-purple { background: var(--purple); }
+.ddc-green  { background: var(--green); }
+
 .add-attendee-box .box-title {
   font-size: 12px; font-weight: 700; color: var(--grey-70);
   text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
@@ -753,6 +788,19 @@ body {
               <label class="field-label">Job Title <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
               <input type="text" class="field-input" id="attRole" placeholder="e.g. Senior Negotiator">
             </div>
+            <div class="field" style="margin-top:10px;margin-bottom:0;">
+              <label class="field-label req">Which day(s) is this delegate attending?</label>
+              <div class="delegate-day-group">
+                <label class="delegate-day-chip">
+                  <input type="checkbox" id="attDaySales" value="sales">
+                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span>Sales &mdash; Tue 19 May</span>
+                </label>
+                <label class="delegate-day-chip">
+                  <input type="checkbox" id="attDayLettings" value="lettings">
+                  <span class="ddc-inner"><span class="ddc-dot ddc-green"></span>Lettings &mdash; Wed 20 May</span>
+                </label>
+              </div>
+            </div>
             <div class="field" style="margin-top:10px;margin-bottom:10px;">
               <label class="field-label">Dietary Requirements <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
               <input type="text" class="field-input" id="attDiet" placeholder="e.g. Vegetarian, Nut Allergy — leave blank if none">
@@ -804,12 +852,22 @@ body {
             <div class="email-template-hdr">
               <div class="email-template-hdr-title">
                 <svg style="width:13px;height:13px;color:var(--purple);" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M2 5l6 5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Email Template — Copy &amp; Send to Client
+                Email Template
               </div>
-              <button class="copy-btn" onclick="copyEmail()">
-                <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.2" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Copy
-              </button>
+              <div style="display:flex;gap:6px;">
+                <button class="copy-btn" onclick="copyEmail()" style="background:var(--grey-70);">
+                  <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.2" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Copy
+                </button>
+                <a id="emailMailtoBtn" href="#" class="copy-btn" onclick="return openMailto()">
+                  <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M2 5l6 5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Open in Email
+                </a>
+              </div>
+            </div>
+            <div class="email-template-meta" id="emailTemplateMeta">
+              <div class="email-meta-row"><span class="email-meta-label">To</span><span class="email-meta-value" id="emailMetaTo">—</span></div>
+              <div class="email-meta-row"><span class="email-meta-label">Subject</span><span class="email-meta-value" id="emailMetaSubject">—</span></div>
             </div>
             <div class="email-template-body" id="emailTemplateBody">—</div>
           </div>
@@ -935,27 +993,34 @@ function showNewUser() {
   document.getElementById('newFirst').focus();
 }
 
-// ── Training day toggle ────────────────────────────────────────
+// ── Training day toggle (cards are now decorative — selection is per delegate) ──
 function toggleDay(day) {
   selectedDays[day] = !selectedDays[day];
   document.getElementById('chk-' + day).checked = selectedDays[day];
   document.getElementById('card-' + day).classList.toggle('selected', selectedDays[day]);
-  updateCost();
 }
 
 // ── Attendees ─────────────────────────────────────────────────
 function addAttendee() {
-  const fn   = document.getElementById('attFirst').value.trim();
-  const ln   = document.getElementById('attLast').value.trim();
-  const role = document.getElementById('attRole').value.trim();
-  const diet = document.getElementById('attDiet').value.trim();
+  const fn      = document.getElementById('attFirst').value.trim();
+  const ln      = document.getElementById('attLast').value.trim();
+  const role    = document.getElementById('attRole').value.trim();
+  const diet    = document.getElementById('attDiet').value.trim();
+  const daySales    = document.getElementById('attDaySales').checked;
+  const dayLettings = document.getElementById('attDayLettings').checked;
   if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
-  const att = { id: Date.now(), name: fn + ' ' + ln, role, diet };
+  if (!daySales && !dayLettings) { toast('Please select at least one training day for this delegate', 'error'); return; }
+  const days = [];
+  if (daySales)    days.push('sales');
+  if (dayLettings) days.push('lettings');
+  const att = { id: Date.now(), name: fn + ' ' + ln, role, diet, days };
   attendees.push(att);
   document.getElementById('attFirst').value = '';
   document.getElementById('attLast').value  = '';
   document.getElementById('attRole').value  = '';
   document.getElementById('attDiet').value  = '';
+  document.getElementById('attDaySales').checked    = false;
+  document.getElementById('attDayLettings').checked = false;
   renderAttendees();
   updateCost();
   toast(att.name + ' added', 'success');
@@ -970,57 +1035,76 @@ function removeAttendee(id) {
 function renderAttendees() {
   const list = document.getElementById('attendeeList');
   if (!attendees.length) { list.innerHTML = ''; return; }
-  list.innerHTML = attendees.map((a, i) => `
+  list.innerHTML = attendees.map((a) => {
+    const dayTags = (a.days || []).map(d =>
+      d === 'sales'
+        ? '<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales 19 May</span>'
+        : '<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings 20 May</span>'
+    ).join(' ');
+    return `
     <div class="attendee-row">
       <div class="attendee-avatar" style="background:${avatarColour(a.name)}">${initials(a.name)}</div>
       <div class="attendee-info">
         <div class="attendee-name">${esc(a.name)}</div>
-        <div class="attendee-role">${esc(a.role) || 'No title given'}</div>
+        <div class="attendee-role" style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin-top:3px;">${dayTags}${a.role ? '<span style="color:var(--grey-50);font-size:11px;">· ' + esc(a.role) + '</span>' : ''}</div>
       </div>
       ${a.diet ? `<div class="attendee-diet" title="${esc(a.diet)}">🍽️ ${esc(a.diet)}</div>` : ''}
       <button class="attendee-remove" onclick="removeAttendee(${a.id})" title="Remove">&#10005;</button>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ── Cost ──────────────────────────────────────────────────────
 function updateCost() {
-  const n    = attendees.length;
-  const days = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
-  const total = n * days * PRICE_PER_PERSON_PER_DAY;
-  const box   = document.getElementById('costPreview');
-  if (!n || !days) { box.style.display = 'none'; return; }
+  const box = document.getElementById('costPreview');
+  if (!attendees.length) { box.style.display = 'none'; return; }
+  const salesCount    = attendees.filter(a => a.days && a.days.includes('sales')).length;
+  const lettingsCount = attendees.filter(a => a.days && a.days.includes('lettings')).length;
+  if (!salesCount && !lettingsCount) { box.style.display = 'none'; return; }
   box.style.display = 'block';
   const rows = [];
-  if (selectedDays.sales)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (Tue 19 May) × ${n} ${n===1?'person':'people'}</span><span>£${n*100}</span></div>`);
-  if (selectedDays.lettings) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (Wed 20 May) × ${n} ${n===1?'person':'people'}</span><span>£${n*100}</span></div>`);
+  if (salesCount)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (Tue 19 May) &times; ${salesCount} ${salesCount===1?'person':'people'}</span><span>&pound;${salesCount*100}</span></div>`);
+  if (lettingsCount) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (Wed 20 May) &times; ${lettingsCount} ${lettingsCount===1?'person':'people'}</span><span>&pound;${lettingsCount*100}</span></div>`);
+  const total = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
   document.getElementById('costRows').innerHTML = rows.join('');
   document.getElementById('costTotal').textContent = '£' + total;
 }
 
 // ── Summary & email template ───────────────────────────────────
 function buildSummary() {
-  const company     = document.getElementById('company').value.trim();
-  const stkName     = document.getElementById('stakeholderName').value.trim();
-  const stkEmail    = document.getElementById('stakeholderEmail').value.trim();
-  const days = [];
-  if (selectedDays.sales)    days.push('Sales Basic (Tue 19 May)');
-  if (selectedDays.lettings) days.push('Lettings Basic (Wed 20 May)');
-  const n     = attendees.length;
-  const nDays = days.length;
-  const total = n * nDays * PRICE_PER_PERSON_PER_DAY;
+  const company  = document.getElementById('company').value.trim();
+  const stkName  = document.getElementById('stakeholderName').value.trim();
+  const stkEmail = document.getElementById('stakeholderEmail').value.trim();
+
+  const salesDelegates    = attendees.filter(a => a.days && a.days.includes('sales'));
+  const lettingsDelegates = attendees.filter(a => a.days && a.days.includes('lettings'));
+  const bothDelegates     = attendees.filter(a => a.days && a.days.includes('sales') && a.days.includes('lettings'));
+  const salesOnly         = attendees.filter(a => a.days && a.days.includes('sales') && !a.days.includes('lettings'));
+  const lettingsOnly      = attendees.filter(a => a.days && a.days.includes('lettings') && !a.days.includes('sales'));
+
+  const salesCost    = salesDelegates.length * 100;
+  const lettingsCost = lettingsDelegates.length * 100;
+  const total        = salesCost + lettingsCost;
+
+  const daysSummary = [
+    salesDelegates.length    ? `Sales (${salesDelegates.length}p)` : '',
+    lettingsDelegates.length ? `Lettings (${lettingsDelegates.length}p)` : ''
+  ].filter(Boolean).join(' & ');
 
   document.getElementById('summaryText').innerHTML =
-    `<strong>${company}</strong> — ${n} ${n===1?'delegate':'delegates'} · ${days.join(' &amp; ')} · <strong>Total: £${total}</strong><br>
+    `<strong>${company}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${daysSummary} · <strong>Total: £${total}</strong><br>
     Stakeholder: ${stkName} · ${stkEmail}`;
 
-  // Build attendee list for email
-  const attLines = attendees.map((a, i) =>
-    `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''}${a.diet ? ' — Dietary: ' + a.diet : ''}`
-  ).join('\n');
+  // Build per-delegate lines for email
+  const attLines = attendees.map((a, i) => {
+    const dayLabel = (a.days || []).map(d => d === 'sales' ? 'Sales (Tue 19 May)' : 'Lettings (Wed 20 May)').join(' + ');
+    return `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''} — ${dayLabel}${a.diet ? ' — Dietary: ' + a.diet : ''}`;
+  }).join('\n');
 
-  const dayLines = [];
-  if (selectedDays.sales)    dayLines.push('  • Sales Basic Training — Tue 19 May · £100 per person');
-  if (selectedDays.lettings) dayLines.push('  • Lettings Basic Training — Wed 20 May · £100 per person');
+  // Cost breakdown lines
+  const costLines = [];
+  if (salesDelegates.length)    costLines.push(`  Sales Basic (Tue 19 May): ${salesDelegates.length} × £100 = £${salesCost}`);
+  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (Wed 20 May): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
 
   const email = `Hi ${stkName},
 
@@ -1029,14 +1113,14 @@ Thank you for booking onto the Street Open Training Day(s). We're looking forwar
 Here's a summary of your booking:
 
 Company: ${company}
-Training Day(s):
-${dayLines.join('\n')}
+Training Day(s): ${daysSummary}
 
-Delegates (${n} ${n===1?'person':'people'}):
+Delegates (${attendees.length} ${attendees.length===1?'person':'people'}):
 ${attLines}
 
 Cost Breakdown:
-${selectedDays.sales    ? '  Sales Basic (Tue 19 May): ' + n + ' × £100 = £' + (n*100) + '\n' : ''}${selectedDays.lettings ? '  Lettings Basic (Wed 20 May): ' + n + ' × £100 = £' + (n*100) + '\n' : ''}  ──────────────────────────
+${costLines.join('\n')}
+  ──────────────────────────
   Total: £${total}
 
 ⚠️ Important: Payment is required at least 1 week before your training date. Please ensure your invoice is settled in advance to confirm your places.
@@ -1051,12 +1135,34 @@ If you have any questions, feel free to get in touch.
 Kind regards,
 Street Training Team`;
 
+  // Subject line
+  const subject = `Street Open Training Day Booking Confirmation — ${company}`;
+  _emailSubject = subject;
+  _emailTo      = stkEmail;
+
+  document.getElementById('emailMetaTo').textContent      = `${stkName} <${stkEmail}>`;
+  document.getElementById('emailMetaSubject').textContent = subject;
   document.getElementById('emailTemplateBody').textContent = email;
 }
 
+// Store subject + to for mailto
+let _emailSubject = '';
+let _emailTo      = '';
+
 function copyEmail() {
-  const text = document.getElementById('emailTemplateBody').textContent;
-  navigator.clipboard.writeText(text).then(() => toast('Email copied to clipboard!', 'success'));
+  const subject = document.getElementById('emailMetaSubject').textContent;
+  const body    = document.getElementById('emailTemplateBody').textContent;
+  const full    = `Subject: ${subject}\n\n${body}`;
+  navigator.clipboard.writeText(full).then(() => toast('Email copied to clipboard!', 'success'));
+}
+
+function openMailto() {
+  const to      = encodeURIComponent(_emailTo);
+  const subject = encodeURIComponent(_emailSubject);
+  const body    = encodeURIComponent(document.getElementById('emailTemplateBody').textContent);
+  // mailto has a ~2000 char limit in some clients — body is pre-filled best-effort
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+  return false;
 }
 
 // ── Navigation ────────────────────────────────────────────────
@@ -1122,8 +1228,6 @@ function validate(s) {
     if (!/^[^@]+@[^@]+\.[^@]+$/.test(stkE)) { toast('Please enter a valid stakeholder email address', 'error'); return false; }
   }
   if (s === 3) {
-    const days = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
-    if (!days) { toast('Please select at least one training day', 'error'); return false; }
     if (!attendees.length) { toast('Please add at least one delegate', 'error'); return false; }
   }
   return true;
@@ -1144,9 +1248,10 @@ async function submitForm() {
   const stkName      = document.getElementById('stakeholderName').value.trim();
   const stkEmail     = document.getElementById('stakeholderEmail').value.trim();
   const stkPhone     = document.getElementById('stakeholderPhone').value.trim();
-  const days         = [selectedDays.sales ? 'Sales Basic (Tue 19 May)' : '', selectedDays.lettings ? 'Lettings Basic (Wed 20 May)' : ''].filter(Boolean).join(', ');
-  const nDays        = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
-  const total        = attendees.length * nDays * PRICE_PER_PERSON_PER_DAY;
+  const salesCount    = attendees.filter(a => a.days && a.days.includes('sales')).length;
+  const lettingsCount = attendees.filter(a => a.days && a.days.includes('lettings')).length;
+  const total         = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
+  const days          = [salesCount ? `Sales Basic (Tue 19 May) ×${salesCount}` : '', lettingsCount ? `Lettings Basic (Wed 20 May) ×${lettingsCount}` : ''].filter(Boolean).join(', ');
   const attJSON      = JSON.stringify(attendees.map(a => ({ name: a.name, role: a.role, diet: a.diet })));
   const dietaryList  = attendees.filter(a=>a.diet).map(a=>a.name+': '+a.diet).join('; ') || 'None';
 
@@ -1167,7 +1272,7 @@ async function submitForm() {
   try {
     await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
     document.getElementById('successMsg').textContent =
-      `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} on ${days}. Total: £${total}.`;
+      `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'}. ${days}. Total: £${total}.`;
     document.getElementById('successRef').textContent =
       `${company} · £${total} · Referred by ${referrerName}`;
     step = 5;
