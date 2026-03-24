@@ -1165,7 +1165,7 @@ async function submitForm() {
   });
 
   try {
-    await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
+    await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
     document.getElementById('successMsg').textContent =
       `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} on ${days}. Total: £${total}.`;
     document.getElementById('successRef').textContent =
