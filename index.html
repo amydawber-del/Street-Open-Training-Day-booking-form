@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Training Day — Street.co.uk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --navy:        #12152A;
+  --navy-80:     #1c2040;
+  --navy-border: rgba(255,255,255,0.08);
+  --purple:      #5B4BE7;
+  --purple-h:    #4a3bd4;
+  --purple-lt:   #EEE9FF;
+  --purple-mid:  #C8BDFF;
+  --purple-txt:  #3d2fc4;
+  --green:   #1BAD72;
+  --red:     #E03B4A;
+  --amber:   #F59E0B;
+  --grey-10: #F4F5F9;
+  --grey-20: #E2E4EE;
+  --grey-30: #C8CADE;
+  --grey-40: #9499B5;
+  --grey-50: #5F6480;
+  --grey-70: #2E3150;
+  --grey-90: #12152A;
+  --radius:  10px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--grey-90);
+  background: #f4f5f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Navigation ──────────────────────────────────────────── */
+.site-header {
+  background: var(--navy);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--navy-border);
+}
+.logo {
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; margin-right: 28px; flex-shrink: 0;
+}
+.logo-mark {
+  width: 30px; height: 30px;
+  background: var(--purple);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mark svg { width: 17px; height: 17px; }
+.logo-wordmark { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+.logo-wordmark span { color: rgba(255,255,255,0.3); font-weight: 400; font-size: 11px; }
+.header-divider { width: 1px; height: 18px; background: var(--navy-border); margin: 0 18px; }
+.nav-links { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 11px; border-radius: 6px;
+  font-size: 12.5px; font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none; cursor: pointer;
+  border: none; background: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.14s, background 0.14s; white-space: nowrap;
+}
+.nav-link:hover  { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.06); }
+.nav-link.active { color: #fff; background: rgba(255,255,255,0.10); }
+.nav-link svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.7; }
+.header-spacer { flex: 1; }
+.header-badge {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600;
+  padding: 6px 14px; border-radius: 6px;
+  background: var(--purple); color: #fff;
+  border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  text-decoration: none; transition: background 0.14s;
+}
+.header-badge:hover { background: var(--purple-h); }
+
+/* ── Page layout ─────────────────────────────────────────── */
+.page-wrap {
+  flex: 1; display: flex; align-items: flex-start;
+  justify-content: center; padding: 40px 20px 60px;
+}
+.form-shell { width: 100%; max-width: 700px; }
+
+/* ── Form card ───────────────────────────────────────────── */
+.form-card {
+  background: #fff; border-radius: 14px;
+  border: 1px solid var(--grey-20);
+  box-shadow: 0 2px 8px rgba(18,21,42,0.05), 0 12px 32px rgba(18,21,42,0.07);
+  overflow: hidden;
+}
+
+/* ── Form header ─────────────────────────────────────────── */
+.form-hdr {
+  background: var(--navy); padding: 28px 32px 24px;
+  position: relative; overflow: hidden;
+}
+.form-hdr::before {
+  content: ''; position: absolute; top: -48px; right: -48px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: var(--purple); opacity: 0.07;
+}
+.form-hdr-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--purple-mid); margin-bottom: 8px;
+}
+.form-hdr-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--purple); flex-shrink: 0;
+}
+.form-hdr-title {
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+.form-hdr-desc {
+  font-size: 12px; color: rgba(255,255,255,0.42);
+  line-height: 1.65; position: relative; z-index: 1;
+}
+
+/* ── Date pills ──────────────────────────────────────────── */
+.date-pills {
+  display: flex; gap: 10px; margin-top: 14px; position: relative; z-index: 1; flex-wrap: wrap;
+}
+.date-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 20px; padding: 5px 12px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
+}
+.date-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+.date-pill-dot.green { background: var(--green); }
+
+/* ── Progress bar ────────────────────────────────────────── */
+.progress-wrap {
+  background: var(--navy-80); border-bottom: 1px solid var(--navy-border);
+  padding: 16px 32px 0;
+}
+.progress-track { display: flex; align-items: center; gap: 0; padding-bottom: 34px; }
+.step-dot {
+  width: 27px; height: 27px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+  position: relative; background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.12);
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+  z-index: 1; cursor: default;
+}
+.step-dot.active { background: var(--purple); color: #fff; border-color: var(--purple); box-shadow: 0 0 0 4px rgba(91,75,231,0.25); transform: scale(1.08); }
+.step-dot.done   { background: var(--green); color: #fff; border-color: var(--green); }
+.step-label {
+  position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.25);
+  white-space: nowrap; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; line-height: 1;
+}
+.step-dot.active .step-label { color: rgba(255,255,255,0.75); }
+.step-dot.done   .step-label { color: rgba(255,255,255,0.4); }
+.step-line {
+  flex: 1; height: 1.5px; background: rgba(255,255,255,0.1);
+  transition: background 0.3s; margin: 0 2px;
+}
+.step-line.done { background: var(--green); opacity: 0.55; }
+
+/* ── Panes ───────────────────────────────────────────────── */
+.form-body { padding: 28px 32px; }
+.pane { display: none; }
+.pane.active { display: block; animation: pane-in 0.2s ease; }
+@keyframes pane-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.pane-title { font-size: 16px; font-weight: 700; color: var(--grey-90); margin-bottom: 3px; letter-spacing: -0.2px; }
+.pane-sub   { font-size: 12px; color: var(--grey-50); margin-bottom: 22px; line-height: 1.6; }
+
+/* ── Fields ──────────────────────────────────────────────── */
+.field { margin-bottom: 16px; }
+.field-label {
+  display: block; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--grey-70); margin-bottom: 6px;
+}
+.field-label.req::after { content: ' *'; color: var(--red); }
+.field-input,.field-select,.field-textarea {
+  width: 100%; border: 1.5px solid var(--grey-20); border-radius: 8px;
+  padding: 10px 13px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--grey-90); background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s; resize: vertical;
+}
+.field-input:focus,.field-select:focus,.field-textarea:focus {
+  outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12);
+}
+.field-hint { font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5; }
+.field-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 520px) { .field-2col { grid-template-columns: 1fr; } }
+
+/* ── Training day cards ───────────────────────────────────── */
+.training-day-grid { display: flex; flex-direction: column; gap: 10px; }
+.training-day-card {
+  border: 2px solid var(--grey-20); border-radius: 10px;
+  overflow: hidden; cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.training-day-card:hover { border-color: var(--purple-mid); }
+.training-day-card.selected { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
+.day-card-inner {
+  display: flex; align-items: stretch; gap: 0;
+}
+.day-card-check {
+  width: 44px; display: flex; align-items: center; justify-content: center;
+  background: var(--grey-10); border-right: 1px solid var(--grey-20);
+  flex-shrink: 0; transition: background 0.15s;
+}
+.training-day-card.selected .day-card-check { background: var(--purple-lt); border-right-color: var(--purple-mid); }
+.day-card-check input { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
+.day-card-body { padding: 14px 16px; flex: 1; }
+.day-card-title { font-size: 14px; font-weight: 700; color: var(--grey-90); margin-bottom: 2px; }
+.day-card-meta  { font-size: 12px; color: var(--grey-50); margin-bottom: 6px; }
+.day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; }
+.day-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--purple-lt); color: var(--purple-txt);
+  border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600;
+}
+.day-tag.green-tag { background: #f0fdf4; color: #166534; }
+.day-card-price {
+  padding: 10px 16px 10px 0;
+  display: flex; flex-direction: column; align-items: flex-end;
+  justify-content: center; flex-shrink: 0;
+}
+.price-amount { font-size: 18px; font-weight: 700; color: var(--purple); }
+.price-sub { font-size: 10px; color: var(--grey-50); font-weight: 500; }
+
+/* ── Attendee builder ────────────────────────────────────── */
+.attendee-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.attendee-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--grey-10); border: 1px solid var(--grey-20);
+  border-radius: 8px; padding: 10px 12px;
+}
+.attendee-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.attendee-info { flex: 1; min-width: 0; }
+.attendee-name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
+.attendee-role { font-size: 11px; color: var(--grey-50); }
+.attendee-diet {
+  font-size: 11px; color: var(--grey-50);
+  background: #fff; border: 1px solid var(--grey-20);
+  border-radius: 6px; padding: 2px 8px; max-width: 160px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.attendee-remove {
+  background: none; border: none; cursor: pointer; color: var(--grey-40);
+  font-size: 16px; padding: 2px 6px; line-height: 1; transition: color 0.1s;
+}
+.attendee-remove:hover { color: var(--red); }
+
+.add-attendee-box {
+  border: 1.5px dashed var(--grey-30); border-radius: 10px;
+  padding: 16px; background: #fafafa;
+}
+.add-attendee-box .box-title {
+  font-size: 12px; font-weight: 700; color: var(--grey-70);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+}
+
+/* ── Cost preview ────────────────────────────────────────── */
+.cost-preview {
+  background: var(--navy); border-radius: 10px;
+  padding: 16px 18px; margin-top: 16px; color: #fff;
+}
+.cost-preview-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: rgba(255,255,255,0.4); margin-bottom: 12px;
+}
+.cost-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: rgba(255,255,255,0.7); padding: 4px 0;
+}
+.cost-row.total {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 8px; padding-top: 10px;
+  font-weight: 700; font-size: 15px; color: #fff;
+}
+.cost-row .label { font-size: 12px; }
+.cost-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(91,75,231,0.3); border-radius: 6px;
+  padding: 2px 8px; font-size: 11px; font-weight: 600;
+}
+.cost-invoice-warn {
+  margin-top: 10px; padding: 8px 10px;
+  background: rgba(245,158,11,0.15); border-radius: 6px; border: 1px solid rgba(245,158,11,0.3);
+  font-size: 11px; color: rgba(255,215,100,0.9); display: flex; gap: 6px; align-items: flex-start;
+}
+
+/* ── Template email box ──────────────────────────────────── */
+.email-template-box {
+  border: 1.5px solid var(--purple-mid);
+  border-radius: 10px; overflow: hidden; margin-top: 16px;
+}
+.email-template-hdr {
+  background: var(--purple-lt); padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--purple-mid);
+}
+.email-template-hdr-title {
+  font-size: 11px; font-weight: 700; color: var(--purple-txt);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.copy-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--purple); color: #fff; border: none; cursor: pointer;
+  border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; transition: background 0.15s;
+}
+.copy-btn:hover { background: var(--purple-h); }
+.email-template-body {
+  background: #fff; padding: 14px 16px;
+  font-size: 12.5px; line-height: 1.7; color: var(--grey-90);
+  white-space: pre-wrap; font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Info/warning box ─────────────────────────────────────── */
+.info-box {
+  padding: 10px 14px; border-radius: 8px; font-size: 12px;
+  display: flex; gap: 8px; align-items: flex-start; margin-bottom: 14px;
+}
+.info-box.blue   { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+.info-box.amber  { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+.info-box.green  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+.info-box.purple { background: var(--purple-lt); border: 1px solid var(--purple-mid); color: var(--purple-txt); }
+
+/* ── Location info box ───────────────────────────────────── */
+.location-box {
+  border: 1.5px solid #86efac; border-radius: 10px; overflow: hidden; margin-top: 4px;
+}
+.location-box-hdr {
+  background: #f0fdf4; padding: 11px 14px;
+  border-bottom: 1px solid #bbf7d0;
+  font-size: 12px; font-weight: 700; color: #166534;
+}
+.location-box-body { background: #fff; padding: 12px 14px; }
+.location-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: var(--grey-70); margin-bottom: 7px; line-height: 1.45;
+}
+.location-row:last-child { margin-bottom: 0; }
+.location-row a { color: var(--purple); text-decoration: none; }
+.location-row a:hover { text-decoration: underline; }
+
+/* ── Search wrap ─────────────────────────────────────────── */
+.search-wrap { position: relative; }
+.search-dropdown {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: #fff; border: 1.5px solid var(--grey-20);
+  border-radius: 10px; box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  max-height: 240px; overflow-y: auto; z-index: 50;
+}
+.search-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 13px; cursor: pointer; border-radius: 8px; margin: 2px;
+  transition: background 0.1s;
+}
+.search-row:hover { background: var(--purple-lt); }
+.search-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.search-name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
+.search-dept { font-size: 11px; color: var(--grey-50); }
+.search-add-row {
+  border-top: 1px solid var(--grey-20); margin: 2px; padding: 9px 13px;
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: var(--purple); border-radius: 8px;
+  transition: background 0.1s;
+}
+.search-add-row:hover { background: var(--purple-lt); }
+.search-clear {
+  position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; font-size: 15px; color: var(--grey-40);
+  cursor: pointer; display: none; line-height: 1; padding: 2px 4px;
+}
+.user-chip {
+  display: none; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: var(--purple-lt); border: 1px solid var(--purple-mid);
+  border-radius: 10px; margin-top: -4px; margin-bottom: 4px;
+}
+.user-chip.show { display: flex; }
+.user-chip-info .name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
+.user-chip-info .sub  { font-size: 11px; color: var(--grey-50); margin-top: 1px; }
+.chip-clear { margin-left: auto; background: none; border: none; cursor: pointer; font-size: 16px; color: var(--grey-40); padding: 2px 6px; line-height: 1; }
+.chip-clear:hover { color: var(--grey-70); }
+.new-user-box {
+  display: none; background: #F8F7FF; border: 1px solid var(--purple-mid);
+  border-radius: 10px; padding: 14px; margin-top: 8px;
+}
+
+/* ── Section heading ─────────────────────────────────────── */
+.section-heading {
+  font-size: 11px; font-weight: 700; color: var(--grey-70);
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-heading::after { content: ''; flex: 1; height: 1px; background: var(--grey-20); }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.form-footer {
+  padding: 16px 32px; border-top: 1px solid var(--grey-20);
+  background: var(--grey-10); display: flex; align-items: center;
+  justify-content: space-between; gap: 8px;
+}
+.footer-hint { font-size: 11px; color: var(--grey-50); flex: 1; }
+.footer-btns { display: flex; gap: 8px; align-items: center; }
+.btn {
+  padding: 9px 18px; border-radius: 8px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; border: none;
+  display: inline-flex; align-items: center; gap: 5px;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--purple); color: #fff; box-shadow: 0 2px 6px rgba(91,75,231,0.3); }
+.btn-primary:hover { background: var(--purple-h); }
+.btn-ghost { background: none; border: 1px solid var(--grey-30); color: var(--grey-70); }
+.btn-ghost:hover { border-color: var(--purple-mid); color: var(--purple); background: var(--purple-lt); }
+.btn-success { background: var(--green); color: #fff; box-shadow: 0 2px 6px rgba(27,173,114,0.3); }
+.btn-success:hover { background: #189960; }
+
+/* ── Success ─────────────────────────────────────────────── */
+.success-screen { text-align: center; padding: 52px 32px; }
+.success-icon { font-size: 56px; margin-bottom: 18px; }
+.success-title { font-size: 22px; font-weight: 700; color: var(--grey-90); margin-bottom: 8px; letter-spacing: -0.3px; }
+.success-msg   { font-size: 14px; color: var(--grey-50); line-height: 1.7; max-width: 420px; margin: 0 auto 28px; }
+.success-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--purple-lt); border: 1px solid var(--purple-mid);
+  border-radius: 10px; padding: 10px 18px;
+  font-size: 12px; font-weight: 600; color: var(--purple-txt); margin-bottom: 24px;
+}
+.start-over-btn {
+  font-size: 12px; color: var(--grey-50); background: none; border: none;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Toast ───────────────────────────────────────────────── */
+.toast-host {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+}
+.toast {
+  background: var(--navy); color: rgba(255,255,255,0.9);
+  padding: 10px 16px; border-radius: 10px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 20px rgba(18,21,42,0.25);
+  border-left: 3px solid var(--purple); animation: toast-in 0.2s ease; pointer-events: all;
+}
+.toast.success { border-left-color: var(--green); }
+.toast.error   { border-left-color: var(--red); }
+@keyframes toast-in { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ── Loading ─────────────────────────────────────────────── */
+.loading-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(18,21,42,0.55); z-index: 500;
+  align-items: center; justify-content: center;
+}
+.loading-overlay.show { display: flex; }
+.loading-card {
+  background: #fff; border-radius: 14px; padding: 28px 36px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  border: 1px solid var(--grey-20); box-shadow: 0 16px 48px rgba(18,21,42,0.15);
+}
+.loading-spinner {
+  width: 36px; height: 36px; border: 3px solid var(--purple-lt);
+  border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite;
+}
+.loading-label { font-size: 13px; font-weight: 600; color: var(--grey-50); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.site-footer {
+  background: var(--navy); padding: 14px 32px; text-align: center;
+  font-size: 11px; color: rgba(255,255,255,0.22); flex-shrink: 0;
+  border-top: 1px solid var(--navy-border);
+}
+.site-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+@media (max-width: 560px) {
+  .site-header { padding: 0 16px; }
+  .form-hdr, .form-body { padding-left: 20px; padding-right: 20px; }
+  .progress-wrap { padding: 14px 20px 0; }
+  .form-footer { padding: 14px 20px; flex-direction: column; align-items: stretch; }
+  .footer-btns { justify-content: flex-end; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <div class="loading-label">Submitting booking…</div>
+  </div>
+</div>
+
+<!-- Toast host -->
+<div class="toast-host" id="toastHost"></div>
+
+<!-- Nav -->
+<header class="site-header">
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 17 17" fill="none"><path d="M3 8.5L8.5 3 14 8.5V14H11v-3H6v3H3V8.5z" fill="white"/></svg>
+    </div>
+    <span class="logo-wordmark">Street <span>.co.uk</span></span>
+  </a>
+  <div class="header-divider"></div>
+  <nav class="nav-links">
+    <a href="#" class="nav-link">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M2 6l6-4 6 4v7a1 1 0 01-1 1H3a1 1 0 01-1-1V6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      Dashboard
+    </a>
+    <a href="#" class="nav-link active">
+      <svg viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Open Training Bookings
+    </a>
+  </nav>
+  <div class="header-spacer"></div>
+  <a href="#" class="header-badge">
+    <svg style="width:13px;height:13px;" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Dashboard
+  </a>
+</header>
+
+<!-- Page -->
+<div class="page-wrap">
+  <div class="form-shell">
+    <div class="form-card">
+
+      <!-- Header -->
+      <div class="form-hdr">
+        <div class="form-hdr-eyebrow">Street Open Training Days</div>
+        <div class="form-hdr-title">Book a Training Day Place</div>
+        <div class="form-hdr-desc">Register attendees for an open training day at Street HQ. Select your training day(s), add delegates, and we'll generate a cost breakdown and template email to send to your client.</div>
+        <div class="date-pills">
+          <div class="date-pill"><span class="date-pill-dot"></span> Tue 19 May — Sales Basic Training</div>
+          <div class="date-pill"><span class="date-pill-dot green"></span> Wed 20 May — Lettings Basic Training</div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-track" id="progressTrack"></div>
+      </div>
+
+      <!-- Form body -->
+      <div class="form-body">
+
+        <!-- ─── Step 1: Referred By ─────────────────────────────── -->
+        <div class="pane active" id="pane1">
+          <div class="pane-title">Who's Submitting This?</div>
+          <div class="pane-sub">Tell us who in your team is referring this booking, and which department they're in.</div>
+
+          <div class="field">
+            <label class="field-label req">Your Name (Referrer)</label>
+            <div class="search-wrap">
+              <input id="userSearch" type="text" class="field-input" placeholder="Start typing your name…"
+                autocomplete="off" spellcheck="false" style="padding-right: 32px;"
+                oninput="handleUserSearch()" onkeydown="userSearchKey(event)">
+              <button class="search-clear" id="searchClear" onclick="clearUserSearch()">&#10005;</button>
+              <div class="search-dropdown" id="searchDropdown"></div>
+            </div>
+            <div class="user-chip" id="userChip">
+              <div class="search-avatar" id="chipAvatar"></div>
+              <div class="user-chip-info">
+                <div class="name" id="chipName"></div>
+                <div class="sub"  id="chipSub"></div>
+              </div>
+              <button class="chip-clear" onclick="clearUserSearch()">&#10005;</button>
+            </div>
+          </div>
+
+          <div class="new-user-box" id="newUserBox">
+            <div class="info-box blue" style="margin-bottom:12px;">
+              <span>ℹ️</span><span>Not found? Fill in your details below to continue.</span>
+            </div>
+            <div class="field-2col">
+              <div class="field">
+                <label class="field-label req">First Name</label>
+                <input type="text" class="field-input" id="newFirst" placeholder="e.g. Amy">
+              </div>
+              <div class="field">
+                <label class="field-label req">Last Name</label>
+                <input type="text" class="field-input" id="newLast" placeholder="e.g. Dawber">
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label req">Your Team / Department</label>
+              <select class="field-select" id="newDept">
+                <option value="">— Select department —</option>
+                <option>Onboarding</option>
+                <option>Sales</option>
+                <option>Customer Success</option>
+                <option>Support</option>
+                <option>Lettings</option>
+                <option>Operations</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" id="existingTeamRow" style="display:none;">
+            <label class="field-label req">Your Team / Department</label>
+            <select class="field-select" id="existingTeam">
+              <option value="">— Select department —</option>
+              <option>Onboarding</option>
+              <option>Sales</option>
+              <option>Customer Success</option>
+              <option>Support</option>
+              <option>Lettings</option>
+              <option>Operations</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <input type="hidden" id="selectedUserName">
+          <input type="hidden" id="selectedUserTeam">
+        </div>
+
+        <!-- ─── Step 2: Client / Stakeholder ───────────────────── -->
+        <div class="pane" id="pane2">
+          <div class="pane-title">Client &amp; Stakeholder Details</div>
+          <div class="pane-sub">Enter the details of the client company and the person responsible for authorising the booking.</div>
+
+          <div class="field">
+            <label class="field-label req">Company / Business Name</label>
+            <input type="text" class="field-input" id="company" placeholder="e.g. Acorn Estates">
+          </div>
+          <div class="field-2col">
+            <div class="field">
+              <label class="field-label req">Stakeholder Name</label>
+              <input type="text" class="field-input" id="stakeholderName" placeholder="e.g. James Thornton">
+            </div>
+            <div class="field">
+              <label class="field-label req">Stakeholder Email</label>
+              <input type="email" class="field-input" id="stakeholderEmail" placeholder="james@acornestates.co.uk">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Stakeholder Phone <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
+            <input type="tel" class="field-input" id="stakeholderPhone" placeholder="e.g. 07700 900 123">
+          </div>
+
+          <div class="info-box amber">
+            <span>⚠️</span>
+            <span><strong>Invoice payment required 1 week in advance.</strong> Make sure the stakeholder is aware of the cost before submitting.</span>
+          </div>
+        </div>
+
+        <!-- ─── Step 3: Training Days & Attendees ──────────────── -->
+        <div class="pane" id="pane3">
+          <div class="pane-title">Training Days &amp; Attendees</div>
+          <div class="pane-sub">Select which day(s) to attend, then add each delegate. A cost breakdown will update automatically.</div>
+
+          <!-- Training day selection -->
+          <div class="field">
+            <label class="field-label req">Which training day(s)?</label>
+            <div class="training-day-grid">
+
+              <div class="training-day-card" id="card-sales" onclick="toggleDay('sales')">
+                <div class="day-card-inner">
+                  <div class="day-card-check">
+                    <input type="checkbox" id="chk-sales" onchange="toggleDay('sales')" onclick="event.stopPropagation()">
+                  </div>
+                  <div class="day-card-body">
+                    <div class="day-card-title">Sales Basic Training</div>
+                    <div class="day-card-meta">Tuesday 19 May 2026 · Street HQ, Manchester</div>
+                    <div class="day-card-tags">
+                      <span class="day-tag">🏢 In Person</span>
+                      <span class="day-tag">Sales Module</span>
+                    </div>
+                  </div>
+                  <div class="day-card-price">
+                    <div class="price-amount">£100</div>
+                    <div class="price-sub">per person</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="training-day-card" id="card-lettings" onclick="toggleDay('lettings')">
+                <div class="day-card-inner">
+                  <div class="day-card-check">
+                    <input type="checkbox" id="chk-lettings" onchange="toggleDay('lettings')" onclick="event.stopPropagation()">
+                  </div>
+                  <div class="day-card-body">
+                    <div class="day-card-title">Lettings Basic Training</div>
+                    <div class="day-card-meta">Wednesday 20 May 2026 · Street HQ, Manchester</div>
+                    <div class="day-card-tags">
+                      <span class="day-tag">🏢 In Person</span>
+                      <span class="day-tag green-tag">Lettings Module</span>
+                    </div>
+                  </div>
+                  <div class="day-card-price">
+                    <div class="price-amount">£100</div>
+                    <div class="price-sub">per person</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Attendees -->
+          <div class="section-heading" style="margin-top:20px;">Delegates</div>
+          <div id="attendeeList" class="attendee-list"></div>
+
+          <!-- Add attendee -->
+          <div class="add-attendee-box">
+            <div class="box-title">➕ Add Delegate</div>
+            <div class="field-2col">
+              <div class="field" style="margin-bottom:0;">
+                <label class="field-label req">First Name</label>
+                <input type="text" class="field-input" id="attFirst" placeholder="e.g. Sarah">
+              </div>
+              <div class="field" style="margin-bottom:0;">
+                <label class="field-label req">Last Name</label>
+                <input type="text" class="field-input" id="attLast" placeholder="e.g. Jones">
+              </div>
+            </div>
+            <div class="field" style="margin-top:10px;margin-bottom:0;">
+              <label class="field-label">Job Title <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
+              <input type="text" class="field-input" id="attRole" placeholder="e.g. Senior Negotiator">
+            </div>
+            <div class="field" style="margin-top:10px;margin-bottom:10px;">
+              <label class="field-label">Dietary Requirements <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
+              <input type="text" class="field-input" id="attDiet" placeholder="e.g. Vegetarian, Nut Allergy — leave blank if none">
+            </div>
+            <button type="button" class="btn btn-ghost" onclick="addAttendee()" style="width:100%;justify-content:center;">
+              + Add Delegate
+            </button>
+          </div>
+
+          <!-- Cost preview -->
+          <div class="cost-preview" id="costPreview" style="display:none;">
+            <div class="cost-preview-title">💰 Cost Breakdown</div>
+            <div id="costRows"></div>
+            <div class="cost-row total">
+              <span>Total Due</span>
+              <span id="costTotal">£0</span>
+            </div>
+            <div class="cost-invoice-warn">
+              ⚠️ <span>Invoice must be paid at least <strong>1 week before</strong> the training date.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Step 4: Confirm & Email ────────────────────────── -->
+        <div class="pane" id="pane4">
+          <div class="pane-title">Review &amp; Template Email</div>
+          <div class="pane-sub">Check the booking summary below, copy the template email to send to your client, then submit.</div>
+
+          <!-- Booking summary -->
+          <div class="info-box green" id="summaryBox">
+            <span>✅</span>
+            <div id="summaryText" style="line-height:1.6;"></div>
+          </div>
+
+          <!-- Location info -->
+          <div class="section-heading">Venue Information</div>
+          <div class="location-box">
+            <div class="location-box-hdr">📍 Street HQ — North Square, 11–13 Spear St, Manchester M1 1JU</div>
+            <div class="location-box-body">
+              <div class="location-row">🚗 <span><strong>Parking:</strong> <a href="https://en.parkopedia.co.uk/parking/spear_street_manchester/?arriving=202602231000&leaving=202602231200" target="_blank">Nearby parking via Parkopedia →</a></span></div>
+              <div class="location-row">🚊 <span><strong>9 min walk</strong> from Manchester Piccadilly or Manchester Victoria railway station</span></div>
+              <div class="location-row">🍽️ <span><strong>Dietary Requirements:</strong> Please advise when confirming booking</span></div>
+            </div>
+          </div>
+
+          <!-- Template email -->
+          <div class="section-heading" style="margin-top:20px;">Template Email</div>
+          <div class="email-template-box">
+            <div class="email-template-hdr">
+              <div class="email-template-hdr-title">
+                <svg style="width:13px;height:13px;color:var(--purple);" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M2 5l6 5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Email Template — Copy &amp; Send to Client
+              </div>
+              <button class="copy-btn" onclick="copyEmail()">
+                <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.2" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Copy
+              </button>
+            </div>
+            <div class="email-template-body" id="emailTemplateBody">—</div>
+          </div>
+        </div>
+
+        <!-- ─── Step 5: Success ────────────────────────────────── -->
+        <div class="pane" id="pane5">
+          <div class="success-screen">
+            <div class="success-icon">🎉</div>
+            <div class="success-title">Booking Submitted!</div>
+            <div class="success-msg" id="successMsg">Your training booking has been submitted and logged in the sheet.</div>
+            <div class="success-badge" id="successRef">—</div><br><br>
+            <button class="start-over-btn" onclick="resetForm()">Submit another booking</button>
+          </div>
+        </div>
+
+      </div><!-- /form-body -->
+
+      <!-- Footer -->
+      <div class="form-footer" id="formFooter">
+        <span class="footer-hint" id="footerHint"></span>
+        <div class="footer-btns">
+          <button class="btn btn-ghost" id="backBtn" onclick="prevStep()" style="display:none;">← Back</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Continue →</button>
+        </div>
+      </div>
+
+    </div><!-- /form-card -->
+  </div>
+</div>
+
+<footer class="site-footer">
+  Street.co.uk · Open Training Days · <a href="#">street.co.uk</a>
+</footer>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────
+// Replace with your deployed Google Apps Script URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec';
+
+const TOTAL = 4;
+let step = 1;
+let attendees = [];
+let selectedDays = { sales: false, lettings: false };
+const PRICE_PER_PERSON_PER_DAY = 100;
+
+// Avatar colours
+const AVATAR_COLOURS = ['#5B4BE7','#1BAD72','#E03B4A','#F59E0B','#3B82F6','#8B5CF6','#EC4899','#14B8A6'];
+function avatarColour(name) {
+  let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
+  return AVATAR_COLOURS[Math.abs(h) % AVATAR_COLOURS.length];
+}
+function initials(name) { return name.split(' ').map(p => p[0] || '').join('').toUpperCase().slice(0,2); }
+
+// ── Team search (sample data — replace with your SCRIPT_URL fetch) ──
+const TEAM_MEMBERS = [
+  { name: 'Amy Dawber',    dept: 'Onboarding' },
+  { name: 'James Taylor',  dept: 'Sales' },
+  { name: 'Sarah Collins', dept: 'Customer Success' },
+  { name: 'Tom Richards',  dept: 'Lettings' },
+  { name: 'Emma Clarke',   dept: 'Operations' },
+];
+
+let selectedUser = null;
+
+function handleUserSearch() {
+  const q = document.getElementById('userSearch').value.trim().toLowerCase();
+  const dd = document.getElementById('searchDropdown');
+  document.getElementById('searchClear').style.display = q ? 'block' : 'none';
+  if (!q) { dd.style.display = 'none'; return; }
+  const hits = TEAM_MEMBERS.filter(u => u.name.toLowerCase().includes(q));
+  if (!hits.length && !q) { dd.style.display = 'none'; return; }
+  const rows = hits.map(u => `
+    <div class="search-row" tabindex="0" onclick="selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})" onkeydown="if(event.key==='Enter')selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})">
+      <div class="search-avatar" style="background:${avatarColour(u.name)}">${initials(u.name)}</div>
+      <div><div class="search-name">${u.name}</div><div class="search-dept">${u.dept}</div></div>
+    </div>`).join('');
+  dd.innerHTML = rows + `<div class="search-add-row" onclick="showNewUser()">+ I'm not listed — add me</div>`;
+  dd.style.display = 'block';
+}
+
+function userSearchKey(e) {
+  if (e.key === 'Escape') { document.getElementById('searchDropdown').style.display = 'none'; }
+}
+
+function selectUser(u) {
+  selectedUser = u;
+  document.getElementById('selectedUserName').value = u.name;
+  document.getElementById('selectedUserTeam').value = u.dept;
+  document.getElementById('userSearch').value = '';
+  document.getElementById('searchDropdown').style.display = 'none';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('newUserBox').style.display = 'none';
+  const chip = document.getElementById('userChip');
+  document.getElementById('chipAvatar').textContent = initials(u.name);
+  document.getElementById('chipAvatar').style.background = avatarColour(u.name);
+  document.getElementById('chipName').textContent = u.name;
+  document.getElementById('chipSub').textContent = u.dept;
+  chip.classList.add('show');
+  document.getElementById('existingTeamRow').style.display = 'none';
+}
+
+function clearUserSearch() {
+  selectedUser = null;
+  document.getElementById('selectedUserName').value = '';
+  document.getElementById('selectedUserTeam').value = '';
+  document.getElementById('userSearch').value = '';
+  document.getElementById('searchDropdown').style.display = 'none';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('userChip').classList.remove('show');
+  document.getElementById('newUserBox').style.display = 'none';
+  document.getElementById('existingTeamRow').style.display = 'none';
+  document.getElementById('userSearch').focus();
+}
+
+function showNewUser() {
+  document.getElementById('searchDropdown').style.display = 'none';
+  document.getElementById('userChip').classList.remove('show');
+  document.getElementById('userSearch').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('selectedUserName').value = '__new__';
+  document.getElementById('newUserBox').style.display = 'block';
+  document.getElementById('newFirst').focus();
+}
+
+// ── Training day toggle ────────────────────────────────────────
+function toggleDay(day) {
+  selectedDays[day] = !selectedDays[day];
+  document.getElementById('chk-' + day).checked = selectedDays[day];
+  document.getElementById('card-' + day).classList.toggle('selected', selectedDays[day]);
+  updateCost();
+}
+
+// ── Attendees ─────────────────────────────────────────────────
+function addAttendee() {
+  const fn   = document.getElementById('attFirst').value.trim();
+  const ln   = document.getElementById('attLast').value.trim();
+  const role = document.getElementById('attRole').value.trim();
+  const diet = document.getElementById('attDiet').value.trim();
+  if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
+  const att = { id: Date.now(), name: fn + ' ' + ln, role, diet };
+  attendees.push(att);
+  document.getElementById('attFirst').value = '';
+  document.getElementById('attLast').value  = '';
+  document.getElementById('attRole').value  = '';
+  document.getElementById('attDiet').value  = '';
+  renderAttendees();
+  updateCost();
+  toast(att.name + ' added', 'success');
+}
+
+function removeAttendee(id) {
+  attendees = attendees.filter(a => a.id !== id);
+  renderAttendees();
+  updateCost();
+}
+
+function renderAttendees() {
+  const list = document.getElementById('attendeeList');
+  if (!attendees.length) { list.innerHTML = ''; return; }
+  list.innerHTML = attendees.map((a, i) => `
+    <div class="attendee-row">
+      <div class="attendee-avatar" style="background:${avatarColour(a.name)}">${initials(a.name)}</div>
+      <div class="attendee-info">
+        <div class="attendee-name">${esc(a.name)}</div>
+        <div class="attendee-role">${esc(a.role) || 'No title given'}</div>
+      </div>
+      ${a.diet ? `<div class="attendee-diet" title="${esc(a.diet)}">🍽️ ${esc(a.diet)}</div>` : ''}
+      <button class="attendee-remove" onclick="removeAttendee(${a.id})" title="Remove">&#10005;</button>
+    </div>`).join('');
+}
+
+// ── Cost ──────────────────────────────────────────────────────
+function updateCost() {
+  const n    = attendees.length;
+  const days = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
+  const total = n * days * PRICE_PER_PERSON_PER_DAY;
+  const box   = document.getElementById('costPreview');
+  if (!n || !days) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  const rows = [];
+  if (selectedDays.sales)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (Tue 19 May) × ${n} ${n===1?'person':'people'}</span><span>£${n*100}</span></div>`);
+  if (selectedDays.lettings) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (Wed 20 May) × ${n} ${n===1?'person':'people'}</span><span>£${n*100}</span></div>`);
+  document.getElementById('costRows').innerHTML = rows.join('');
+  document.getElementById('costTotal').textContent = '£' + total;
+}
+
+// ── Summary & email template ───────────────────────────────────
+function buildSummary() {
+  const company     = document.getElementById('company').value.trim();
+  const stkName     = document.getElementById('stakeholderName').value.trim();
+  const stkEmail    = document.getElementById('stakeholderEmail').value.trim();
+  const days = [];
+  if (selectedDays.sales)    days.push('Sales Basic (Tue 19 May)');
+  if (selectedDays.lettings) days.push('Lettings Basic (Wed 20 May)');
+  const n     = attendees.length;
+  const nDays = days.length;
+  const total = n * nDays * PRICE_PER_PERSON_PER_DAY;
+
+  document.getElementById('summaryText').innerHTML =
+    `<strong>${company}</strong> — ${n} ${n===1?'delegate':'delegates'} · ${days.join(' &amp; ')} · <strong>Total: £${total}</strong><br>
+    Stakeholder: ${stkName} · ${stkEmail}`;
+
+  // Build attendee list for email
+  const attLines = attendees.map((a, i) =>
+    `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''}${a.diet ? ' — Dietary: ' + a.diet : ''}`
+  ).join('\n');
+
+  const dayLines = [];
+  if (selectedDays.sales)    dayLines.push('  • Sales Basic Training — Tue 19 May · £100 per person');
+  if (selectedDays.lettings) dayLines.push('  • Lettings Basic Training — Wed 20 May · £100 per person');
+
+  const email = `Hi ${stkName},
+
+Thank you for booking onto the Street Open Training Day(s). We're looking forward to welcoming your team!
+
+Here's a summary of your booking:
+
+Company: ${company}
+Training Day(s):
+${dayLines.join('\n')}
+
+Delegates (${n} ${n===1?'person':'people'}):
+${attLines}
+
+Cost Breakdown:
+${selectedDays.sales    ? '  Sales Basic (Tue 19 May): ' + n + ' × £100 = £' + (n*100) + '\n' : ''}${selectedDays.lettings ? '  Lettings Basic (Wed 20 May): ' + n + ' × £100 = £' + (n*100) + '\n' : ''}  ──────────────────────────
+  Total: £${total}
+
+⚠️ Important: Payment is required at least 1 week before your training date. Please ensure your invoice is settled in advance to confirm your places.
+
+📍 Location: North Square, 11-13 Spear St, Manchester M1 1JU
+🚗 Parking: https://en.parkopedia.co.uk/parking/spear_street_manchester/?arriving=202602231000&leaving=202602231200
+🚊 9 Min Walk From: Manchester Piccadilly or Manchester Victoria railway station
+🍽️ Dietary Requirements: Please let us know of any requirements by replying to this email.
+
+If you have any questions, feel free to get in touch.
+
+Kind regards,
+Street Training Team`;
+
+  document.getElementById('emailTemplateBody').textContent = email;
+}
+
+function copyEmail() {
+  const text = document.getElementById('emailTemplateBody').textContent;
+  navigator.clipboard.writeText(text).then(() => toast('Email copied to clipboard!', 'success'));
+}
+
+// ── Navigation ────────────────────────────────────────────────
+function renderProgress() {
+  const labels = ['Referrer', 'Client Details', 'Days & Attendees', 'Review & Submit'];
+  const track  = document.getElementById('progressTrack');
+  track.innerHTML = labels.map((label, i) => {
+    const n = i + 1; const done = n < step; const act = n === step;
+    return `<div class="step-dot ${done?'done':''} ${act?'active':''}">${done?'✓':n}<span class="step-label">${label}</span></div>
+      ${i < labels.length-1 ? `<div class="step-line ${done?'done':''}"></div>` : ''}`;
+  }).join('');
+}
+
+function updateNav() {
+  const isLast = step === TOTAL;
+  document.getElementById('backBtn').style.display = step > 1 ? 'inline-flex' : 'none';
+  document.getElementById('nextBtn').textContent   = isLast ? '✓ Submit Booking' : 'Continue →';
+  document.getElementById('nextBtn').className     = isLast ? 'btn btn-success' : 'btn btn-primary';
+}
+
+function showPane(n) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('pane' + n).classList.add('active');
+}
+
+function nextStep() {
+  if (!validate(step)) return;
+  if (step === TOTAL) { submitForm(); return; }
+  if (step === TOTAL - 1) buildSummary();
+  step++;
+  showPane(step);
+  renderProgress();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep() {
+  if (step <= 1) return;
+  step--;
+  showPane(step);
+  renderProgress();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Validation ────────────────────────────────────────────────
+function validate(s) {
+  if (s === 1) {
+    const picker = document.getElementById('selectedUserName').value;
+    if (!picker) { toast('Please select your name or add yourself', 'error'); return false; }
+    if (picker === '__new__') {
+      const fn   = document.getElementById('newFirst').value.trim();
+      const ln   = document.getElementById('newLast').value.trim();
+      const dept = document.getElementById('newDept').value;
+      if (!fn || !ln || !dept) { toast('Please enter your name and department', 'error'); return false; }
+    }
+  }
+  if (s === 2) {
+    const co    = document.getElementById('company').value.trim();
+    const stkN  = document.getElementById('stakeholderName').value.trim();
+    const stkE  = document.getElementById('stakeholderEmail').value.trim();
+    if (!co || !stkN || !stkE) { toast('Company name, stakeholder name and email are required', 'error'); return false; }
+    if (!/^[^@]+@[^@]+\.[^@]+$/.test(stkE)) { toast('Please enter a valid stakeholder email address', 'error'); return false; }
+  }
+  if (s === 3) {
+    const days = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
+    if (!days) { toast('Please select at least one training day', 'error'); return false; }
+    if (!attendees.length) { toast('Please add at least one delegate', 'error'); return false; }
+  }
+  return true;
+}
+
+// ── Submit ────────────────────────────────────────────────────
+async function submitForm() {
+  document.getElementById('loadingOverlay').classList.add('show');
+
+  let referrerName = document.getElementById('selectedUserName').value;
+  let referrerTeam = document.getElementById('selectedUserTeam').value || document.getElementById('existingTeam').value || '';
+  if (referrerName === '__new__') {
+    referrerName = document.getElementById('newFirst').value.trim() + ' ' + document.getElementById('newLast').value.trim();
+    referrerTeam = document.getElementById('newDept').value;
+  }
+
+  const company      = document.getElementById('company').value.trim();
+  const stkName      = document.getElementById('stakeholderName').value.trim();
+  const stkEmail     = document.getElementById('stakeholderEmail').value.trim();
+  const stkPhone     = document.getElementById('stakeholderPhone').value.trim();
+  const days         = [selectedDays.sales ? 'Sales Basic (Tue 19 May)' : '', selectedDays.lettings ? 'Lettings Basic (Wed 20 May)' : ''].filter(Boolean).join(', ');
+  const nDays        = (selectedDays.sales ? 1 : 0) + (selectedDays.lettings ? 1 : 0);
+  const total        = attendees.length * nDays * PRICE_PER_PERSON_PER_DAY;
+  const attJSON      = JSON.stringify(attendees.map(a => ({ name: a.name, role: a.role, diet: a.diet })));
+  const dietaryList  = attendees.filter(a=>a.diet).map(a=>a.name+': '+a.diet).join('; ') || 'None';
+
+  const params = new URLSearchParams({
+    action:          'submitOpenTraining',
+    referredByName:  referrerName,
+    referredByTeam:  referrerTeam,
+    company, stakeholderName: stkName, stakeholderEmail: stkEmail, stakeholderPhone: stkPhone,
+    trainingDays:    days,
+    attendeeCount:   attendees.length,
+    attendees:       attJSON,
+    dietaryReqs:     dietaryList,
+    totalCost:       total,
+    invoiceAmount:   total,
+    timestamp:       new Date().toISOString(),
+  });
+
+  try {
+    await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
+    document.getElementById('successMsg').textContent =
+      `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} on ${days}. Total: £${total}.`;
+    document.getElementById('successRef').textContent =
+      `${company} · £${total} · Referred by ${referrerName}`;
+    step = 5;
+    showPane(5);
+    document.getElementById('formFooter').style.display = 'none';
+    document.getElementById('progressTrack').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('Booking submitted!', 'success');
+  } catch(e) {
+    toast('Something went wrong — please try again', 'error');
+  } finally {
+    document.getElementById('loadingOverlay').classList.remove('show');
+  }
+}
+
+// ── Reset ─────────────────────────────────────────────────────
+function resetForm() {
+  step = 1; attendees = []; selectedDays = { sales: false, lettings: false };
+  document.getElementById('formFooter').style.display = '';
+  document.getElementById('progressTrack').style.display = '';
+  document.querySelectorAll('.field-input,.field-select,.field-textarea').forEach(el => el.value = '');
+  clearUserSearch();
+  renderAttendees(); updateCost();
+  document.getElementById('card-sales').classList.remove('selected');
+  document.getElementById('card-lettings').classList.remove('selected');
+  document.getElementById('chk-sales').checked = false;
+  document.getElementById('chk-lettings').checked = false;
+  document.getElementById('costPreview').style.display = 'none';
+  showPane(1); renderProgress(); updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Helpers ───────────────────────────────────────────────────
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg, type='info', dur=3500) {
+  const host = document.getElementById('toastHost');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type; el.textContent = msg; host.appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity 0.3s'; setTimeout(()=>el.remove(),300); }, dur);
+}
+
+// ── Init ──────────────────────────────────────────────────────
+renderProgress();
+updateNav();
+</script>
+</body>
+</html>
