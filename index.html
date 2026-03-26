@@ -598,24 +598,27 @@ body {
 .admin-modal-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(18,21,42,0.7); z-index: 600;
-  align-items: center; justify-content: center; padding: 20px;
+  align-items: flex-start; justify-content: center; padding: 20px;
+  overflow-y: auto;
 }
 .admin-modal-overlay.show { display: flex; animation: fade-in 0.18s ease; }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
 .admin-modal {
   background: #fff; border-radius: 16px;
-  width: 100%; max-width: 520px;
+  width: 100%; max-width: 580px;
   box-shadow: 0 24px 64px rgba(18,21,42,0.3);
   border: 1px solid var(--grey-20);
   overflow: hidden;
   animation: modal-up 0.22s ease;
+  margin: auto;
 }
 @keyframes modal-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 .admin-modal-hdr {
   background: var(--navy); padding: 20px 24px;
   display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 2;
 }
 .admin-modal-title {
   font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px;
@@ -628,7 +631,25 @@ body {
 }
 .admin-close:hover { color: rgba(255,255,255,0.8); }
 
-.admin-modal-body { padding: 24px; }
+/* Admin tabs */
+.admin-tabs {
+  display: flex; border-bottom: 1px solid var(--grey-20);
+  background: #fafafa; padding: 0 24px; gap: 0;
+}
+.admin-tab {
+  padding: 11px 14px; font-size: 12px; font-weight: 600;
+  color: var(--grey-50); cursor: pointer; border: none; background: none;
+  font-family: 'DM Sans', sans-serif; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; transition: color 0.15s, border-color 0.15s;
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+.admin-tab:hover { color: var(--grey-90); }
+.admin-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+.admin-tab svg { width: 13px; height: 13px; }
+
+.admin-modal-body { padding: 24px; max-height: 70vh; overflow-y: auto; }
+.admin-tab-pane { display: none; }
+.admin-tab-pane.active { display: block; }
 
 /* Auth screen */
 .admin-auth { text-align: center; padding: 12px 0 4px; }
@@ -655,6 +676,10 @@ body {
 .admin-day-editor {
   background: var(--grey-10); border: 1px solid var(--grey-20);
   border-radius: 10px; padding: 14px; margin-bottom: 10px;
+  position: relative;
+}
+.admin-day-editor.archived {
+  opacity: 0.6; border-style: dashed; background: #fafafa;
 }
 .admin-day-editor-hdr {
   display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
@@ -666,6 +691,12 @@ body {
   background: #fff; border: 1px solid var(--grey-20);
   border-radius: 6px; padding: 2px 8px;
 }
+.admin-archived-badge {
+  font-size: 10px; font-weight: 700; color: #92400e;
+  background: #fffbeb; border: 1px solid #fde68a;
+  border-radius: 6px; padding: 2px 8px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
 .admin-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .admin-field { }
 .admin-field label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--grey-70); margin-bottom: 5px; }
@@ -674,6 +705,9 @@ body {
   padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif;
   color: var(--grey-90); background: #fff;
   transition: border-color 0.15s;
+}
+.admin-field input[type="date"] {
+  cursor: pointer;
 }
 .admin-field input:focus, .admin-field select:focus {
   outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12);
@@ -684,7 +718,54 @@ body {
 .admin-modal-footer {
   padding: 16px 24px; border-top: 1px solid var(--grey-20);
   background: var(--grey-10); display: flex; gap: 8px; justify-content: flex-end;
+  position: sticky; bottom: 0; z-index: 2;
 }
+
+/* Day remove button */
+.admin-day-remove {
+  background: none; border: none; cursor: pointer;
+  color: var(--grey-40); font-size: 16px; padding: 2px 5px;
+  line-height: 1; transition: color 0.1s; border-radius: 4px;
+}
+.admin-day-remove:hover { color: var(--red); background: #fef2f2; }
+
+/* Add day button */
+.admin-add-day-btn {
+  width: 100%; border: 1.5px dashed var(--grey-30);
+  border-radius: 10px; padding: 11px; background: #fafafa;
+  font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 600;
+  color: var(--grey-50); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 7px; transition: all 0.15s; margin-bottom: 14px;
+}
+.admin-add-day-btn:hover { border-color: var(--purple-mid); color: var(--purple); background: var(--purple-lt); }
+
+/* Archive section */
+.archive-list { display: flex; flex-direction: column; gap: 8px; }
+.archive-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--grey-10); border: 1px solid var(--grey-20);
+  border-radius: 8px; padding: 10px 14px;
+}
+.archive-item-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.archive-item-info { flex: 1; min-width: 0; }
+.archive-item-title { font-size: 13px; font-weight: 600; color: var(--grey-90); }
+.archive-item-date { font-size: 11px; color: var(--grey-50); margin-top: 1px; }
+.archive-empty { text-align: center; color: var(--grey-40); font-size: 13px; padding: 28px 0; }
+
+/* Suggested date banner */
+.suggest-banner {
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
+  padding: 10px 14px; font-size: 12px; color: #92400e;
+  display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px;
+}
+.suggest-banner strong { font-weight: 700; }
+.suggest-apply-btn {
+  font-size: 11px; font-weight: 700; color: var(--purple);
+  background: var(--purple-lt); border: 1px solid var(--purple-mid);
+  border-radius: 5px; padding: 2px 8px; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; margin-left: auto; flex-shrink: 0; transition: background 0.12s;
+}
+.suggest-apply-btn:hover { background: var(--purple-mid); }
 
 @media (max-width: 560px) {
   .site-header { padding: 0 16px; }
@@ -720,97 +801,147 @@ body {
       </div>
       <button class="admin-close" onclick="closeAdmin()">&#10005;</button>
     </div>
-    <div class="admin-modal-body" id="adminModalBody">
-      <!-- Auth screen shown first -->
-      <div id="adminAuthScreen" class="admin-auth">
-        <div class="admin-auth-icon">🔒</div>
-        <div class="admin-auth-title">Admin Access Required</div>
-        <div class="admin-auth-sub">Enter the 4-digit admin PIN to manage training day dates.</div>
-        <div class="admin-pin-wrap">
-          <input type="password" maxlength="1" class="admin-pin-input" id="pin0" oninput="pinInput(0)" onkeydown="pinKey(event,0)">
-          <input type="password" maxlength="1" class="admin-pin-input" id="pin1" oninput="pinInput(1)" onkeydown="pinKey(event,1)">
-          <input type="password" maxlength="1" class="admin-pin-input" id="pin2" oninput="pinInput(2)" onkeydown="pinKey(event,2)">
-          <input type="password" maxlength="1" class="admin-pin-input" id="pin3" oninput="pinInput(3)" onkeydown="pinKey(event,3)">
-        </div>
-        <div id="pinError" style="font-size:12px;color:var(--red);min-height:18px;margin-bottom:8px;"></div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="checkPin()">Unlock →</button>
-      </div>
 
-      <!-- Admin editor (shown after auth) -->
-      <div id="adminEditorScreen" style="display:none;">
-        <div class="admin-section-title">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Training Day Dates &amp; Labels
-        </div>
-        <div class="info-box blue" style="margin-bottom:16px;">
-          <span>ℹ️</span><span>Changes here update the form immediately. The booking sheet dates are set in the Apps Script — update those separately after republishing.</span>
-        </div>
-
-        <!-- Sales day editor -->
-        <div class="admin-day-editor">
-          <div class="admin-day-editor-hdr">
-            <div class="admin-day-dot" style="background:var(--purple);"></div>
-            <div class="admin-day-label">Sales Basic Training</div>
-            <div class="admin-capacity-badge" id="adminSalesCapacity">Loading…</div>
+    <!-- Auth screen shown first — outside tabs -->
+    <div id="adminAuthScreen">
+      <div class="admin-modal-body">
+        <div class="admin-auth">
+          <div class="admin-auth-icon">🔒</div>
+          <div class="admin-auth-title">Admin Access Required</div>
+          <div class="admin-auth-sub">Enter the 4-digit admin PIN to manage training days.</div>
+          <div class="admin-pin-wrap">
+            <input type="password" maxlength="1" class="admin-pin-input" id="pin0" oninput="pinInput(0)" onkeydown="pinKey(event,0)">
+            <input type="password" maxlength="1" class="admin-pin-input" id="pin1" oninput="pinInput(1)" onkeydown="pinKey(event,1)">
+            <input type="password" maxlength="1" class="admin-pin-input" id="pin2" oninput="pinInput(2)" onkeydown="pinKey(event,2)">
+            <input type="password" maxlength="1" class="admin-pin-input" id="pin3" oninput="pinInput(3)" onkeydown="pinKey(event,3)">
           </div>
-          <div class="admin-field-row">
-            <div class="admin-field">
-              <label>Date Label</label>
-              <input type="text" id="adminSalesDate" placeholder="e.g. Tuesday 19 May 2026">
-              <div class="admin-note">Shown on the day card and in emails.</div>
-            </div>
-            <div class="admin-field">
-              <label>Short Label (for chips)</label>
-              <input type="text" id="adminSalesShort" placeholder="e.g. Tue 19 May">
-              <div class="admin-note">Used in delegate day selector chips.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lettings day editor -->
-        <div class="admin-day-editor">
-          <div class="admin-day-editor-hdr">
-            <div class="admin-day-dot" style="background:var(--green);"></div>
-            <div class="admin-day-label">Lettings Basic Training</div>
-            <div class="admin-capacity-badge" id="adminLettingsCapacity">Loading…</div>
-          </div>
-          <div class="admin-field-row">
-            <div class="admin-field">
-              <label>Date Label</label>
-              <input type="text" id="adminLettingsDate" placeholder="e.g. Wednesday 20 May 2026">
-              <div class="admin-note">Shown on the day card and in emails.</div>
-            </div>
-            <div class="admin-field">
-              <label>Short Label (for chips)</label>
-              <input type="text" id="adminLettingsShort" placeholder="e.g. Wed 20 May">
-              <div class="admin-note">Used in delegate day selector chips.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="admin-section-title" style="margin-top:20px;">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Capacity Settings
-        </div>
-        <div class="admin-day-editor">
-          <div class="admin-field-row">
-            <div class="admin-field">
-              <label>Max Seats Per Day</label>
-              <input type="number" id="adminMaxSeats" min="1" max="200" value="38">
-              <div class="admin-note">Currently 38. Changes apply immediately.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-box amber" style="margin-top:4px;">
-          <span>⚠️</span><span><strong>Remember:</strong> After saving, update the date text in your Google Apps Script and redeploy so future bookings record the correct date label in the sheet.</span>
+          <div id="pinError" style="font-size:12px;color:var(--red);min-height:18px;margin-bottom:8px;"></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="checkPin()">Unlock →</button>
         </div>
       </div>
     </div>
-    <div class="admin-modal-footer" id="adminModalFooter">
-      <button class="btn btn-ghost" onclick="closeAdmin()">Cancel</button>
-      <button class="btn btn-primary" id="adminSaveBtn" onclick="saveAdmin()" style="display:none;">Save &amp; Apply Changes</button>
-    </div>
+
+    <!-- Admin editor with tabs -->
+    <div id="adminEditorScreen" style="display:none;">
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('dates')" id="tabDates">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 1v3M11 1v3M2 7h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Dates &amp; Capacity
+        </button>
+        <button class="admin-tab" onclick="switchAdminTab('new')" id="tabNew">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          New Training Day
+        </button>
+        <button class="admin-tab" onclick="switchAdminTab('archive')" id="tabArchive">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M3 6v7a1 1 0 001 1h8a1 1 0 001-1V6" stroke="currentColor" stroke-width="1.4"/><path d="M6 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Archive
+        </button>
+      </div>
+
+      <div class="admin-modal-body">
+
+        <!-- ── Tab: Dates & Capacity ── -->
+        <div class="admin-tab-pane active" id="paneDates">
+          <div class="info-box blue" style="margin-bottom:16px;">
+            <span>ℹ️</span><span>Changes here update the form immediately. The booking sheet dates are set in the Apps Script — update those separately after republishing.</span>
+          </div>
+
+          <div class="admin-section-title">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Training Days
+          </div>
+
+          <!-- Dynamic day editors injected here -->
+          <div id="adminDayEditorsList"></div>
+
+          <div class="admin-section-title" style="margin-top:20px;">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Capacity Settings
+          </div>
+          <div class="admin-day-editor">
+            <div class="admin-field-row">
+              <div class="admin-field">
+                <label>Max Seats Per Day</label>
+                <input type="number" id="adminMaxSeats" min="1" max="200" value="38">
+                <div class="admin-note">Applies to all training days.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box amber" style="margin-top:4px;">
+            <span>⚠️</span><span><strong>Remember:</strong> After saving, update the date text in your Google Apps Script and redeploy so future bookings record the correct date label in the sheet.</span>
+          </div>
+        </div>
+
+        <!-- ── Tab: New Training Day ── -->
+        <div class="admin-tab-pane" id="paneNew">
+          <div class="info-box purple" style="margin-bottom:16px;">
+            <span>✨</span><span>Create a new training day type. It will appear as a selectable option in the booking form.</span>
+          </div>
+
+          <div class="admin-day-editor" style="background:#fff;">
+            <div class="admin-field" style="margin-bottom:10px;">
+              <label>Training Day Title</label>
+              <input type="text" id="newDayTitle" placeholder="e.g. Advanced Sales Training">
+            </div>
+            <div class="admin-field" style="margin-bottom:10px;">
+              <label>Category / Module Tag</label>
+              <input type="text" id="newDayTag" placeholder="e.g. Sales Module, Lettings Module">
+            </div>
+            <div class="admin-field-row" style="margin-bottom:10px;">
+              <div class="admin-field">
+                <label>Date</label>
+                <input type="date" id="newDayDate" oninput="autoFillNewShort()">
+                <div class="admin-note">Short label auto-fills on selection.</div>
+              </div>
+              <div class="admin-field">
+                <label>Short Label (chips)</label>
+                <input type="text" id="newDayShort" placeholder="e.g. Mon 14 Sep">
+              </div>
+            </div>
+            <div class="admin-field-row" style="margin-bottom:10px;">
+              <div class="admin-field">
+                <label>Colour</label>
+                <select id="newDayColour">
+                  <option value="purple">Purple (Sales)</option>
+                  <option value="green">Green (Lettings)</option>
+                  <option value="blue">Blue</option>
+                  <option value="amber">Amber</option>
+                  <option value="red">Red</option>
+                </select>
+              </div>
+              <div class="admin-field">
+                <label>Max Seats</label>
+                <input type="number" id="newDaySeats" min="1" max="200" placeholder="e.g. 38">
+                <div class="admin-note">Leave blank to use global setting.</div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="createNewTrainingDay()">
+              + Create Training Day
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Tab: Archive ── -->
+        <div class="admin-tab-pane" id="paneArchive">
+          <div id="archiveSuggestBanner" style="display:none;"></div>
+          <div class="admin-section-title">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M3 6v7a1 1 0 001 1h8a1 1 0 001-1V6" stroke="currentColor" stroke-width="1.4"/><path d="M6 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Archived Days
+          </div>
+          <div id="archiveList" class="archive-list">
+            <div class="archive-empty">No archived days yet.</div>
+          </div>
+        </div>
+
+      </div><!-- /admin-modal-body -->
+
+      <div class="admin-modal-footer" id="adminModalFooter">
+        <button class="btn btn-ghost" onclick="closeAdmin()">Cancel</button>
+        <button class="btn btn-primary" id="adminSaveBtn" onclick="saveAdmin()">Save &amp; Apply Changes</button>
+      </div>
+    </div><!-- /adminEditorScreen -->
+
   </div>
 </div>
 
@@ -1041,8 +1172,10 @@ body {
                 </div>
               </div>
 
-            </div>
-          </div>
+            </div><!-- /training-day-grid -->
+            <!-- Extra custom training days rendered here by JS -->
+            <div id="extraTrainingCards"></div>
+          </div><!-- /field -->
 
           <!-- Attendees -->
           <div class="section-heading" style="margin-top:20px;">Delegates</div>
@@ -1195,6 +1328,12 @@ const DEFAULT_DAYS = {
   },
 };
 
+// Default training days array (multi-day support)
+const DEFAULT_TRAINING_DAYS = [
+  { id: 'sales',    title: 'Sales Basic Training',    tag: 'Sales Module',    colour: 'purple', fullDate: 'Tuesday 19 May 2026',    shortDate: 'Tue 19 May' },
+  { id: 'lettings', title: 'Lettings Basic Training', tag: 'Lettings Module', colour: 'green',  fullDate: 'Wednesday 20 May 2026',  shortDate: 'Wed 20 May' },
+];
+
 const MAX_SEATS_DEFAULT = 38;
 
 // ── Admin PIN (change this!) ──
@@ -1220,7 +1359,32 @@ function loadDayConfig() {
 function saveDayConfig(cfg) {
   try { localStorage.setItem('streetTrainingDayConfig', JSON.stringify(cfg)); } catch(_) {}
 }
-let dayConfig = loadDayConfig();
+
+function loadTrainingDays() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('streetTrainingDaysV2') || 'null');
+    if (saved && Array.isArray(saved) && saved.length) return saved;
+  } catch(_) {}
+  return JSON.parse(JSON.stringify(DEFAULT_TRAINING_DAYS));
+}
+function saveTrainingDays() {
+  try { localStorage.setItem('streetTrainingDaysV2', JSON.stringify(trainingDays)); } catch(_) {}
+}
+
+function loadArchivedDays() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('streetArchivedDays') || 'null');
+    if (saved && Array.isArray(saved)) return saved;
+  } catch(_) {}
+  return [];
+}
+function saveArchivedDays() {
+  try { localStorage.setItem('streetArchivedDays', JSON.stringify(archivedDays)); } catch(_) {}
+}
+
+let dayConfig      = loadDayConfig();
+let trainingDays   = loadTrainingDays();
+let archivedDays   = loadArchivedDays();
 let maxSeats = (() => {
   try { return parseInt(localStorage.getItem('streetMaxSeats')) || MAX_SEATS_DEFAULT; } catch(_) { return MAX_SEATS_DEFAULT; }
 })();
@@ -1354,17 +1518,18 @@ function renderCapacity() {
 // DATE LABEL RENDERING — apply dayConfig everywhere
 // ══════════════════════════════════════════════════════════════
 function applyDayConfig() {
+  // Sync from trainingDays into dayConfig for backwards compat
+  syncDayConfigFromTrainingDays && syncDayConfigFromTrainingDays();
+
   // Header pills
-  document.getElementById('headerPillSalesText').textContent    = 'Tue ' + dayConfig.sales.shortDate    + ' — Sales Basic Training';
-  document.getElementById('headerPillLettingsText').textContent = 'Wed ' + dayConfig.lettings.shortDate + ' — Lettings Basic Training';
-  // Simpler: just use fullDate labels
   document.getElementById('headerPillSalesText').textContent    = dayConfig.sales.fullDate    + ' — Sales Basic Training';
   document.getElementById('headerPillLettingsText').textContent = dayConfig.lettings.fullDate + ' — Lettings Basic Training';
 
-  // Card meta rows
-  document.getElementById('meta-sales').textContent    = dayConfig.sales.fullDate    + ' · Street HQ, Manchester';
-  document.getElementById('meta-lettings').textContent = dayConfig.lettings.fullDate + ' · Street HQ, Manchester';
-  // (Time row is static HTML — 10:30am–3:30pm — no update needed here)
+  // Card meta rows (legacy IDs still exist for sales/lettings)
+  const salesDay    = trainingDays.find(d => d.id === 'sales');
+  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
+  if (salesDay)    document.getElementById('meta-sales').textContent    = salesDay.fullDate    + ' · Street HQ, Manchester';
+  if (lettingsDay) document.getElementById('meta-lettings').textContent = lettingsDay.fullDate + ' · Street HQ, Manchester';
 
   // Delegate chips
   renderChipLabels();
@@ -1376,15 +1541,84 @@ function renderChipLabels() {
 
   const salChip  = document.getElementById('chipSalesWrap');
   const letChip  = document.getElementById('chipLettingsWrap');
+  const salesDay    = trainingDays.find(d => d.id === 'sales');
+  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
 
-  if (salChip) {
-    document.getElementById('chipSalesLabel').textContent = 'Sales — ' + dayConfig.sales.shortDate;
+  if (salChip && salesDay) {
+    document.getElementById('chipSalesLabel').textContent = 'Sales — ' + salesDay.shortDate;
     salChip.classList.toggle('chip-disabled', !salesAvail);
   }
-  if (letChip) {
-    document.getElementById('chipLettingsLabel').textContent = 'Lettings — ' + dayConfig.lettings.shortDate;
+  if (letChip && lettingsDay) {
+    document.getElementById('chipLettingsLabel').textContent = 'Lettings — ' + lettingsDay.shortDate;
     letChip.classList.toggle('chip-disabled', !lettingsAvail);
   }
+}
+
+// Dynamic training card renderer (for extra days beyond sales/lettings)
+function renderTrainingCards() {
+  // Update existing sales/lettings cards (always present in static HTML)
+  const salesDay    = trainingDays.find(d => d.id === 'sales');
+  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
+
+  if (salesDay) {
+    const metaEl = document.getElementById('meta-sales');
+    if (metaEl) metaEl.textContent = salesDay.fullDate + ' · Street HQ, Manchester';
+  }
+  if (lettingsDay) {
+    const metaEl = document.getElementById('meta-lettings');
+    if (metaEl) metaEl.textContent = lettingsDay.fullDate + ' · Street HQ, Manchester';
+  }
+
+  // Render custom (non-sales/lettings) days in an extra container
+  const extraContainer = document.getElementById('extraTrainingCards');
+  if (!extraContainer) return;
+  const customDays = trainingDays.filter(d => d.id !== 'sales' && d.id !== 'lettings');
+  if (!customDays.length) { extraContainer.innerHTML = ''; return; }
+
+  extraContainer.innerHTML = customDays.map(day => {
+    const dotColour = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
+    const tagCls    = COLOUR_MAP[day.colour]?.tagClass || '';
+    return `
+    <div class="training-day-card" id="card-${esc(day.id)}" onclick="toggleDay('${esc(day.id)}')">
+      <div class="day-card-inner">
+        <div class="day-card-check">
+          <input type="checkbox" id="chk-${esc(day.id)}" onchange="toggleDay('${esc(day.id)}')" onclick="event.stopPropagation()">
+        </div>
+        <div class="day-card-body">
+          <div class="day-card-title">${esc(day.title)}</div>
+          <div class="day-card-meta">${esc(day.fullDate)} · Street HQ, Manchester</div>
+          <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
+          <div class="day-card-tags">
+            <span class="day-tag">🏢 In Person</span>
+            <span class="day-tag ${tagCls}">${esc(day.tag || day.title)}</span>
+          </div>
+        </div>
+        <div class="day-card-price">
+          <div class="price-amount">£100</div>
+          <div class="price-sub">per person</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Re-add chip labels for custom days
+  renderCustomChips(customDays);
+}
+
+function renderCustomChips(customDays) {
+  const group = document.getElementById('delegateDayGroup');
+  if (!group) return;
+  // Remove old custom chips
+  group.querySelectorAll('.chip-custom').forEach(el => el.remove());
+  customDays.forEach(day => {
+    const dotColour = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
+    const label = document.createElement('label');
+    label.className = 'delegate-day-chip chip-custom';
+    label.innerHTML = `
+      <input type="checkbox" id="attDay_${esc(day.id)}" value="${esc(day.id)}">
+      <span class="ddc-inner"><span class="ddc-dot" style="background:${dotColour}"></span><span>${esc(day.title.replace(' Training',''))} — ${esc(day.shortDate)}</span></span>`;
+    group.appendChild(label);
+  });
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1480,9 +1714,15 @@ function addAttendee() {
   const diet         = document.getElementById('attDiet').value.trim();
   const daySales     = document.getElementById('attDaySales').checked;
   const dayLettings  = document.getElementById('attDayLettings').checked;
-  if (!fn || !ln)                 { toast('Please enter first and last name', 'error'); return; }
-  if (!daySales && !dayLettings)  { toast('Please select at least one training day for this delegate', 'error'); return; }
-
+  // Collect any custom day checkboxes too
+  const customChecked = [];
+  document.querySelectorAll('.chip-custom input[type=checkbox]').forEach(cb => {
+    if (cb.checked) customChecked.push(cb.value);
+  });
+  if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
+  if (!daySales && !dayLettings && !customChecked.length) {
+    toast('Please select at least one training day for this delegate', 'error'); return;
+  }
   // Capacity check before adding
   if (liveCapacity.loaded) {
     if (daySales) {
@@ -1494,10 +1734,10 @@ function addAttendee() {
       if (lettingsBooked >= maxSeats) { toast('Lettings day is fully booked — no seats remaining', 'error'); return; }
     }
   }
-
   const days = [];
   if (daySales)    days.push('sales');
   if (dayLettings) days.push('lettings');
+  customChecked.forEach(d => days.push(d));
   const att = { id: Date.now(), name: fn + ' ' + ln, role, diet, days };
   attendees.push(att);
   document.getElementById('attFirst').value = '';
@@ -1521,11 +1761,21 @@ function renderAttendees() {
   const list = document.getElementById('attendeeList');
   if (!attendees.length) { list.innerHTML = ''; return; }
   list.innerHTML = attendees.map(a => {
-    const dayTags = (a.days || []).map(d =>
-      d === 'sales'
-        ? `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales ${dayConfig.sales.shortDate}</span>`
-        : `<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings ${dayConfig.lettings.shortDate}</span>`
-    ).join(' ');
+    const dayTags = (a.days || []).map(d => {
+      if (d === 'sales') {
+        const sd = trainingDays.find(x => x.id === 'sales');
+        return `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales ${sd ? sd.shortDate : dayConfig.sales.shortDate}</span>`;
+      }
+      if (d === 'lettings') {
+        const ld = trainingDays.find(x => x.id === 'lettings');
+        return `<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings ${ld ? ld.shortDate : dayConfig.lettings.shortDate}</span>`;
+      }
+      // Custom day
+      const cd = trainingDays.find(x => x.id === d);
+      const dotColour = cd ? (COLOUR_MAP[cd.colour]?.dot || 'var(--purple)') : 'var(--grey-50)';
+      const label = cd ? cd.title.replace(' Training','') + ' ' + cd.shortDate : d;
+      return `<span style="font-size:10px;font-weight:700;background:var(--grey-10);color:var(--grey-70);border-radius:10px;padding:2px 8px;white-space:nowrap;">${esc(label)}</span>`;
+    }).join(' ');
     return `
     <div class="attendee-row">
       <div class="attendee-avatar" style="background:${avatarColour(a.name)}">${initials(a.name)}</div>
@@ -1789,12 +2039,17 @@ function resetForm() {
   document.getElementById('formFooter').style.display = '';
   document.getElementById('progressTrack').style.display = '';
   document.querySelectorAll('.field-input,.field-select,.field-textarea').forEach(el => el.value = '');
+  // Uncheck all delegate day chips including custom ones
+  document.querySelectorAll('#delegateDayGroup input[type=checkbox]').forEach(cb => cb.checked = false);
   clearUserSearch();
   renderAttendees(); updateCost();
   document.getElementById('card-sales').classList.remove('selected');
   document.getElementById('card-lettings').classList.remove('selected');
   document.getElementById('chk-sales').checked = false;
   document.getElementById('chk-lettings').checked = false;
+  // Uncheck custom day cards
+  document.querySelectorAll('#extraTrainingCards .training-day-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#extraTrainingCards input[type=checkbox]').forEach(c => c.checked = false);
   document.getElementById('costPreview').style.display = 'none';
   showPane(1); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1805,13 +2060,63 @@ function resetForm() {
 // ══════════════════════════════════════════════════════════════
 let adminUnlocked = false;
 
+// ── Colour map ──────────────────────────────────────────────
+const COLOUR_MAP = {
+  purple: { dot: 'var(--purple)', tag: '', tagClass: '' },
+  green:  { dot: 'var(--green)',  tag: 'green-tag', tagClass: 'green-tag' },
+  blue:   { dot: '#3B82F6',       tag: '',          tagClass: '' },
+  amber:  { dot: '#F59E0B',       tag: 'amber-tag', tagClass: 'amber-tag' },
+  red:    { dot: 'var(--red)',     tag: 'red-tag',   tagClass: 'red-tag' },
+};
+
+// ── Date helpers ─────────────────────────────────────────────
+function isoToFullDate(iso) {
+  // iso = "2026-05-19"
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  const days  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months= ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}
+function isoToShortDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  const dayS  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monS  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return dayS[d.getDay()] + ' ' + d.getDate() + ' ' + monS[d.getMonth()];
+}
+function fullDateToIso(fullDate) {
+  // "Tuesday 19 May 2026" -> "2026-05-19"
+  if (!fullDate) return '';
+  const months = {January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',July:'07',August:'08',September:'09',October:'10',November:'11',December:'12'};
+  const parts = fullDate.split(' ');
+  if (parts.length < 4) return '';
+  const day   = String(parseInt(parts[1])).padStart(2,'0');
+  const month = months[parts[2]] || '01';
+  const year  = parts[3];
+  return year + '-' + month + '-' + day;
+}
+function suggestNextDate(iso, weeksAhead=4) {
+  // Suggest same weekday, 4 weeks later
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() + weeksAhead * 7);
+  return d.toISOString().slice(0,10);
+}
+function isDatePast(fullDate) {
+  if (!fullDate) return false;
+  const iso = fullDateToIso(fullDate);
+  if (!iso) return false;
+  const d = new Date(iso + 'T23:59:59');
+  return d < new Date();
+}
+
+// ── Admin open/close ─────────────────────────────────────────
 function openAdmin() {
   document.getElementById('adminModal').classList.add('show');
   if (!adminUnlocked) {
     document.getElementById('adminAuthScreen').style.display = '';
     document.getElementById('adminEditorScreen').style.display = 'none';
-    document.getElementById('adminSaveBtn').style.display = 'none';
-    // Clear pin inputs
     [0,1,2,3].forEach(i => {
       const el = document.getElementById('pin' + i);
       el.value = ''; el.classList.remove('error');
@@ -1822,28 +2127,22 @@ function openAdmin() {
     showAdminEditor();
   }
 }
-
 function closeAdmin() {
   document.getElementById('adminModal').classList.remove('show');
 }
 
+// ── PIN ──────────────────────────────────────────────────────
 function pinInput(idx) {
   const val = document.getElementById('pin' + idx).value;
-  if (val && idx < 3) {
-    document.getElementById('pin' + (idx+1)).focus();
-  }
-  // Auto-check when all 4 filled
+  if (val && idx < 3) document.getElementById('pin' + (idx+1)).focus();
   const allFilled = [0,1,2,3].every(i => document.getElementById('pin' + i).value.length === 1);
   if (allFilled) setTimeout(checkPin, 80);
 }
-
 function pinKey(e, idx) {
-  if (e.key === 'Backspace' && !document.getElementById('pin' + idx).value && idx > 0) {
+  if (e.key === 'Backspace' && !document.getElementById('pin' + idx).value && idx > 0)
     document.getElementById('pin' + (idx-1)).focus();
-  }
   if (e.key === 'Enter') checkPin();
 }
-
 function checkPin() {
   const entered = [0,1,2,3].map(i => document.getElementById('pin' + i).value).join('');
   if (entered === ADMIN_PIN) {
@@ -1860,53 +2159,279 @@ function checkPin() {
   }
 }
 
+// ── Tab switching ────────────────────────────────────────────
+function switchAdminTab(tab) {
+  ['dates','new','archive'].forEach(t => {
+    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
+    document.getElementById('pane' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
+  });
+  // Show/hide save button — only visible on dates tab
+  document.getElementById('adminSaveBtn').style.display = tab === 'dates' ? 'inline-flex' : 'none';
+  if (tab === 'archive') renderArchiveTab();
+}
+
+// ── Show editor ──────────────────────────────────────────────
 function showAdminEditor() {
   document.getElementById('adminAuthScreen').style.display   = 'none';
   document.getElementById('adminEditorScreen').style.display = '';
-  document.getElementById('adminSaveBtn').style.display      = 'inline-flex';
+  switchAdminTab('dates');
+  renderDayEditors();
+  document.getElementById('adminMaxSeats').value = maxSeats;
+  checkAndArchivePastDays();
+}
 
-  // Populate fields with current config
-  document.getElementById('adminSalesDate').value    = dayConfig.sales.fullDate;
-  document.getElementById('adminSalesShort').value   = dayConfig.sales.shortDate;
-  document.getElementById('adminLettingsDate').value = dayConfig.lettings.fullDate;
-  document.getElementById('adminLettingsShort').value= dayConfig.lettings.shortDate;
-  document.getElementById('adminMaxSeats').value     = maxSeats;
+// ── Render day editors ───────────────────────────────────────
+function renderDayEditors() {
+  const container = document.getElementById('adminDayEditorsList');
+  container.innerHTML = '';
 
-  // Show capacity badges
-  if (liveCapacity.loaded) {
-    document.getElementById('adminSalesCapacity').textContent    = `${liveCapacity.sales}/${maxSeats} booked`;
-    document.getElementById('adminLettingsCapacity').textContent = `${liveCapacity.lettings}/${maxSeats} booked`;
+  trainingDays.forEach((day, idx) => {
+    const colourDot = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
+    const iso = fullDateToIso(day.fullDate);
+    const booked = liveCapacity.loaded ? (liveCapacity[day.id] || 0) : null;
+    const capacityText = booked !== null ? `${booked}/${maxSeats} booked` : 'Loading…';
+
+    const div = document.createElement('div');
+    div.className = 'admin-day-editor';
+    div.id = 'dayEditor_' + idx;
+    div.innerHTML = `
+      <div class="admin-day-editor-hdr">
+        <div class="admin-day-dot" style="background:${colourDot}"></div>
+        <div class="admin-day-label">${esc(day.title)}</div>
+        <div class="admin-capacity-badge" id="adminCap_${idx}">${capacityText}</div>
+        <button class="admin-day-remove" title="Remove this training day" onclick="removeTrainingDay(${idx})">✕</button>
+      </div>
+      <div class="admin-field-row">
+        <div class="admin-field">
+          <label>Date</label>
+          <input type="date" id="dayDate_${idx}" value="${iso}" oninput="autoFillShort(${idx})">
+          <div class="admin-note">Shown on the day card and in emails.</div>
+        </div>
+        <div class="admin-field">
+          <label>Short Label (for chips)</label>
+          <input type="text" id="dayShort_${idx}" value="${esc(day.shortDate)}" placeholder="e.g. Tue 19 May">
+          <div class="admin-note">Auto-fills when you pick a date.</div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+// ── Auto-fill short label when date changes ──────────────────
+function autoFillShort(idx) {
+  const iso = document.getElementById('dayDate_' + idx).value;
+  if (iso) {
+    document.getElementById('dayShort_' + idx).value = isoToShortDate(iso);
+  }
+}
+function autoFillNewShort() {
+  const iso = document.getElementById('newDayDate').value;
+  if (iso) {
+    document.getElementById('newDayShort').value = isoToShortDate(iso);
   }
 }
 
+// ── Save admin ───────────────────────────────────────────────
 function saveAdmin() {
-  const newSalesDate    = document.getElementById('adminSalesDate').value.trim();
-  const newSalesShort   = document.getElementById('adminSalesShort').value.trim();
-  const newLettingsDate = document.getElementById('adminLettingsDate').value.trim();
-  const newLettingsShort= document.getElementById('adminLettingsShort').value.trim();
-  const newMaxSeats     = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
+  const newMaxSeats = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
 
-  if (!newSalesDate || !newSalesShort || !newLettingsDate || !newLettingsShort) {
-    toast('Please fill in all date fields', 'error'); return;
+  // Read back each day editor
+  const updated = [];
+  for (let i = 0; i < trainingDays.length; i++) {
+    const iso   = document.getElementById('dayDate_' + i)?.value;
+    const short = document.getElementById('dayShort_' + i)?.value.trim();
+    if (!iso || !short) {
+      toast('Please fill in all date fields', 'error'); return;
+    }
+    updated.push({
+      ...trainingDays[i],
+      fullDate:  isoToFullDate(iso),
+      shortDate: short,
+    });
   }
 
-  dayConfig.sales.fullDate    = newSalesDate;
-  dayConfig.sales.shortDate   = newSalesShort;
-  dayConfig.lettings.fullDate = newLettingsDate;
-  dayConfig.lettings.shortDate= newLettingsShort;
+  trainingDays = updated;
   maxSeats = newMaxSeats;
 
+  // Keep backwards-compatible dayConfig for rest of app
+  syncDayConfigFromTrainingDays();
   saveDayConfig(dayConfig);
+  saveTrainingDays();
   try { localStorage.setItem('streetMaxSeats', maxSeats); } catch(_) {}
 
-  // Apply everywhere
   applyDayConfig();
   if (liveCapacity.loaded) renderCapacity();
   renderAttendees();
   updateCost();
+  renderTrainingCards();
 
   closeAdmin();
-  toast('Training day dates updated successfully!', 'success');
+  toast('Training days updated successfully!', 'success');
+}
+
+// ── Sync dayConfig from trainingDays (backwards compat) ─────
+function syncDayConfigFromTrainingDays() {
+  const salesDay    = trainingDays.find(d => d.id === 'sales');
+  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
+  if (salesDay)    { dayConfig.sales.fullDate    = salesDay.fullDate;    dayConfig.sales.shortDate    = salesDay.shortDate; }
+  if (lettingsDay) { dayConfig.lettings.fullDate = lettingsDay.fullDate; dayConfig.lettings.shortDate = lettingsDay.shortDate; }
+}
+
+// ── Remove a training day ────────────────────────────────────
+function removeTrainingDay(idx) {
+  if (trainingDays.length <= 1) { toast('You must keep at least one training day', 'error'); return; }
+  const day = trainingDays[idx];
+  if (!confirm(`Remove "${day.title}"? This cannot be undone.`)) return;
+  trainingDays.splice(idx, 1);
+  saveTrainingDays();
+  renderDayEditors();
+  renderTrainingCards();
+  toast(`"${day.title}" removed`, 'success');
+}
+
+// ── Create new training day ──────────────────────────────────
+function createNewTrainingDay() {
+  const title  = document.getElementById('newDayTitle').value.trim();
+  const tag    = document.getElementById('newDayTag').value.trim();
+  const iso    = document.getElementById('newDayDate').value;
+  const short  = document.getElementById('newDayShort').value.trim();
+  const colour = document.getElementById('newDayColour').value;
+  const seats  = parseInt(document.getElementById('newDaySeats').value) || null;
+
+  if (!title)  { toast('Please enter a title', 'error'); return; }
+  if (!iso)    { toast('Please select a date', 'error'); return; }
+  if (!short)  { toast('Please enter a short label', 'error'); return; }
+
+  const id = 'custom_' + Date.now();
+  trainingDays.push({ id, title, tag: tag || title, colour, fullDate: isoToFullDate(iso), shortDate: short, maxSeats: seats });
+  saveTrainingDays();
+  renderTrainingCards();
+  renderDayEditors();
+
+  // Clear form
+  document.getElementById('newDayTitle').value  = '';
+  document.getElementById('newDayTag').value    = '';
+  document.getElementById('newDayDate').value   = '';
+  document.getElementById('newDayShort').value  = '';
+  document.getElementById('newDaySeats').value  = '';
+
+  switchAdminTab('dates');
+  toast(`"${title}" training day created!`, 'success');
+}
+
+// ── Check & archive past days ────────────────────────────────
+function checkAndArchivePastDays() {
+  let archiveTriggered = false;
+  trainingDays.forEach((day, idx) => {
+    if (isDatePast(day.fullDate)) {
+      archiveTrainingDay(idx, true); // silent archive
+      archiveTriggered = true;
+    }
+  });
+  if (archiveTriggered) {
+    renderDayEditors();
+    renderTrainingCards();
+    switchAdminTab('archive');
+  }
+}
+
+function archiveTrainingDay(idx, silent=false) {
+  const day = trainingDays[idx];
+  if (!day) return;
+  // Move to archive
+  archivedDays.push({ ...day, archivedAt: new Date().toISOString() });
+  trainingDays.splice(idx, 1);
+  saveTrainingDays();
+  saveArchivedDays();
+  if (!silent) {
+    renderDayEditors();
+    renderTrainingCards();
+    toast(`"${day.title}" archived`, 'success');
+  }
+}
+
+// ── Archive tab ──────────────────────────────────────────────
+function renderArchiveTab() {
+  const list = document.getElementById('archiveList');
+  const bannerEl = document.getElementById('archiveSuggestBanner');
+
+  if (!archivedDays.length) {
+    list.innerHTML = '<div class="archive-empty">📭 No archived days yet.<br><span style="font-size:11px;">Past training days will appear here automatically.</span></div>';
+    bannerEl.style.display = 'none';
+    return;
+  }
+
+  // Check if any archived day needs a successor suggested
+  const suggestions = archivedDays
+    .filter(d => !d.successorCreated)
+    .map(d => {
+      const nextIso = suggestNextDate(fullDateToIso(d.fullDate));
+      return { day: d, nextIso, nextFull: isoToFullDate(nextIso), nextShort: isoToShortDate(nextIso) };
+    })
+    .filter(s => s.nextIso);
+
+  if (suggestions.length) {
+    const s = suggestions[0];
+    bannerEl.style.display = '';
+    bannerEl.innerHTML = `
+      <div class="suggest-banner">
+        <span>📅</span>
+        <div style="flex:1">
+          <strong>"${esc(s.day.title)}"</strong> has passed. Suggested next date: <strong>${esc(s.nextFull)}</strong>
+        </div>
+        <button class="suggest-apply-btn" onclick="applyDateSuggestion('${esc(s.day.id)}','${s.nextIso}','${esc(s.day.title)}')">Apply Date →</button>
+      </div>`;
+  } else {
+    bannerEl.style.display = 'none';
+  }
+
+  list.innerHTML = archivedDays.slice().reverse().map((d,i) => {
+    const colourDot = COLOUR_MAP[d.colour]?.dot || 'var(--purple)';
+    const archivedDate = d.archivedAt ? new Date(d.archivedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '';
+    return `
+      <div class="archive-item">
+        <div class="archive-item-dot" style="background:${colourDot}"></div>
+        <div class="archive-item-info">
+          <div class="archive-item-title">${esc(d.title)}</div>
+          <div class="archive-item-date">${esc(d.fullDate)} · Archived ${archivedDate}</div>
+        </div>
+        <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px;" onclick="restoreArchivedDay(${archivedDays.length - 1 - i})">Restore</button>
+      </div>`;
+  }).join('');
+}
+
+function applyDateSuggestion(dayId, newIso, title) {
+  // Re-add this day type to trainingDays with the new date
+  const archIdx = archivedDays.findIndex(d => d.id === dayId);
+  if (archIdx < 0) return;
+  const archived = archivedDays[archIdx];
+  const newDay = {
+    ...archived,
+    id: archived.id === 'sales' || archived.id === 'lettings' ? archived.id : 'custom_' + Date.now(),
+    fullDate: isoToFullDate(newIso),
+    shortDate: isoToShortDate(newIso),
+  };
+  delete newDay.archivedAt;
+  trainingDays.push(newDay);
+  // Mark as resolved in archive
+  archivedDays[archIdx].successorCreated = true;
+  saveTrainingDays(); saveArchivedDays();
+  renderDayEditors(); renderTrainingCards();
+  switchAdminTab('dates');
+  toast(`New date applied for "${title}"!`, 'success');
+}
+
+function restoreArchivedDay(archIdx) {
+  const day = archivedDays[archIdx];
+  if (!day) return;
+  const restored = { ...day };
+  delete restored.archivedAt; delete restored.successorCreated;
+  trainingDays.push(restored);
+  archivedDays.splice(archIdx, 1);
+  saveTrainingDays(); saveArchivedDays();
+  renderDayEditors(); renderTrainingCards();
+  renderArchiveTab();
+  toast(`"${day.title}" restored`, 'success');
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1923,10 +2448,19 @@ function toast(msg, type='info', dur=3500) {
 // ══════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════
+// Sync dayConfig from loaded trainingDays before applying
+(function() {
+  const salesDay    = trainingDays.find(d => d.id === 'sales');
+  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
+  if (salesDay)    { dayConfig.sales.fullDate    = salesDay.fullDate;    dayConfig.sales.shortDate    = salesDay.shortDate; }
+  if (lettingsDay) { dayConfig.lettings.fullDate = lettingsDay.fullDate; dayConfig.lettings.shortDate = lettingsDay.shortDate; }
+})();
+
 applyDayConfig();
 renderProgress();
 updateNav();
 fetchCapacity();
+renderTrainingCards();
 </script>
 </body>
 </html>
