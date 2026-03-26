@@ -987,6 +987,7 @@ body {
                   <div class="day-card-body">
                     <div class="day-card-title">Sales Basic Training</div>
                     <div class="day-card-meta" id="meta-sales">—</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag">Sales Module</span>
@@ -1017,6 +1018,7 @@ body {
                   <div class="day-card-body">
                     <div class="day-card-title">Lettings Basic Training</div>
                     <div class="day-card-meta" id="meta-lettings">—</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag green-tag">Lettings Module</span>
@@ -1362,6 +1364,7 @@ function applyDayConfig() {
   // Card meta rows
   document.getElementById('meta-sales').textContent    = dayConfig.sales.fullDate    + ' · Street HQ, Manchester';
   document.getElementById('meta-lettings').textContent = dayConfig.lettings.fullDate + ' · Street HQ, Manchester';
+  // (Time row is static HTML — 10:30am–3:30pm — no update needed here)
 
   // Delegate chips
   renderChipLabels();
@@ -1579,15 +1582,15 @@ function buildSummary() {
 
   const attLines = attendees.map((a, i) => {
     const dayLabel = (a.days || []).map(d => d === 'sales'
-      ? `Sales (${dayConfig.sales.fullDate})`
-      : `Lettings (${dayConfig.lettings.fullDate})`
+      ? `Sales (${dayConfig.sales.fullDate}, 10:30am–3:30pm)`
+      : `Lettings (${dayConfig.lettings.fullDate}, 10:30am–3:30pm)`
     ).join(' + ');
     return `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''} — ${dayLabel}${a.diet ? ' — Dietary: ' + a.diet : ''}`;
   }).join('\n');
 
   const costLines = [];
-  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}): ${salesDelegates.length} × £100 = £${salesCost}`);
-  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
+  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}, 10:30am–3:30pm): ${salesDelegates.length} × £100 = £${salesCost}`);
+  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}, 10:30am–3:30pm): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
 
   const email = `Hi ${stkName},
 
@@ -1597,6 +1600,7 @@ Here's a summary of your booking:
 
 Company: ${company}
 Training Day(s): ${daysSummary}
+Time: 10:30am – 3:30pm
 
 Delegates (${attendees.length} ${attendees.length===1?'person':'people'}):
 ${attLines}
