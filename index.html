@@ -94,6 +94,16 @@ body {
   text-decoration: none; transition: background 0.14s;
 }
 .header-badge:hover { background: var(--purple-h); }
+/* Admin button in header */
+.header-admin-btn {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600;
+  padding: 6px 12px; border-radius: 6px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-family: 'DM Sans', sans-serif;
+  text-decoration: none; transition: all 0.14s; margin-right: 10px;
+}
+.header-admin-btn:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.85); }
 
 /* ── Page layout ─────────────────────────────────────────── */
 .page-wrap {
@@ -218,8 +228,9 @@ body {
   overflow: hidden; cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-.training-day-card:hover { border-color: var(--purple-mid); }
+.training-day-card:hover:not(.sold-out) { border-color: var(--purple-mid); }
 .training-day-card.selected { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
+.training-day-card.sold-out { opacity: 0.6; cursor: not-allowed; border-color: var(--grey-20); }
 .day-card-inner {
   display: flex; align-items: stretch; gap: 0;
 }
@@ -233,13 +244,15 @@ body {
 .day-card-body { padding: 14px 16px; flex: 1; }
 .day-card-title { font-size: 14px; font-weight: 700; color: var(--grey-90); margin-bottom: 2px; }
 .day-card-meta  { font-size: 12px; color: var(--grey-50); margin-bottom: 6px; }
-.day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; }
+.day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .day-tag {
   display: inline-flex; align-items: center; gap: 4px;
   background: var(--purple-lt); color: var(--purple-txt);
   border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600;
 }
 .day-tag.green-tag { background: #f0fdf4; color: #166534; }
+.day-tag.red-tag   { background: #fef2f2; color: #991b1b; }
+.day-tag.amber-tag { background: #fffbeb; color: #92400e; }
 .day-card-price {
   padding: 10px 16px 10px 0;
   display: flex; flex-direction: column; align-items: flex-end;
@@ -247,6 +260,38 @@ body {
 }
 .price-amount { font-size: 18px; font-weight: 700; color: var(--purple); }
 .price-sub { font-size: 10px; color: var(--grey-50); font-weight: 500; }
+
+/* ── Seat capacity bar ────────────────────────────────────── */
+.capacity-wrap {
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--grey-20);
+}
+.capacity-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 5px;
+}
+.capacity-label { font-size: 10.5px; font-weight: 600; color: var(--grey-50); }
+.capacity-count { font-size: 10.5px; font-weight: 700; }
+.capacity-count.seats-good   { color: var(--green); }
+.capacity-count.seats-low    { color: var(--amber); }
+.capacity-count.seats-full   { color: var(--red); }
+.capacity-bar-track {
+  width: 100%; height: 5px; background: var(--grey-20); border-radius: 10px; overflow: hidden;
+}
+.capacity-bar-fill {
+  height: 100%; border-radius: 10px; transition: width 0.6s ease;
+}
+.capacity-bar-fill.seats-good { background: var(--green); }
+.capacity-bar-fill.seats-low  { background: var(--amber); }
+.capacity-bar-fill.seats-full { background: var(--red); }
+
+/* capacity loading skeleton */
+.capacity-skeleton {
+  height: 5px; background: var(--grey-20); border-radius: 10px;
+  background: linear-gradient(90deg, var(--grey-20) 25%, var(--grey-10) 50%, var(--grey-20) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ── Attendee builder ────────────────────────────────────── */
 .attendee-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
@@ -313,6 +358,9 @@ body {
 .ddc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .ddc-purple { background: var(--purple); }
 .ddc-green  { background: var(--green); }
+/* disabled chip */
+.delegate-day-chip.chip-disabled { cursor: not-allowed; }
+.delegate-day-chip.chip-disabled .ddc-inner { opacity: 0.45; pointer-events: none; }
 
 .add-attendee-box .box-title {
   font-size: 12px; font-weight: 700; color: var(--grey-70);
@@ -483,6 +531,8 @@ body {
 .btn-ghost:hover { border-color: var(--purple-mid); color: var(--purple); background: var(--purple-lt); }
 .btn-success { background: var(--green); color: #fff; box-shadow: 0 2px 6px rgba(27,173,114,0.3); }
 .btn-success:hover { background: #189960; }
+.btn-danger  { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #c73040; }
 
 /* ── Success ─────────────────────────────────────────────── */
 .success-screen { text-align: center; padding: 52px 32px; }
@@ -541,12 +591,109 @@ body {
   border-top: 1px solid var(--navy-border);
 }
 .site-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN PANEL STYLES
+═══════════════════════════════════════════════════════════ */
+.admin-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(18,21,42,0.7); z-index: 600;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.admin-modal-overlay.show { display: flex; animation: fade-in 0.18s ease; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.admin-modal {
+  background: #fff; border-radius: 16px;
+  width: 100%; max-width: 520px;
+  box-shadow: 0 24px 64px rgba(18,21,42,0.3);
+  border: 1px solid var(--grey-20);
+  overflow: hidden;
+  animation: modal-up 0.22s ease;
+}
+@keyframes modal-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.admin-modal-hdr {
+  background: var(--navy); padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.admin-modal-title {
+  font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-modal-title svg { opacity: 0.7; }
+.admin-close {
+  background: none; border: none; color: rgba(255,255,255,0.4); font-size: 20px;
+  cursor: pointer; padding: 2px 6px; line-height: 1; transition: color 0.1s;
+}
+.admin-close:hover { color: rgba(255,255,255,0.8); }
+
+.admin-modal-body { padding: 24px; }
+
+/* Auth screen */
+.admin-auth { text-align: center; padding: 12px 0 4px; }
+.admin-auth-icon { font-size: 40px; margin-bottom: 12px; }
+.admin-auth-title { font-size: 16px; font-weight: 700; color: var(--grey-90); margin-bottom: 4px; }
+.admin-auth-sub   { font-size: 12px; color: var(--grey-50); margin-bottom: 20px; }
+.admin-pin-wrap { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.admin-pin-input {
+  width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 700;
+  border: 2px solid var(--grey-20); border-radius: 10px; background: var(--grey-10);
+  font-family: 'DM Sans', sans-serif; color: var(--grey-90);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.admin-pin-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
+.admin-pin-input.error { border-color: var(--red); background: #fef2f2; }
+
+/* Admin form */
+.admin-section-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--grey-70); margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--grey-20);
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-day-editor {
+  background: var(--grey-10); border: 1px solid var(--grey-20);
+  border-radius: 10px; padding: 14px; margin-bottom: 10px;
+}
+.admin-day-editor-hdr {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.admin-day-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.admin-day-label { font-size: 13px; font-weight: 700; color: var(--grey-90); flex: 1; }
+.admin-capacity-badge {
+  font-size: 11px; font-weight: 600; color: var(--grey-50);
+  background: #fff; border: 1px solid var(--grey-20);
+  border-radius: 6px; padding: 2px 8px;
+}
+.admin-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.admin-field { }
+.admin-field label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--grey-70); margin-bottom: 5px; }
+.admin-field input, .admin-field select {
+  width: 100%; border: 1.5px solid var(--grey-20); border-radius: 7px;
+  padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--grey-90); background: #fff;
+  transition: border-color 0.15s;
+}
+.admin-field input:focus, .admin-field select:focus {
+  outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12);
+}
+.admin-note {
+  font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5;
+}
+.admin-modal-footer {
+  padding: 16px 24px; border-top: 1px solid var(--grey-20);
+  background: var(--grey-10); display: flex; gap: 8px; justify-content: flex-end;
+}
+
 @media (max-width: 560px) {
   .site-header { padding: 0 16px; }
   .form-hdr, .form-body { padding-left: 20px; padding-right: 20px; }
   .progress-wrap { padding: 14px 20px 0; }
   .form-footer { padding: 14px 20px; flex-direction: column; align-items: stretch; }
   .footer-btns { justify-content: flex-end; }
+  .admin-field-row { grid-template-columns: 1fr; }
+  .admin-pin-input { width: 42px; height: 50px; font-size: 18px; }
 }
 </style>
 </head>
@@ -556,12 +703,116 @@ body {
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-card">
     <div class="loading-spinner"></div>
-    <div class="loading-label">Submitting booking…</div>
+    <div class="loading-label" id="loadingLabel">Submitting booking…</div>
   </div>
 </div>
 
 <!-- Toast host -->
 <div class="toast-host" id="toastHost"></div>
+
+<!-- ═══ ADMIN MODAL ═══════════════════════════════════════════════ -->
+<div class="admin-modal-overlay" id="adminModal">
+  <div class="admin-modal">
+    <div class="admin-modal-hdr">
+      <div class="admin-modal-title">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a3 3 0 110 6 3 3 0 010-6z" stroke="white" stroke-width="1.4"/><path d="M2 13.5c0-3.31 2.686-6 6-6s6 2.69 6 6" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Training Day Admin
+      </div>
+      <button class="admin-close" onclick="closeAdmin()">&#10005;</button>
+    </div>
+    <div class="admin-modal-body" id="adminModalBody">
+      <!-- Auth screen shown first -->
+      <div id="adminAuthScreen" class="admin-auth">
+        <div class="admin-auth-icon">🔒</div>
+        <div class="admin-auth-title">Admin Access Required</div>
+        <div class="admin-auth-sub">Enter the 4-digit admin PIN to manage training day dates.</div>
+        <div class="admin-pin-wrap">
+          <input type="password" maxlength="1" class="admin-pin-input" id="pin0" oninput="pinInput(0)" onkeydown="pinKey(event,0)">
+          <input type="password" maxlength="1" class="admin-pin-input" id="pin1" oninput="pinInput(1)" onkeydown="pinKey(event,1)">
+          <input type="password" maxlength="1" class="admin-pin-input" id="pin2" oninput="pinInput(2)" onkeydown="pinKey(event,2)">
+          <input type="password" maxlength="1" class="admin-pin-input" id="pin3" oninput="pinInput(3)" onkeydown="pinKey(event,3)">
+        </div>
+        <div id="pinError" style="font-size:12px;color:var(--red);min-height:18px;margin-bottom:8px;"></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="checkPin()">Unlock →</button>
+      </div>
+
+      <!-- Admin editor (shown after auth) -->
+      <div id="adminEditorScreen" style="display:none;">
+        <div class="admin-section-title">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Training Day Dates &amp; Labels
+        </div>
+        <div class="info-box blue" style="margin-bottom:16px;">
+          <span>ℹ️</span><span>Changes here update the form immediately. The booking sheet dates are set in the Apps Script — update those separately after republishing.</span>
+        </div>
+
+        <!-- Sales day editor -->
+        <div class="admin-day-editor">
+          <div class="admin-day-editor-hdr">
+            <div class="admin-day-dot" style="background:var(--purple);"></div>
+            <div class="admin-day-label">Sales Basic Training</div>
+            <div class="admin-capacity-badge" id="adminSalesCapacity">Loading…</div>
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-field">
+              <label>Date Label</label>
+              <input type="text" id="adminSalesDate" placeholder="e.g. Tuesday 19 May 2026">
+              <div class="admin-note">Shown on the day card and in emails.</div>
+            </div>
+            <div class="admin-field">
+              <label>Short Label (for chips)</label>
+              <input type="text" id="adminSalesShort" placeholder="e.g. Tue 19 May">
+              <div class="admin-note">Used in delegate day selector chips.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lettings day editor -->
+        <div class="admin-day-editor">
+          <div class="admin-day-editor-hdr">
+            <div class="admin-day-dot" style="background:var(--green);"></div>
+            <div class="admin-day-label">Lettings Basic Training</div>
+            <div class="admin-capacity-badge" id="adminLettingsCapacity">Loading…</div>
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-field">
+              <label>Date Label</label>
+              <input type="text" id="adminLettingsDate" placeholder="e.g. Wednesday 20 May 2026">
+              <div class="admin-note">Shown on the day card and in emails.</div>
+            </div>
+            <div class="admin-field">
+              <label>Short Label (for chips)</label>
+              <input type="text" id="adminLettingsShort" placeholder="e.g. Wed 20 May">
+              <div class="admin-note">Used in delegate day selector chips.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section-title" style="margin-top:20px;">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Capacity Settings
+        </div>
+        <div class="admin-day-editor">
+          <div class="admin-field-row">
+            <div class="admin-field">
+              <label>Max Seats Per Day</label>
+              <input type="number" id="adminMaxSeats" min="1" max="200" value="38">
+              <div class="admin-note">Currently 38. Changes apply immediately.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box amber" style="margin-top:4px;">
+          <span>⚠️</span><span><strong>Remember:</strong> After saving, update the date text in your Google Apps Script and redeploy so future bookings record the correct date label in the sheet.</span>
+        </div>
+      </div>
+    </div>
+    <div class="admin-modal-footer" id="adminModalFooter">
+      <button class="btn btn-ghost" onclick="closeAdmin()">Cancel</button>
+      <button class="btn btn-primary" id="adminSaveBtn" onclick="saveAdmin()" style="display:none;">Save &amp; Apply Changes</button>
+    </div>
+  </div>
+</div>
 
 <!-- Nav -->
 <header class="site-header">
@@ -583,6 +834,10 @@ body {
     </a>
   </nav>
   <div class="header-spacer"></div>
+  <button class="header-admin-btn" onclick="openAdmin()">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Admin
+  </button>
   <a href="#" class="header-badge">
     <svg style="width:13px;height:13px;" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to Dashboard
@@ -600,8 +855,8 @@ body {
         <div class="form-hdr-title">Book a Training Day Place</div>
         <div class="form-hdr-desc">Register attendees for an open training day at Street HQ. Select your training day(s), add delegates, and we'll generate a cost breakdown and template email to send to your client.</div>
         <div class="date-pills">
-          <div class="date-pill"><span class="date-pill-dot"></span> Tue 19 May — Sales Basic Training</div>
-          <div class="date-pill"><span class="date-pill-dot green"></span> Wed 20 May — Lettings Basic Training</div>
+          <div class="date-pill" id="headerPillSales"><span class="date-pill-dot"></span> <span id="headerPillSalesText">Loading…</span></div>
+          <div class="date-pill" id="headerPillLettings"><span class="date-pill-dot green"></span> <span id="headerPillLettingsText">Loading…</span></div>
         </div>
       </div>
 
@@ -731,10 +986,20 @@ body {
                   </div>
                   <div class="day-card-body">
                     <div class="day-card-title">Sales Basic Training</div>
-                    <div class="day-card-meta">Tuesday 19 May 2026 · Street HQ, Manchester</div>
+                    <div class="day-card-meta" id="meta-sales">—</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag">Sales Module</span>
+                      <span id="salesSoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
+                    </div>
+                    <div class="capacity-wrap" id="capacityWrapSales">
+                      <div class="capacity-row">
+                        <span class="capacity-label">Seats available</span>
+                        <span class="capacity-count" id="capacityCountSales">—</span>
+                      </div>
+                      <div class="capacity-bar-track">
+                        <div class="capacity-bar-fill" id="capacityBarSales" style="width:0%"></div>
+                      </div>
                     </div>
                   </div>
                   <div class="day-card-price">
@@ -751,10 +1016,20 @@ body {
                   </div>
                   <div class="day-card-body">
                     <div class="day-card-title">Lettings Basic Training</div>
-                    <div class="day-card-meta">Wednesday 20 May 2026 · Street HQ, Manchester</div>
+                    <div class="day-card-meta" id="meta-lettings">—</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag green-tag">Lettings Module</span>
+                      <span id="lettingsSoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
+                    </div>
+                    <div class="capacity-wrap" id="capacityWrapLettings">
+                      <div class="capacity-row">
+                        <span class="capacity-label">Seats available</span>
+                        <span class="capacity-count" id="capacityCountLettings">—</span>
+                      </div>
+                      <div class="capacity-bar-track">
+                        <div class="capacity-bar-fill" id="capacityBarLettings" style="width:0%"></div>
+                      </div>
                     </div>
                   </div>
                   <div class="day-card-price">
@@ -790,14 +1065,14 @@ body {
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:0;">
               <label class="field-label req">Which day(s) is this delegate attending?</label>
-              <div class="delegate-day-group">
-                <label class="delegate-day-chip">
+              <div class="delegate-day-group" id="delegateDayGroup">
+                <label class="delegate-day-chip" id="chipSalesWrap">
                   <input type="checkbox" id="attDaySales" value="sales">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span>Sales &mdash; Tue 19 May</span>
+                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span><span id="chipSalesLabel">Sales</span></span>
                 </label>
-                <label class="delegate-day-chip">
+                <label class="delegate-day-chip" id="chipLettingsWrap">
                   <input type="checkbox" id="attDayLettings" value="lettings">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-green"></span>Lettings &mdash; Wed 20 May</span>
+                  <span class="ddc-inner"><span class="ddc-dot ddc-green"></span><span id="chipLettingsLabel">Lettings</span></span>
                 </label>
               </div>
             </div>
@@ -829,13 +1104,11 @@ body {
           <div class="pane-title">Review &amp; Template Email</div>
           <div class="pane-sub">Check the booking summary below, copy the template email to send to your client, then submit.</div>
 
-          <!-- Booking summary -->
           <div class="info-box green" id="summaryBox">
             <span>✅</span>
             <div id="summaryText" style="line-height:1.6;"></div>
           </div>
 
-          <!-- Location info -->
           <div class="section-heading">Venue Information</div>
           <div class="location-box">
             <div class="location-box-hdr">📍 Street HQ — North Square, 11–13 Spear St, Manchester M1 1JU</div>
@@ -846,7 +1119,6 @@ body {
             </div>
           </div>
 
-          <!-- Template email -->
           <div class="section-heading" style="margin-top:20px;">Template Email</div>
           <div class="email-template-box">
             <div class="email-template-hdr">
@@ -904,17 +1176,57 @@ body {
 </footer>
 
 <script>
-// ── Config ──────────────────────────────────────────────────────
-// Replace with your deployed Google Apps Script URL
+// ══════════════════════════════════════════════════════════════
+// CONFIG  — edit these to update the form
+// ══════════════════════════════════════════════════════════════
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7PpxdKB83eFNsjuc24hJG1_p_ID9FAiuze0yDoV5WN_W6ybrVHxUqP_4cUkoK6gdJ5Q/exec';
 
+// ── Training day config (admin-editable in-session, persisted to localStorage) ──
+const DEFAULT_DAYS = {
+  sales: {
+    fullDate:  'Tuesday 19 May 2026',
+    shortDate: 'Tue 19 May',
+  },
+  lettings: {
+    fullDate:  'Wednesday 20 May 2026',
+    shortDate: 'Wed 20 May',
+  },
+};
+
+const MAX_SEATS_DEFAULT = 38;
+
+// ── Admin PIN (change this!) ──
+const ADMIN_PIN = '1234';
+
+// ══════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════
 const TOTAL = 4;
 let step = 1;
 let attendees = [];
 let selectedDays = { sales: false, lettings: false };
 const PRICE_PER_PERSON_PER_DAY = 100;
 
-// Avatar colours
+// Load persisted config or defaults
+function loadDayConfig() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('streetTrainingDayConfig') || 'null');
+    if (saved && saved.sales && saved.lettings) return saved;
+  } catch(_) {}
+  return JSON.parse(JSON.stringify(DEFAULT_DAYS));
+}
+function saveDayConfig(cfg) {
+  try { localStorage.setItem('streetTrainingDayConfig', JSON.stringify(cfg)); } catch(_) {}
+}
+let dayConfig = loadDayConfig();
+let maxSeats = (() => {
+  try { return parseInt(localStorage.getItem('streetMaxSeats')) || MAX_SEATS_DEFAULT; } catch(_) { return MAX_SEATS_DEFAULT; }
+})();
+
+// Live capacity from sheet (fetched on load)
+let liveCapacity = { sales: null, lettings: null, loaded: false, error: false };
+
+// ── Avatar helpers ──────────────────────────────────────────
 const AVATAR_COLOURS = ['#5B4BE7','#1BAD72','#E03B4A','#F59E0B','#3B82F6','#8B5CF6','#EC4899','#14B8A6'];
 function avatarColour(name) {
   let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
@@ -922,7 +1234,159 @@ function avatarColour(name) {
 }
 function initials(name) { return name.split(' ').map(p => p[0] || '').join('').toUpperCase().slice(0,2); }
 
-// ── Team search (sample data — replace with your SCRIPT_URL fetch) ──
+// ══════════════════════════════════════════════════════════════
+// CAPACITY — fetch from Google Sheet via Apps Script
+// ══════════════════════════════════════════════════════════════
+async function fetchCapacity() {
+  // Show skeleton loaders
+  ['Sales','Lettings'].forEach(d => {
+    const bar = document.getElementById('capacityBar' + d);
+    if (bar) { bar.parentElement.innerHTML = '<div class="capacity-skeleton"></div>'; }
+    const cnt = document.getElementById('capacityCount' + d);
+    if (cnt) cnt.textContent = '…';
+  });
+
+  try {
+    const url = SCRIPT_URL + '?action=getCapacity';
+    const res  = await fetch(url, { method: 'GET', mode: 'no-cors' });
+    // no-cors means we can't read the response body directly.
+    // Use a CORS-enabled pattern instead (the Apps Script doGet returns JSON).
+    // If CORS is not enabled on the sheet, capacity will fall back to the
+    // "could not load" state gracefully.
+    throw new Error('Use JSONP fallback'); // jump to JSONP
+  } catch(_) {
+    // Try JSONP / script tag approach as fallback (works with no-cors restriction)
+    fetchCapacityViaScript();
+  }
+}
+
+function fetchCapacityViaScript() {
+  const callbackName = '__streetCapacityCB_' + Date.now();
+  const script = document.createElement('script');
+  const timeoutId = setTimeout(() => {
+    handleCapacityError('Request timed out');
+    script.remove();
+    delete window[callbackName];
+  }, 8000);
+
+  window[callbackName] = function(data) {
+    clearTimeout(timeoutId);
+    script.remove();
+    delete window[callbackName];
+    if (data && data.ok) {
+      liveCapacity.sales    = data.salesBooked    || 0;
+      liveCapacity.lettings = data.lettingsBooked || 0;
+      liveCapacity.loaded   = true;
+      liveCapacity.error    = false;
+      renderCapacity();
+    } else {
+      handleCapacityError(data && data.error ? data.error : 'Unknown error');
+    }
+  };
+
+  script.src = SCRIPT_URL + '?action=getCapacity&callback=' + callbackName;
+  document.head.appendChild(script);
+}
+
+function handleCapacityError(msg) {
+  console.warn('Capacity fetch failed:', msg);
+  liveCapacity.error  = true;
+  liveCapacity.loaded = false;
+  // Show graceful fallback — don't block the form
+  ['Sales','Lettings'].forEach(d => {
+    const wrap = document.getElementById('capacityWrap' + d);
+    if (wrap) {
+      wrap.innerHTML = `<div style="font-size:11px;color:var(--grey-40);margin-top:6px;font-style:italic;">Seat count unavailable — contact admin for availability</div>`;
+    }
+  });
+}
+
+function renderCapacity() {
+  if (!liveCapacity.loaded) return;
+  ['sales','lettings'].forEach(day => {
+    const booked  = liveCapacity[day];
+    const avail   = Math.max(0, maxSeats - booked);
+    const pct     = Math.min(100, Math.round((booked / maxSeats) * 100));
+    const cls     = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
+    const label   = avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
+    const D       = day.charAt(0).toUpperCase() + day.slice(1);
+
+    const wrap = document.getElementById('capacityWrap' + D);
+    if (!wrap) return;
+    wrap.innerHTML = `
+      <div class="capacity-row">
+        <span class="capacity-label">Seats available</span>
+        <span class="capacity-count ${cls}">${label}</span>
+      </div>
+      <div class="capacity-bar-track">
+        <div class="capacity-bar-fill ${cls}" id="capacityBar${D}" style="width:0%"></div>
+      </div>`;
+
+    // Animate bar in after paint
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const bar = document.getElementById('capacityBar' + D);
+        if (bar) bar.style.width = pct + '%';
+      });
+    });
+
+    // Mark sold out on the card
+    if (avail === 0) {
+      document.getElementById('card-' + day).classList.add('sold-out');
+      document.getElementById(day + 'SoldOutTag').style.display = 'inline-flex';
+      // Disable the delegate chip for this day
+      const chipWrap = document.getElementById('chip' + D + 'Wrap');
+      if (chipWrap) chipWrap.classList.add('chip-disabled');
+    }
+
+    // Update admin badge
+    const adminBadge = document.getElementById('admin' + D + 'Capacity');
+    if (adminBadge) adminBadge.textContent = `${booked}/${maxSeats} booked`;
+  });
+
+  // Re-render delegate chips with updated short dates
+  renderChipLabels();
+}
+
+// ══════════════════════════════════════════════════════════════
+// DATE LABEL RENDERING — apply dayConfig everywhere
+// ══════════════════════════════════════════════════════════════
+function applyDayConfig() {
+  // Header pills
+  document.getElementById('headerPillSalesText').textContent    = 'Tue ' + dayConfig.sales.shortDate    + ' — Sales Basic Training';
+  document.getElementById('headerPillLettingsText').textContent = 'Wed ' + dayConfig.lettings.shortDate + ' — Lettings Basic Training';
+  // Simpler: just use fullDate labels
+  document.getElementById('headerPillSalesText').textContent    = dayConfig.sales.fullDate    + ' — Sales Basic Training';
+  document.getElementById('headerPillLettingsText').textContent = dayConfig.lettings.fullDate + ' — Lettings Basic Training';
+
+  // Card meta rows
+  document.getElementById('meta-sales').textContent    = dayConfig.sales.fullDate    + ' · Street HQ, Manchester';
+  document.getElementById('meta-lettings').textContent = dayConfig.lettings.fullDate + ' · Street HQ, Manchester';
+
+  // Delegate chips
+  renderChipLabels();
+}
+
+function renderChipLabels() {
+  const salesAvail    = !liveCapacity.loaded || Math.max(0, maxSeats - (liveCapacity.sales    || 0)) > 0;
+  const lettingsAvail = !liveCapacity.loaded || Math.max(0, maxSeats - (liveCapacity.lettings || 0)) > 0;
+
+  const salChip  = document.getElementById('chipSalesWrap');
+  const letChip  = document.getElementById('chipLettingsWrap');
+
+  if (salChip) {
+    document.getElementById('chipSalesLabel').textContent = 'Sales — ' + dayConfig.sales.shortDate;
+    salChip.classList.toggle('chip-disabled', !salesAvail);
+  }
+  if (letChip) {
+    document.getElementById('chipLettingsLabel').textContent = 'Lettings — ' + dayConfig.lettings.shortDate;
+    letChip.classList.toggle('chip-disabled', !lettingsAvail);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TEAM SEARCH
+// ══════════════════════════════════════════════════════════════
 const TEAM_MEMBERS = [
   { name: 'Amy Dawber',    dept: 'Onboarding' },
   { name: 'James Taylor',  dept: 'Sales' },
@@ -934,12 +1398,11 @@ const TEAM_MEMBERS = [
 let selectedUser = null;
 
 function handleUserSearch() {
-  const q = document.getElementById('userSearch').value.trim().toLowerCase();
+  const q  = document.getElementById('userSearch').value.trim().toLowerCase();
   const dd = document.getElementById('searchDropdown');
   document.getElementById('searchClear').style.display = q ? 'block' : 'none';
   if (!q) { dd.style.display = 'none'; return; }
   const hits = TEAM_MEMBERS.filter(u => u.name.toLowerCase().includes(q));
-  if (!hits.length && !q) { dd.style.display = 'none'; return; }
   const rows = hits.map(u => `
     <div class="search-row" tabindex="0" onclick="selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})" onkeydown="if(event.key==='Enter')selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})">
       <div class="search-avatar" style="background:${avatarColour(u.name)}">${initials(u.name)}</div>
@@ -950,7 +1413,7 @@ function handleUserSearch() {
 }
 
 function userSearchKey(e) {
-  if (e.key === 'Escape') { document.getElementById('searchDropdown').style.display = 'none'; }
+  if (e.key === 'Escape') document.getElementById('searchDropdown').style.display = 'none';
 }
 
 function selectUser(u) {
@@ -965,7 +1428,7 @@ function selectUser(u) {
   document.getElementById('chipAvatar').textContent = initials(u.name);
   document.getElementById('chipAvatar').style.background = avatarColour(u.name);
   document.getElementById('chipName').textContent = u.name;
-  document.getElementById('chipSub').textContent = u.dept;
+  document.getElementById('chipSub').textContent  = u.dept;
   chip.classList.add('show');
   document.getElementById('existingTeamRow').style.display = 'none';
 }
@@ -993,23 +1456,42 @@ function showNewUser() {
   document.getElementById('newFirst').focus();
 }
 
-// ── Training day toggle (cards are now decorative — selection is per delegate) ──
+// ══════════════════════════════════════════════════════════════
+// TRAINING DAY TOGGLE
+// ══════════════════════════════════════════════════════════════
 function toggleDay(day) {
+  const card = document.getElementById('card-' + day);
+  if (card.classList.contains('sold-out')) return;
   selectedDays[day] = !selectedDays[day];
   document.getElementById('chk-' + day).checked = selectedDays[day];
-  document.getElementById('card-' + day).classList.toggle('selected', selectedDays[day]);
+  card.classList.toggle('selected', selectedDays[day]);
 }
 
-// ── Attendees ─────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// ATTENDEES
+// ══════════════════════════════════════════════════════════════
 function addAttendee() {
-  const fn      = document.getElementById('attFirst').value.trim();
-  const ln      = document.getElementById('attLast').value.trim();
-  const role    = document.getElementById('attRole').value.trim();
-  const diet    = document.getElementById('attDiet').value.trim();
-  const daySales    = document.getElementById('attDaySales').checked;
-  const dayLettings = document.getElementById('attDayLettings').checked;
-  if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
-  if (!daySales && !dayLettings) { toast('Please select at least one training day for this delegate', 'error'); return; }
+  const fn           = document.getElementById('attFirst').value.trim();
+  const ln           = document.getElementById('attLast').value.trim();
+  const role         = document.getElementById('attRole').value.trim();
+  const diet         = document.getElementById('attDiet').value.trim();
+  const daySales     = document.getElementById('attDaySales').checked;
+  const dayLettings  = document.getElementById('attDayLettings').checked;
+  if (!fn || !ln)                 { toast('Please enter first and last name', 'error'); return; }
+  if (!daySales && !dayLettings)  { toast('Please select at least one training day for this delegate', 'error'); return; }
+
+  // Capacity check before adding
+  if (liveCapacity.loaded) {
+    if (daySales) {
+      const salesBooked  = attendees.filter(a => a.days && a.days.includes('sales')).length + (liveCapacity.sales || 0);
+      if (salesBooked >= maxSeats) { toast('Sales day is fully booked — no seats remaining', 'error'); return; }
+    }
+    if (dayLettings) {
+      const lettingsBooked = attendees.filter(a => a.days && a.days.includes('lettings')).length + (liveCapacity.lettings || 0);
+      if (lettingsBooked >= maxSeats) { toast('Lettings day is fully booked — no seats remaining', 'error'); return; }
+    }
+  }
+
   const days = [];
   if (daySales)    days.push('sales');
   if (dayLettings) days.push('lettings');
@@ -1035,11 +1517,11 @@ function removeAttendee(id) {
 function renderAttendees() {
   const list = document.getElementById('attendeeList');
   if (!attendees.length) { list.innerHTML = ''; return; }
-  list.innerHTML = attendees.map((a) => {
+  list.innerHTML = attendees.map(a => {
     const dayTags = (a.days || []).map(d =>
       d === 'sales'
-        ? '<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales 19 May</span>'
-        : '<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings 20 May</span>'
+        ? `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales ${dayConfig.sales.shortDate}</span>`
+        : `<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings ${dayConfig.lettings.shortDate}</span>`
     ).join(' ');
     return `
     <div class="attendee-row">
@@ -1054,7 +1536,9 @@ function renderAttendees() {
   }).join('');
 }
 
-// ── Cost ──────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// COST
+// ══════════════════════════════════════════════════════════════
 function updateCost() {
   const box = document.getElementById('costPreview');
   if (!attendees.length) { box.style.display = 'none'; return; }
@@ -1063,14 +1547,16 @@ function updateCost() {
   if (!salesCount && !lettingsCount) { box.style.display = 'none'; return; }
   box.style.display = 'block';
   const rows = [];
-  if (salesCount)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (Tue 19 May) &times; ${salesCount} ${salesCount===1?'person':'people'}</span><span>&pound;${salesCount*100}</span></div>`);
-  if (lettingsCount) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (Wed 20 May) &times; ${lettingsCount} ${lettingsCount===1?'person':'people'}</span><span>&pound;${lettingsCount*100}</span></div>`);
+  if (salesCount)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (${dayConfig.sales.shortDate}) &times; ${salesCount} ${salesCount===1?'person':'people'}</span><span>&pound;${salesCount*100}</span></div>`);
+  if (lettingsCount) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (${dayConfig.lettings.shortDate}) &times; ${lettingsCount} ${lettingsCount===1?'person':'people'}</span><span>&pound;${lettingsCount*100}</span></div>`);
   const total = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
   document.getElementById('costRows').innerHTML = rows.join('');
   document.getElementById('costTotal').textContent = '£' + total;
 }
 
-// ── Summary & email template ───────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// SUMMARY & EMAIL
+// ══════════════════════════════════════════════════════════════
 function buildSummary() {
   const company  = document.getElementById('company').value.trim();
   const stkName  = document.getElementById('stakeholderName').value.trim();
@@ -1078,10 +1564,6 @@ function buildSummary() {
 
   const salesDelegates    = attendees.filter(a => a.days && a.days.includes('sales'));
   const lettingsDelegates = attendees.filter(a => a.days && a.days.includes('lettings'));
-  const bothDelegates     = attendees.filter(a => a.days && a.days.includes('sales') && a.days.includes('lettings'));
-  const salesOnly         = attendees.filter(a => a.days && a.days.includes('sales') && !a.days.includes('lettings'));
-  const lettingsOnly      = attendees.filter(a => a.days && a.days.includes('lettings') && !a.days.includes('sales'));
-
   const salesCost    = salesDelegates.length * 100;
   const lettingsCost = lettingsDelegates.length * 100;
   const total        = salesCost + lettingsCost;
@@ -1095,16 +1577,17 @@ function buildSummary() {
     `<strong>${company}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${daysSummary} · <strong>Total: £${total}</strong><br>
     Stakeholder: ${stkName} · ${stkEmail}`;
 
-  // Build per-delegate lines for email
   const attLines = attendees.map((a, i) => {
-    const dayLabel = (a.days || []).map(d => d === 'sales' ? 'Sales (Tue 19 May)' : 'Lettings (Wed 20 May)').join(' + ');
+    const dayLabel = (a.days || []).map(d => d === 'sales'
+      ? `Sales (${dayConfig.sales.fullDate})`
+      : `Lettings (${dayConfig.lettings.fullDate})`
+    ).join(' + ');
     return `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''} — ${dayLabel}${a.diet ? ' — Dietary: ' + a.diet : ''}`;
   }).join('\n');
 
-  // Cost breakdown lines
   const costLines = [];
-  if (salesDelegates.length)    costLines.push(`  Sales Basic (Tue 19 May): ${salesDelegates.length} × £100 = £${salesCost}`);
-  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (Wed 20 May): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
+  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}): ${salesDelegates.length} × £100 = £${salesCost}`);
+  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
 
   const email = `Hi ${stkName},
 
@@ -1128,6 +1611,7 @@ ${costLines.join('\n')}
 📍 Location: North Square, 11-13 Spear St, Manchester M1 1JU
 🚗 Parking: https://en.parkopedia.co.uk/parking/spear_street_manchester/?arriving=202602231000&leaving=202602231200
 🚊 9 Min Walk From: Manchester Piccadilly or Manchester Victoria railway station
+
 🍽️ Dietary Requirements: Please let us know of any requirements by replying to this email.
 
 If you have any questions, feel free to get in touch.
@@ -1135,7 +1619,6 @@ If you have any questions, feel free to get in touch.
 Kind regards,
 Street Training Team`;
 
-  // Subject line
   const subject = `Street Open Training Day Booking Confirmation — ${company}`;
   _emailSubject = subject;
   _emailTo      = stkEmail;
@@ -1145,7 +1628,6 @@ Street Training Team`;
   document.getElementById('emailTemplateBody').textContent = email;
 }
 
-// Store subject + to for mailto
 let _emailSubject = '';
 let _emailTo      = '';
 
@@ -1160,12 +1642,13 @@ function openMailto() {
   const to      = encodeURIComponent(_emailTo);
   const subject = encodeURIComponent(_emailSubject);
   const body    = encodeURIComponent(document.getElementById('emailTemplateBody').textContent);
-  // mailto has a ~2000 char limit in some clients — body is pre-filled best-effort
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   return false;
 }
 
-// ── Navigation ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════════
 function renderProgress() {
   const labels = ['Referrer', 'Client Details', 'Days & Attendees', 'Review & Submit'];
   const track  = document.getElementById('progressTrack');
@@ -1178,9 +1661,9 @@ function renderProgress() {
 
 function updateNav() {
   const isLast = step === TOTAL;
-  document.getElementById('backBtn').style.display = step > 1 ? 'inline-flex' : 'none';
-  document.getElementById('nextBtn').textContent   = isLast ? '✓ Submit Booking' : 'Continue →';
-  document.getElementById('nextBtn').className     = isLast ? 'btn btn-success' : 'btn btn-primary';
+  document.getElementById('backBtn').style.display  = step > 1 ? 'inline-flex' : 'none';
+  document.getElementById('nextBtn').textContent    = isLast ? '✓ Submit Booking' : 'Continue →';
+  document.getElementById('nextBtn').className      = isLast ? 'btn btn-success'  : 'btn btn-primary';
 }
 
 function showPane(n) {
@@ -1193,37 +1676,35 @@ function nextStep() {
   if (step === TOTAL) { submitForm(); return; }
   if (step === TOTAL - 1) buildSummary();
   step++;
-  showPane(step);
-  renderProgress();
-  updateNav();
+  showPane(step); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function prevStep() {
   if (step <= 1) return;
   step--;
-  showPane(step);
-  renderProgress();
-  updateNav();
+  showPane(step); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Validation ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// VALIDATION
+// ══════════════════════════════════════════════════════════════
 function validate(s) {
   if (s === 1) {
     const picker = document.getElementById('selectedUserName').value;
     if (!picker) { toast('Please select your name or add yourself', 'error'); return false; }
     if (picker === '__new__') {
-      const fn   = document.getElementById('newFirst').value.trim();
-      const ln   = document.getElementById('newLast').value.trim();
-      const dept = document.getElementById('newDept').value;
-      if (!fn || !ln || !dept) { toast('Please enter your name and department', 'error'); return false; }
+      const fn = document.getElementById('newFirst').value.trim();
+      const ln = document.getElementById('newLast').value.trim();
+      const dp = document.getElementById('newDept').value;
+      if (!fn || !ln || !dp) { toast('Please enter your name and department', 'error'); return false; }
     }
   }
   if (s === 2) {
-    const co    = document.getElementById('company').value.trim();
-    const stkN  = document.getElementById('stakeholderName').value.trim();
-    const stkE  = document.getElementById('stakeholderEmail').value.trim();
+    const co   = document.getElementById('company').value.trim();
+    const stkN = document.getElementById('stakeholderName').value.trim();
+    const stkE = document.getElementById('stakeholderEmail').value.trim();
     if (!co || !stkN || !stkE) { toast('Company name, stakeholder name and email are required', 'error'); return false; }
     if (!/^[^@]+@[^@]+\.[^@]+$/.test(stkE)) { toast('Please enter a valid stakeholder email address', 'error'); return false; }
   }
@@ -1233,8 +1714,11 @@ function validate(s) {
   return true;
 }
 
-// ── Submit ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════════════════════════
 async function submitForm() {
+  document.getElementById('loadingLabel').textContent = 'Submitting booking…';
   document.getElementById('loadingOverlay').classList.add('show');
 
   let referrerName = document.getElementById('selectedUserName').value;
@@ -1248,25 +1732,28 @@ async function submitForm() {
   const stkName      = document.getElementById('stakeholderName').value.trim();
   const stkEmail     = document.getElementById('stakeholderEmail').value.trim();
   const stkPhone     = document.getElementById('stakeholderPhone').value.trim();
-  const salesCount    = attendees.filter(a => a.days && a.days.includes('sales')).length;
-  const lettingsCount = attendees.filter(a => a.days && a.days.includes('lettings')).length;
-  const total         = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
-  const days          = [salesCount ? `Sales Basic (Tue 19 May) ×${salesCount}` : '', lettingsCount ? `Lettings Basic (Wed 20 May) ×${lettingsCount}` : ''].filter(Boolean).join(', ');
+  const salesCount   = attendees.filter(a => a.days && a.days.includes('sales')).length;
+  const lettingsCount= attendees.filter(a => a.days && a.days.includes('lettings')).length;
+  const total        = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
+  const days         = [
+    salesCount    ? `Sales Basic (${dayConfig.sales.fullDate}) ×${salesCount}` : '',
+    lettingsCount ? `Lettings Basic (${dayConfig.lettings.fullDate}) ×${lettingsCount}` : ''
+  ].filter(Boolean).join(', ');
   const attJSON      = JSON.stringify(attendees.map(a => ({ name: a.name, role: a.role, diet: a.diet })));
-  const dietaryList  = attendees.filter(a=>a.diet).map(a=>a.name+': '+a.diet).join('; ') || 'None';
+  const dietaryList  = attendees.filter(a => a.diet).map(a => a.name + ': ' + a.diet).join('; ') || 'None';
 
   const params = new URLSearchParams({
-    action:          'submitOpenTraining',
-    referredByName:  referrerName,
-    referredByTeam:  referrerTeam,
+    action:         'submitOpenTraining',
+    referredByName: referrerName,
+    referredByTeam: referrerTeam,
     company, stakeholderName: stkName, stakeholderEmail: stkEmail, stakeholderPhone: stkPhone,
-    trainingDays:    days,
-    attendeeCount:   attendees.length,
-    attendees:       attJSON,
-    dietaryReqs:     dietaryList,
-    totalCost:       total,
-    invoiceAmount:   total,
-    timestamp:       new Date().toISOString(),
+    trainingDays:   days,
+    attendeeCount:  attendees.length,
+    attendees:      attJSON,
+    dietaryReqs:    dietaryList,
+    totalCost:      total,
+    invoiceAmount:  total,
+    timestamp:      new Date().toISOString(),
   });
 
   try {
@@ -1281,6 +1768,8 @@ async function submitForm() {
     document.getElementById('progressTrack').style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast('Booking submitted!', 'success');
+    // Refresh capacity after submission
+    setTimeout(fetchCapacity, 1500);
   } catch(e) {
     toast('Something went wrong — please try again', 'error');
   } finally {
@@ -1288,7 +1777,9 @@ async function submitForm() {
   }
 }
 
-// ── Reset ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// RESET
+// ══════════════════════════════════════════════════════════════
 function resetForm() {
   step = 1; attendees = []; selectedDays = { sales: false, lettings: false };
   document.getElementById('formFooter').style.display = '';
@@ -1305,18 +1796,133 @@ function resetForm() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Helpers ───────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// ADMIN PANEL
+// ══════════════════════════════════════════════════════════════
+let adminUnlocked = false;
+
+function openAdmin() {
+  document.getElementById('adminModal').classList.add('show');
+  if (!adminUnlocked) {
+    document.getElementById('adminAuthScreen').style.display = '';
+    document.getElementById('adminEditorScreen').style.display = 'none';
+    document.getElementById('adminSaveBtn').style.display = 'none';
+    // Clear pin inputs
+    [0,1,2,3].forEach(i => {
+      const el = document.getElementById('pin' + i);
+      el.value = ''; el.classList.remove('error');
+    });
+    document.getElementById('pinError').textContent = '';
+    setTimeout(() => document.getElementById('pin0').focus(), 100);
+  } else {
+    showAdminEditor();
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('adminModal').classList.remove('show');
+}
+
+function pinInput(idx) {
+  const val = document.getElementById('pin' + idx).value;
+  if (val && idx < 3) {
+    document.getElementById('pin' + (idx+1)).focus();
+  }
+  // Auto-check when all 4 filled
+  const allFilled = [0,1,2,3].every(i => document.getElementById('pin' + i).value.length === 1);
+  if (allFilled) setTimeout(checkPin, 80);
+}
+
+function pinKey(e, idx) {
+  if (e.key === 'Backspace' && !document.getElementById('pin' + idx).value && idx > 0) {
+    document.getElementById('pin' + (idx-1)).focus();
+  }
+  if (e.key === 'Enter') checkPin();
+}
+
+function checkPin() {
+  const entered = [0,1,2,3].map(i => document.getElementById('pin' + i).value).join('');
+  if (entered === ADMIN_PIN) {
+    adminUnlocked = true;
+    document.getElementById('pinError').textContent = '';
+    showAdminEditor();
+  } else {
+    [0,1,2,3].forEach(i => document.getElementById('pin' + i).classList.add('error'));
+    document.getElementById('pinError').textContent = 'Incorrect PIN — please try again';
+    setTimeout(() => {
+      [0,1,2,3].forEach(i => { document.getElementById('pin' + i).classList.remove('error'); document.getElementById('pin' + i).value = ''; });
+      document.getElementById('pin0').focus();
+    }, 1200);
+  }
+}
+
+function showAdminEditor() {
+  document.getElementById('adminAuthScreen').style.display   = 'none';
+  document.getElementById('adminEditorScreen').style.display = '';
+  document.getElementById('adminSaveBtn').style.display      = 'inline-flex';
+
+  // Populate fields with current config
+  document.getElementById('adminSalesDate').value    = dayConfig.sales.fullDate;
+  document.getElementById('adminSalesShort').value   = dayConfig.sales.shortDate;
+  document.getElementById('adminLettingsDate').value = dayConfig.lettings.fullDate;
+  document.getElementById('adminLettingsShort').value= dayConfig.lettings.shortDate;
+  document.getElementById('adminMaxSeats').value     = maxSeats;
+
+  // Show capacity badges
+  if (liveCapacity.loaded) {
+    document.getElementById('adminSalesCapacity').textContent    = `${liveCapacity.sales}/${maxSeats} booked`;
+    document.getElementById('adminLettingsCapacity').textContent = `${liveCapacity.lettings}/${maxSeats} booked`;
+  }
+}
+
+function saveAdmin() {
+  const newSalesDate    = document.getElementById('adminSalesDate').value.trim();
+  const newSalesShort   = document.getElementById('adminSalesShort').value.trim();
+  const newLettingsDate = document.getElementById('adminLettingsDate').value.trim();
+  const newLettingsShort= document.getElementById('adminLettingsShort').value.trim();
+  const newMaxSeats     = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
+
+  if (!newSalesDate || !newSalesShort || !newLettingsDate || !newLettingsShort) {
+    toast('Please fill in all date fields', 'error'); return;
+  }
+
+  dayConfig.sales.fullDate    = newSalesDate;
+  dayConfig.sales.shortDate   = newSalesShort;
+  dayConfig.lettings.fullDate = newLettingsDate;
+  dayConfig.lettings.shortDate= newLettingsShort;
+  maxSeats = newMaxSeats;
+
+  saveDayConfig(dayConfig);
+  try { localStorage.setItem('streetMaxSeats', maxSeats); } catch(_) {}
+
+  // Apply everywhere
+  applyDayConfig();
+  if (liveCapacity.loaded) renderCapacity();
+  renderAttendees();
+  updateCost();
+
+  closeAdmin();
+  toast('Training day dates updated successfully!', 'success');
+}
+
+// ══════════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════════
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg, type='info', dur=3500) {
   const host = document.getElementById('toastHost');
-  const el = document.createElement('div');
+  const el   = document.createElement('div');
   el.className = 'toast ' + type; el.textContent = msg; host.appendChild(el);
   setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity 0.3s'; setTimeout(()=>el.remove(),300); }, dur);
 }
 
-// ── Init ──────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════
+applyDayConfig();
 renderProgress();
 updateNav();
+fetchCapacity();
 </script>
 </body>
 </html>
