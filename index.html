@@ -1118,7 +1118,7 @@ body {
                   <div class="day-card-body">
                     <div class="day-card-title">Sales Basic Training</div>
                     <div class="day-card-meta" id="meta-sales">—</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag">Sales Module</span>
@@ -1149,7 +1149,7 @@ body {
                   <div class="day-card-body">
                     <div class="day-card-title">Lettings Basic Training</div>
                     <div class="day-card-meta" id="meta-lettings">—</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
                       <span class="day-tag green-tag">Lettings Module</span>
@@ -1314,7 +1314,7 @@ body {
 // ══════════════════════════════════════════════════════════════
 // CONFIG  — edit these to update the form
 // ══════════════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7PpxdKB83eFNsjuc24hJG1_p_ID9FAiuze0yDoV5WN_W6ybrVHxUqP_4cUkoK6gdJ5Q/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlVJXIkJNjQdkDhSzgg2r4N6UzkIrwQ10q7yuPdmF95pL1Hn05C573qCuAqkRuhIZl6A/exec';
 
 // ── Training day config (admin-editable in-session, persisted to localStorage) ──
 const DEFAULT_DAYS = {
@@ -1587,7 +1587,7 @@ function renderTrainingCards() {
         <div class="day-card-body">
           <div class="day-card-title">${esc(day.title)}</div>
           <div class="day-card-meta">${esc(day.fullDate)} · Street HQ, Manchester</div>
-          <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 3:30pm</div>
+          <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
           <div class="day-card-tags">
             <span class="day-tag">🏢 In Person</span>
             <span class="day-tag ${tagCls}">${esc(day.tag || day.title)}</span>
@@ -1832,15 +1832,15 @@ function buildSummary() {
 
   const attLines = attendees.map((a, i) => {
     const dayLabel = (a.days || []).map(d => d === 'sales'
-      ? `Sales (${dayConfig.sales.fullDate}, 10:30am–3:30pm)`
-      : `Lettings (${dayConfig.lettings.fullDate}, 10:30am–3:30pm)`
+      ? `Sales (${dayConfig.sales.fullDate}, 10:30am–4:30pm)`
+      : `Lettings (${dayConfig.lettings.fullDate}, 10:30am–4:30pm)`
     ).join(' + ');
     return `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''} — ${dayLabel}${a.diet ? ' — Dietary: ' + a.diet : ''}`;
   }).join('\n');
 
   const costLines = [];
-  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}, 10:30am–3:30pm): ${salesDelegates.length} × £100 = £${salesCost}`);
-  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}, 10:30am–3:30pm): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
+  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}, 10:30am–4:30pm): ${salesDelegates.length} × £100 = £${salesCost}`);
+  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}, 10:30am–4:30pm): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
 
   const email = `Hi ${stkName},
 
@@ -1850,7 +1850,7 @@ Here's a summary of your booking:
 
 Company: ${company}
 Training Day(s): ${daysSummary}
-Time: 10:30am – 3:30pm
+Time: 10:30am – 4:30pm
 
 Delegates (${attendees.length} ${attendees.length===1?'person':'people'}):
 ${attLines}
@@ -2008,6 +2008,8 @@ async function submitForm() {
     totalCost:      total,
     invoiceAmount:  total,
     timestamp:      new Date().toISOString(),
+    emailSubject:   document.getElementById('emailMetaSubject').textContent,
+    emailBody:      document.getElementById('emailTemplateBody').textContent,
   });
 
   try {
