@@ -353,7 +353,7 @@ body {
       <div class="admin-modal-body">
         <div class="admin-tab-pane active" id="paneDates">
           <div class="info-box blue" style="margin-bottom:16px;">
-            <span>ℹ️</span><span>Update the dates for the two accounting training days below. Dates are TBC — update when confirmed with Stella.</span>
+            <span>ℹ️</span><span>Update the date for the accounting training day below.</span>
           </div>
           <div class="admin-section-title">Accounting Training Day 1</div>
           <div class="admin-day-editor">
@@ -437,8 +437,7 @@ body {
         <div class="form-hdr-title">Book an Accounting Training Day Place</div>
         <div class="form-hdr-desc">Refer a client onto the Street Accounting Open Training Day. This event is designed for staff who handle client accounting — those who move money between accounts, receipt funds, reconcile banks, and manage ledgers. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
         <div class="date-pills">
-          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Accounting Day 1 — Date TBC</span></div>
-          <div class="date-pill"><span class="date-pill-dot amber"></span> <span id="headerPillDay2Text">Accounting Day 2 — Date TBC</span></div>
+          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Tuesday 15 July 2026 — Accounting Training Day</span></div>
         </div>
       </div>
 
@@ -510,7 +509,7 @@ body {
 
           <div class="info-box amber">
             <span>⚠️</span>
-            <span><strong>Invoice payment required 1 week in advance.</strong> Cost is <strong>£200–£250 per person per day</strong> (confirm pricing with Stella). Make sure the stakeholder is aware of the cost before submitting.</span>
+            <span><strong>Invoice payment required 1 week in advance.</strong> Cost is <strong>£250 + VAT per person per day</strong>. Make sure the stakeholder is aware of the cost before submitting.</span>
           </div>
           <div class="info-box red">
             <span>🚫</span>
@@ -521,7 +520,7 @@ body {
         <!-- ─── Step 3: Training Days & Attendees ──────────────── -->
         <div class="pane" id="pane3">
           <div class="pane-title">Training Days &amp; Delegates</div>
-          <div class="pane-sub">Select which accounting day(s) to attend, then add each delegate. Cost updates automatically at £250 per person per day.</div>
+          <div class="pane-sub">Select which accounting day(s) to attend, then add each delegate. Cost updates automatically at £250 + VAT per person per day.</div>
 
           <div class="field">
             <label class="field-label req">Which training day(s)?</label>
@@ -553,12 +552,12 @@ body {
                   </div>
                   <div class="day-card-price">
                     <div class="price-amount">£250</div>
-                    <div class="price-sub">per person</div>
+                    <div class="price-sub">+ VAT per person</div>
                   </div>
                 </div>
               </div>
 
-              <div class="training-day-card" id="card-day2" onclick="toggleDay('day2')">
+              <div class="training-day-card" id="card-day2" onclick="toggleDay('day2')" style="display:none;">
                 <div class="day-card-inner">
                   <div class="day-card-check">
                     <input type="checkbox" id="chk-day2" onchange="toggleDay('day2')" onclick="event.stopPropagation()">
@@ -584,12 +583,8 @@ body {
                   </div>
                   <div class="day-card-price">
                     <div class="price-amount">£250</div>
-                    <div class="price-sub">per person</div>
+                    <div class="price-sub">+ VAT per person</div>
                   </div>
-                </div>
-              </div>
-
-            </div>
           </div>
 
           <!-- Attendees list -->
@@ -770,7 +765,7 @@ function loadDayConfig() {
     const s = JSON.parse(localStorage.getItem('accDayConfig') || 'null');
     if (s && s.day1 && s.day2) return s;
   } catch(_) {}
-  return { day1: { fullDate: 'Date TBC', shortDate: 'TBC' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
+  return { day1: { fullDate: 'Tuesday 15 July 2026', shortDate: 'Tue 15 Jul' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
 }
 function saveDayConfig() {
   try { localStorage.setItem('accDayConfig', JSON.stringify(dayConfig)); } catch(_) {}
@@ -865,8 +860,7 @@ function renderCapacity() {
 // DATE CONFIG APPLICATION
 // ══════════════════════════════════════════════════════════════
 function applyDayConfig() {
-  document.getElementById('headerPillDay1Text').textContent = dayConfig.day1.fullDate + ' — Accounting Day 1';
-  document.getElementById('headerPillDay2Text').textContent = dayConfig.day2.fullDate + ' — Accounting Day 2';
+  document.getElementById('headerPillDay1Text').textContent = dayConfig.day1.fullDate + ' — Accounting Training Day';
   document.getElementById('meta-day1').textContent = dayConfig.day1.fullDate + ' · Street HQ, Manchester';
   document.getElementById('meta-day2').textContent = dayConfig.day2.fullDate + ' · Street HQ, Manchester';
   document.getElementById('chipDay1Label').textContent = 'Day 1 — ' + dayConfig.day1.shortDate;
@@ -991,9 +985,13 @@ function updateCost() {
   const rows = [];
   if (d1c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 1 (${dayConfig.day1.shortDate}) &times; ${d1c} ${d1c===1?'person':'people'}</span><span>&pound;${d1c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
   if (d2c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 2 (${dayConfig.day2.shortDate}) &times; ${d2c} ${d2c===1?'person':'people'}</span><span>&pound;${d2c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
-  const total = (d1c + d2c) * PRICE_PER_PERSON_PER_DAY;
+  const subtotal = (d1c + d2c) * PRICE_PER_PERSON_PER_DAY;
+  const vat = Math.round(subtotal * 0.2);
+  const total = subtotal + vat;
+  rows.push(`<div class="cost-row"><span class="label" style="color:rgba(255,255,255,0.5);">Subtotal (ex. VAT)</span><span style="color:rgba(255,255,255,0.5);">&pound;${subtotal}</span></div>`);
+  rows.push(`<div class="cost-row"><span class="label" style="color:rgba(255,255,255,0.5);">VAT (20%)</span><span style="color:rgba(255,255,255,0.5);">&pound;${vat}</span></div>`);
   document.getElementById('costRows').innerHTML = rows.join('');
-  document.getElementById('costTotal').textContent = '£' + total;
+  document.getElementById('costTotal').textContent = '£' + total + ' (inc. VAT)';
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1007,7 +1005,9 @@ function buildSummary() {
   const d2Dels = attendees.filter(a => a.days.includes('day2'));
   const d1Cost = d1Dels.length * PRICE_PER_PERSON_PER_DAY;
   const d2Cost = d2Dels.length * PRICE_PER_PERSON_PER_DAY;
-  const total  = d1Cost + d2Cost;
+  const subtotal  = d1Cost + d2Cost;
+  const vat = Math.round(subtotal * 0.2);
+  const total  = subtotal + vat;
 
   const daysSummary = [
     d1Dels.length ? `Day 1 (${d1Dels.length}p)` : '',
@@ -1026,8 +1026,11 @@ function buildSummary() {
   }).join('\n');
 
   const costLines = [];
-  if (d1Dels.length) costLines.push(`  Accounting Day 1 (${dayConfig.day1.fullDate}): ${d1Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d1Cost}`);
-  if (d2Dels.length) costLines.push(`  Accounting Day 2 (${dayConfig.day2.fullDate}): ${d2Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d2Cost}`);
+  if (d1Dels.length) costLines.push(`  Accounting Day 1 (${dayConfig.day1.fullDate}): ${d1Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d1Cost} (ex. VAT)`);
+  if (d2Dels.length) costLines.push(`  Accounting Day 2 (${dayConfig.day2.fullDate}): ${d2Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d2Cost} (ex. VAT)`);
+  costLines.push(`  VAT (20%): £${vat}`);
+  costLines.push(`  ──────────────────────────`);
+  costLines.push(`  Total Due (inc. VAT): £${total}`);
 
   const email = `Hi ${stkName},
 
@@ -1047,8 +1050,6 @@ ${attLines}
 
 💰 Cost Breakdown:
 ${costLines.join('\n')}
-  ──────────────────────────
-  Total Due: £${total}
 
 ⚠️ Payment is required at least 1 week before the training date. Please ensure your invoice is settled in advance to confirm your places.
 
@@ -1094,7 +1095,7 @@ As someone who has attended a previous session, you'll know how valuable a day l
 • Open Q&A with Street accounting specialists
 • Latest Street updates — what's changed and what's coming
 
-💰 Cost: £250 per person per day
+💰 Cost: £250 + VAT per person
 
 To register your interest or book a place, reply to this email or speak to your CSM.
 
@@ -1215,7 +1216,8 @@ async function submitForm() {
 
   const d1Dels = attendees.filter(a => a.days.includes('day1'));
   const d2Dels = attendees.filter(a => a.days.includes('day2'));
-  const total  = (d1Dels.length + d2Dels.length) * PRICE_PER_PERSON_PER_DAY;
+  const subtotal  = (d1Dels.length + d2Dels.length) * PRICE_PER_PERSON_PER_DAY;
+  const total  = subtotal + Math.round(subtotal * 0.2);
   const days   = [
     d1Dels.length ? `Accounting Day 1 (${dayConfig.day1.fullDate}) ×${d1Dels.length}` : '',
     d2Dels.length ? `Accounting Day 2 (${dayConfig.day2.fullDate}) ×${d2Dels.length}` : ''
