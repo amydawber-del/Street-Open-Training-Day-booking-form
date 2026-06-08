@@ -629,6 +629,10 @@ body {
                 </label>
               </div>
             </div>
+            <div class="field" style="margin-top:10px;margin-bottom:0;">
+              <label class="field-label req">Delegate Email</label>
+              <input type="email" class="field-input" id="attEmail" placeholder="e.g. sarah.jones@acornestates.co.uk">
+            </div>
             <div class="field" style="margin-top:10px;margin-bottom:10px;">
               <label class="field-label req">Dietary Requirements</label>
               <input type="text" class="field-input" id="attDiet" placeholder="e.g. Vegetarian, Nut Allergy — enter 'None' if no requirements">
@@ -884,15 +888,18 @@ function toggleDay(day) {
 // ATTENDEES — with both-days warning
 // ══════════════════════════════════════════════════════════════
 function addAttendee() {
-  const fn   = document.getElementById('attFirst').value.trim();
-  const ln   = document.getElementById('attLast').value.trim();
-  const role = document.getElementById('attRole').value.trim();
-  const diet = document.getElementById('attDiet').value.trim();
-  const d1   = document.getElementById('attDay1').checked;
-  const d2   = document.getElementById('attDay2').checked;
+  const fn    = document.getElementById('attFirst').value.trim();
+  const ln    = document.getElementById('attLast').value.trim();
+  const role  = document.getElementById('attRole').value.trim();
+  const email = document.getElementById('attEmail').value.trim();
+  const diet  = document.getElementById('attDiet').value.trim();
+  const d1    = document.getElementById('attDay1').checked;
+  const d2    = document.getElementById('attDay2').checked;
 
   if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
   if (!d1 && !d2) { toast('Please select at least one training day for this delegate', 'error'); return; }
+  if (!email) { toast('Please enter a delegate email address', 'error'); return; }
+  if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { toast('Please enter a valid delegate email address', 'error'); return; }
   if (!diet) { toast('Please enter dietary requirements (or type "None" if none)', 'error'); return; }
 
   // Capacity check
@@ -907,7 +914,7 @@ function addAttendee() {
     }
   }
 
-  const att = { id: Date.now(), firstName: fn, lastName: ln, name: fn + ' ' + ln, role, diet, days: [] };
+  const att = { id: Date.now(), firstName: fn, lastName: ln, name: fn + ' ' + ln, role, email, diet, days: [] };
   if (d1) att.days.push('day1');
   if (d2) att.days.push('day2');
 
@@ -936,6 +943,7 @@ function commitAttendee(att) {
   document.getElementById('attFirst').value = '';
   document.getElementById('attLast').value  = '';
   document.getElementById('attRole').value  = '';
+  document.getElementById('attEmail').value = '';
   document.getElementById('attDiet').value  = '';
   document.getElementById('attDay1').checked = false;
   document.getElementById('attDay2').checked = false;
@@ -963,6 +971,7 @@ function renderAttendees() {
       <div class="attendee-info">
         <div class="attendee-name">${esc(a.name)}</div>
         <div class="attendee-role" style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin-top:3px;">${dayTags}${a.role ? '<span style="color:var(--grey-50);font-size:11px;">· ' + esc(a.role) + '</span>' : ''}</div>
+        ${a.email ? `<div style="font-size:11px;color:var(--grey-50);margin-top:2px;">✉️ ${esc(a.email)}</div>` : ''}
       </div>
       ${a.diet ? `<div class="attendee-diet" title="${esc(a.diet)}">🍽️ ${esc(a.diet)}</div>` : ''}
       <button class="attendee-remove" onclick="removeAttendee(${a.id})" title="Remove">&#10005;</button>
