@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Training Day — Street.co.uk</title>
+<title>Accounting Open Training Day — Street.co.uk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
 <style>
@@ -41,8 +41,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* ── Navigation ──────────────────────────────────────────── */
 .site-header {
   background: var(--navy);
   padding: 0 32px;
@@ -56,474 +54,152 @@ body {
   z-index: 100;
   border-bottom: 1px solid var(--navy-border);
 }
-.logo {
-  display: flex; align-items: center; gap: 9px;
-  text-decoration: none; margin-right: 28px; flex-shrink: 0;
-}
-.logo-mark {
-  width: 30px; height: 30px;
-  background: var(--purple);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
+.logo { display: flex; align-items: center; gap: 9px; text-decoration: none; margin-right: 28px; flex-shrink: 0; }
+.logo-mark { width: 30px; height: 30px; background: var(--purple); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .logo-mark svg { width: 17px; height: 17px; }
 .logo-wordmark { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
 .logo-wordmark span { color: rgba(255,255,255,0.3); font-weight: 400; font-size: 11px; }
 .header-divider { width: 1px; height: 18px; background: var(--navy-border); margin: 0 18px; }
 .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; }
-.nav-link {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 11px; border-radius: 6px;
-  font-size: 12.5px; font-weight: 500;
-  color: rgba(255,255,255,0.45);
-  text-decoration: none; cursor: pointer;
-  border: none; background: none;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.14s, background 0.14s; white-space: nowrap;
-}
+.nav-link { display: flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; transition: color 0.14s, background 0.14s; white-space: nowrap; }
 .nav-link:hover  { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.06); }
 .nav-link.active { color: #fff; background: rgba(255,255,255,0.10); }
 .nav-link svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.7; }
 .header-spacer { flex: 1; }
-.header-badge {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; font-weight: 600;
-  padding: 6px 14px; border-radius: 6px;
-  background: var(--purple); color: #fff;
-  border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  text-decoration: none; transition: background 0.14s;
-}
+.header-badge { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 6px; background: var(--purple); color: #fff; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: background 0.14s; }
 .header-badge:hover { background: var(--purple-h); }
-/* Admin button in header */
-.header-admin-btn {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; font-weight: 600;
-  padding: 6px 12px; border-radius: 6px;
-  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-family: 'DM Sans', sans-serif;
-  text-decoration: none; transition: all 0.14s; margin-right: 10px;
-}
+.header-admin-btn { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.14s; margin-right: 10px; }
 .header-admin-btn:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.85); }
-
-/* ── Page layout ─────────────────────────────────────────── */
-.page-wrap {
-  flex: 1; display: flex; align-items: flex-start;
-  justify-content: center; padding: 40px 20px 60px;
-}
+.page-wrap { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px 60px; }
 .form-shell { width: 100%; max-width: 700px; }
-
-/* ── Form card ───────────────────────────────────────────── */
-.form-card {
-  background: #fff; border-radius: 14px;
-  border: 1px solid var(--grey-20);
-  box-shadow: 0 2px 8px rgba(18,21,42,0.05), 0 12px 32px rgba(18,21,42,0.07);
-  overflow: hidden;
-}
-
-/* ── Form header ─────────────────────────────────────────── */
-.form-hdr {
-  background: var(--navy); padding: 28px 32px 24px;
-  position: relative; overflow: hidden;
-}
-.form-hdr::before {
-  content: ''; position: absolute; top: -48px; right: -48px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: var(--purple); opacity: 0.07;
-}
-.form-hdr-eyebrow {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
-  text-transform: uppercase; color: var(--purple-mid); margin-bottom: 8px;
-}
-.form-hdr-eyebrow::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--purple); flex-shrink: 0;
-}
-.form-hdr-title {
-  font-size: 22px; font-weight: 700; color: #fff;
-  letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 6px;
-  position: relative; z-index: 1;
-}
-.form-hdr-desc {
-  font-size: 12px; color: rgba(255,255,255,0.42);
-  line-height: 1.65; position: relative; z-index: 1;
-}
-
-/* ── Date pills ──────────────────────────────────────────── */
-.date-pills {
-  display: flex; gap: 10px; margin-top: 14px; position: relative; z-index: 1; flex-wrap: wrap;
-}
-.date-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 20px; padding: 5px 12px;
-  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
-}
+.form-card { background: #fff; border-radius: 14px; border: 1px solid var(--grey-20); box-shadow: 0 2px 8px rgba(18,21,42,0.05), 0 12px 32px rgba(18,21,42,0.07); overflow: hidden; }
+.form-hdr { background: var(--navy); padding: 28px 32px 24px; position: relative; overflow: hidden; }
+.form-hdr::before { content: ''; position: absolute; top: -48px; right: -48px; width: 200px; height: 200px; border-radius: 50%; background: var(--purple); opacity: 0.07; }
+.form-hdr-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 8px; }
+.form-hdr-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+.form-hdr-title { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 1; }
+.form-hdr-desc { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.65; position: relative; z-index: 1; }
+.date-pills { display: flex; gap: 10px; margin-top: 14px; position: relative; z-index: 1; flex-wrap: wrap; }
+.date-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); }
 .date-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
-.date-pill-dot.green { background: var(--green); }
-
-/* ── Progress bar ────────────────────────────────────────── */
-.progress-wrap {
-  background: var(--navy-80); border-bottom: 1px solid var(--navy-border);
-  padding: 16px 32px 0;
-}
+.date-pill-dot.amber { background: var(--amber); }
+.progress-wrap { background: var(--navy-80); border-bottom: 1px solid var(--navy-border); padding: 16px 32px 0; }
 .progress-track { display: flex; align-items: center; gap: 0; padding-bottom: 34px; }
-.step-dot {
-  width: 27px; height: 27px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; flex-shrink: 0;
-  position: relative; background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.12);
-  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
-  z-index: 1; cursor: default;
-}
+.step-dot { width: 27px; height: 27px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; position: relative; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.12); transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s; z-index: 1; cursor: default; }
 .step-dot.active { background: var(--purple); color: #fff; border-color: var(--purple); box-shadow: 0 0 0 4px rgba(91,75,231,0.25); transform: scale(1.08); }
 .step-dot.done   { background: var(--green); color: #fff; border-color: var(--green); }
-.step-label {
-  position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
-  font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.25);
-  white-space: nowrap; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; line-height: 1;
-}
+.step-label { position: absolute; top: 34px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.25); white-space: nowrap; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; line-height: 1; }
 .step-dot.active .step-label { color: rgba(255,255,255,0.75); }
 .step-dot.done   .step-label { color: rgba(255,255,255,0.4); }
-.step-line {
-  flex: 1; height: 1.5px; background: rgba(255,255,255,0.1);
-  transition: background 0.3s; margin: 0 2px;
-}
+.step-line { flex: 1; height: 1.5px; background: rgba(255,255,255,0.1); transition: background 0.3s; margin: 0 2px; }
 .step-line.done { background: var(--green); opacity: 0.55; }
-
-/* ── Panes ───────────────────────────────────────────────── */
 .form-body { padding: 28px 32px; }
 .pane { display: none; }
 .pane.active { display: block; animation: pane-in 0.2s ease; }
 @keyframes pane-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .pane-title { font-size: 16px; font-weight: 700; color: var(--grey-90); margin-bottom: 3px; letter-spacing: -0.2px; }
 .pane-sub   { font-size: 12px; color: var(--grey-50); margin-bottom: 22px; line-height: 1.6; }
-
-/* ── Fields ──────────────────────────────────────────────── */
 .field { margin-bottom: 16px; }
-.field-label {
-  display: block; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.6px;
-  color: var(--grey-70); margin-bottom: 6px;
-}
+.field-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--grey-70); margin-bottom: 6px; }
 .field-label.req::after { content: ' *'; color: var(--red); }
-.field-input,.field-select,.field-textarea {
-  width: 100%; border: 1.5px solid var(--grey-20); border-radius: 8px;
-  padding: 10px 13px; font-size: 13px; font-family: 'DM Sans', sans-serif;
-  color: var(--grey-90); background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s; resize: vertical;
-}
-.field-input:focus,.field-select:focus,.field-textarea:focus {
-  outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12);
-}
+.field-input,.field-select,.field-textarea { width: 100%; border: 1.5px solid var(--grey-20); border-radius: 8px; padding: 10px 13px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--grey-90); background: #fff; transition: border-color 0.15s, box-shadow 0.15s; resize: vertical; }
+.field-input:focus,.field-select:focus,.field-textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
 .field-hint { font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5; }
 .field-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 520px) { .field-2col { grid-template-columns: 1fr; } }
-
-/* ── Training day cards ───────────────────────────────────── */
 .training-day-grid { display: flex; flex-direction: column; gap: 10px; }
-.training-day-card {
-  border: 2px solid var(--grey-20); border-radius: 10px;
-  overflow: hidden; cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
+.training-day-card { border: 2px solid var(--grey-20); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .training-day-card:hover:not(.sold-out) { border-color: var(--purple-mid); }
 .training-day-card.selected { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
 .training-day-card.sold-out { opacity: 0.6; cursor: not-allowed; border-color: var(--grey-20); }
-.day-card-inner {
-  display: flex; align-items: stretch; gap: 0;
-}
-.day-card-check {
-  width: 44px; display: flex; align-items: center; justify-content: center;
-  background: var(--grey-10); border-right: 1px solid var(--grey-20);
-  flex-shrink: 0; transition: background 0.15s;
-}
+.day-card-inner { display: flex; align-items: stretch; gap: 0; }
+.day-card-check { width: 44px; display: flex; align-items: center; justify-content: center; background: var(--grey-10); border-right: 1px solid var(--grey-20); flex-shrink: 0; transition: background 0.15s; }
 .training-day-card.selected .day-card-check { background: var(--purple-lt); border-right-color: var(--purple-mid); }
 .day-card-check input { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
 .day-card-body { padding: 14px 16px; flex: 1; }
 .day-card-title { font-size: 14px; font-weight: 700; color: var(--grey-90); margin-bottom: 2px; }
 .day-card-meta  { font-size: 12px; color: var(--grey-50); margin-bottom: 6px; }
 .day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.day-tag {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: var(--purple-lt); color: var(--purple-txt);
-  border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600;
-}
-.day-tag.green-tag { background: #f0fdf4; color: #166534; }
-.day-tag.red-tag   { background: #fef2f2; color: #991b1b; }
-.day-tag.amber-tag { background: #fffbeb; color: #92400e; }
-.day-card-price {
-  padding: 10px 16px 10px 0;
-  display: flex; flex-direction: column; align-items: flex-end;
-  justify-content: center; flex-shrink: 0;
-}
+.day-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--purple-lt); color: var(--purple-txt); border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600; }
+.day-tag.green-tag  { background: #f0fdf4; color: #166534; }
+.day-tag.red-tag    { background: #fef2f2; color: #991b1b; }
+.day-tag.amber-tag  { background: #fffbeb; color: #92400e; }
+.day-card-price { padding: 10px 16px 10px 0; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; flex-shrink: 0; }
 .price-amount { font-size: 18px; font-weight: 700; color: var(--purple); }
 .price-sub { font-size: 10px; color: var(--grey-50); font-weight: 500; }
-
-/* ── Seat capacity bar ────────────────────────────────────── */
-.capacity-wrap {
-  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--grey-20);
-}
-.capacity-row {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 5px;
-}
+.capacity-wrap { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--grey-20); }
+.capacity-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
 .capacity-label { font-size: 10.5px; font-weight: 600; color: var(--grey-50); }
 .capacity-count { font-size: 10.5px; font-weight: 700; }
-.capacity-count.seats-good   { color: var(--green); }
-.capacity-count.seats-low    { color: var(--amber); }
-.capacity-count.seats-full   { color: var(--red); }
-.capacity-bar-track {
-  width: 100%; height: 5px; background: var(--grey-20); border-radius: 10px; overflow: hidden;
-}
-.capacity-bar-fill {
-  height: 100%; border-radius: 10px; transition: width 0.6s ease;
-}
+.capacity-count.seats-good { color: var(--green); }
+.capacity-count.seats-low  { color: var(--amber); }
+.capacity-count.seats-full { color: var(--red); }
+.capacity-bar-track { width: 100%; height: 5px; background: var(--grey-20); border-radius: 10px; overflow: hidden; }
+.capacity-bar-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
 .capacity-bar-fill.seats-good { background: var(--green); }
 .capacity-bar-fill.seats-low  { background: var(--amber); }
 .capacity-bar-fill.seats-full { background: var(--red); }
-
-/* capacity loading skeleton */
-.capacity-skeleton {
-  height: 5px; background: var(--grey-20); border-radius: 10px;
-  background: linear-gradient(90deg, var(--grey-20) 25%, var(--grey-10) 50%, var(--grey-20) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
-}
+.capacity-skeleton { height: 5px; background: var(--grey-20); border-radius: 10px; background: linear-gradient(90deg, var(--grey-20) 25%, var(--grey-10) 50%, var(--grey-20) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-/* ── Attendee builder ────────────────────────────────────── */
 .attendee-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-.attendee-row {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--grey-10); border: 1px solid var(--grey-20);
-  border-radius: 8px; padding: 10px 12px;
-}
-.attendee-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
-}
+.attendee-row { display: flex; align-items: center; gap: 8px; background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 8px; padding: 10px 12px; }
+.attendee-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
 .attendee-info { flex: 1; min-width: 0; }
 .attendee-name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
 .attendee-role { font-size: 11px; color: var(--grey-50); }
-.attendee-diet {
-  font-size: 11px; color: var(--grey-50);
-  background: #fff; border: 1px solid var(--grey-20);
-  border-radius: 6px; padding: 2px 8px; max-width: 160px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.attendee-remove {
-  background: none; border: none; cursor: pointer; color: var(--grey-40);
-  font-size: 16px; padding: 2px 6px; line-height: 1; transition: color 0.1s;
-}
+.attendee-diet { font-size: 11px; color: var(--grey-50); background: #fff; border: 1px solid var(--grey-20); border-radius: 6px; padding: 2px 8px; max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.attendee-remove { background: none; border: none; cursor: pointer; color: var(--grey-40); font-size: 16px; padding: 2px 6px; line-height: 1; transition: color 0.1s; }
 .attendee-remove:hover { color: var(--red); }
-
-.add-attendee-box {
-  border: 1.5px dashed var(--grey-30); border-radius: 10px;
-  padding: 16px; background: #fafafa;
-}
-/* ── Email meta rows ─────────────────────────────────────── */
-.email-template-meta {
-  background: #fafafe; border-bottom: 1px solid var(--purple-mid);
-  padding: 0 14px;
-}
-.email-meta-row {
-  display: flex; align-items: baseline; gap: 10px;
-  padding: 7px 0; border-bottom: 1px solid rgba(91,75,231,0.1);
-  font-size: 12px;
-}
+.add-attendee-box { border: 1.5px dashed var(--grey-30); border-radius: 10px; padding: 16px; background: #fafafa; }
+.email-template-meta { background: #fafafe; border-bottom: 1px solid var(--purple-mid); padding: 0 14px; }
+.email-meta-row { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; border-bottom: 1px solid rgba(91,75,231,0.1); font-size: 12px; }
 .email-meta-row:last-child { border-bottom: none; }
-.email-meta-label {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.6px; color: var(--purple-txt); flex-shrink: 0; width: 52px;
-}
+.email-meta-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--purple-txt); flex-shrink: 0; width: 52px; }
 .email-meta-value { color: var(--grey-70); font-weight: 500; line-height: 1.4; }
-
-/* ── Delegate day chips ──────────────────────────────────── */
 .delegate-day-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0; }
-.delegate-day-chip {
-  display: flex; align-items: center; cursor: pointer;
-}
+.delegate-day-chip { display: flex; align-items: center; cursor: pointer; }
 .delegate-day-chip input { display: none; }
-.ddc-inner {
-  display: flex; align-items: center; gap: 7px;
-  padding: 8px 14px; border: 2px solid var(--grey-20); border-radius: 8px;
-  font-size: 12.5px; font-weight: 600; color: var(--grey-70);
-  transition: all 0.14s; background: #fff; user-select: none;
-}
+.ddc-inner { display: flex; align-items: center; gap: 7px; padding: 8px 14px; border: 2px solid var(--grey-20); border-radius: 8px; font-size: 12.5px; font-weight: 600; color: var(--grey-70); transition: all 0.14s; background: #fff; user-select: none; }
 .ddc-inner:hover { border-color: var(--purple-mid); background: var(--purple-lt); color: var(--purple); }
 .delegate-day-chip input:checked + .ddc-inner { border-color: var(--purple); background: var(--purple-lt); color: var(--purple); }
 .ddc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .ddc-purple { background: var(--purple); }
-.ddc-green  { background: var(--green); }
-/* disabled chip */
+.ddc-amber  { background: var(--amber); }
 .delegate-day-chip.chip-disabled { cursor: not-allowed; }
 .delegate-day-chip.chip-disabled .ddc-inner { opacity: 0.45; pointer-events: none; }
-
-.add-attendee-box .box-title {
-  font-size: 12px; font-weight: 700; color: var(--grey-70);
-  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
-}
-
-/* ── Cost preview ────────────────────────────────────────── */
-.cost-preview {
-  background: var(--navy); border-radius: 10px;
-  padding: 16px 18px; margin-top: 16px; color: #fff;
-}
-.cost-preview-title {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: rgba(255,255,255,0.4); margin-bottom: 12px;
-}
-.cost-row {
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 13px; color: rgba(255,255,255,0.7); padding: 4px 0;
-}
-.cost-row.total {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin-top: 8px; padding-top: 10px;
-  font-weight: 700; font-size: 15px; color: #fff;
-}
+.add-attendee-box .box-title { font-size: 12px; font-weight: 700; color: var(--grey-70); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.cost-preview { background: var(--navy); border-radius: 10px; padding: 16px 18px; margin-top: 16px; color: #fff; }
+.cost-preview-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+.cost-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.7); padding: 4px 0; }
+.cost-row.total { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 8px; padding-top: 10px; font-weight: 700; font-size: 15px; color: #fff; }
 .cost-row .label { font-size: 12px; }
-.cost-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(91,75,231,0.3); border-radius: 6px;
-  padding: 2px 8px; font-size: 11px; font-weight: 600;
-}
-.cost-invoice-warn {
-  margin-top: 10px; padding: 8px 10px;
-  background: rgba(245,158,11,0.15); border-radius: 6px; border: 1px solid rgba(245,158,11,0.3);
-  font-size: 11px; color: rgba(255,215,100,0.9); display: flex; gap: 6px; align-items: flex-start;
-}
-
-/* ── Template email box ──────────────────────────────────── */
-.email-template-box {
-  border: 1.5px solid var(--purple-mid);
-  border-radius: 10px; overflow: hidden; margin-top: 16px;
-}
-.email-template-hdr {
-  background: var(--purple-lt); padding: 10px 14px;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--purple-mid);
-}
-.email-template-hdr-title {
-  font-size: 11px; font-weight: 700; color: var(--purple-txt);
-  text-transform: uppercase; letter-spacing: 0.6px;
-  display: flex; align-items: center; gap: 6px;
-}
-.copy-btn {
-  display: flex; align-items: center; gap: 5px;
-  background: var(--purple); color: #fff; border: none; cursor: pointer;
-  border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 600;
-  font-family: 'DM Sans', sans-serif; transition: background 0.15s;
-}
+.cost-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(91,75,231,0.3); border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+.cost-invoice-warn { margin-top: 10px; padding: 8px 10px; background: rgba(245,158,11,0.15); border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); font-size: 11px; color: rgba(255,215,100,0.9); display: flex; gap: 6px; align-items: flex-start; }
+.email-template-box { border: 1.5px solid var(--purple-mid); border-radius: 10px; overflow: hidden; margin-top: 16px; }
+.email-template-hdr { background: var(--purple-lt); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--purple-mid); }
+.email-template-hdr-title { font-size: 11px; font-weight: 700; color: var(--purple-txt); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; gap: 6px; }
+.copy-btn { display: flex; align-items: center; gap: 5px; background: var(--purple); color: #fff; border: none; cursor: pointer; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: background 0.15s; }
 .copy-btn:hover { background: var(--purple-h); }
-.email-template-body {
-  background: #fff; padding: 14px 16px;
-  font-size: 12.5px; line-height: 1.7; color: var(--grey-90);
-  white-space: pre-wrap; font-family: 'DM Sans', sans-serif;
-}
-
-/* ── Info/warning box ─────────────────────────────────────── */
-.info-box {
-  padding: 10px 14px; border-radius: 8px; font-size: 12px;
-  display: flex; gap: 8px; align-items: flex-start; margin-bottom: 14px;
-}
+.email-template-body { background: #fff; padding: 14px 16px; font-size: 12.5px; line-height: 1.7; color: var(--grey-90); white-space: pre-wrap; font-family: 'DM Sans', sans-serif; }
+.info-box { padding: 10px 14px; border-radius: 8px; font-size: 12px; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 14px; }
 .info-box.blue   { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
 .info-box.amber  { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
 .info-box.green  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
 .info-box.purple { background: var(--purple-lt); border: 1px solid var(--purple-mid); color: var(--purple-txt); }
-
-/* ── Location info box ───────────────────────────────────── */
-.location-box {
-  border: 1.5px solid #86efac; border-radius: 10px; overflow: hidden; margin-top: 4px;
-}
-.location-box-hdr {
-  background: #f0fdf4; padding: 11px 14px;
-  border-bottom: 1px solid #bbf7d0;
-  font-size: 12px; font-weight: 700; color: #166534;
-}
+.info-box.red    { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.location-box { border: 1.5px solid #86efac; border-radius: 10px; overflow: hidden; margin-top: 4px; }
+.location-box-hdr { background: #f0fdf4; padding: 11px 14px; border-bottom: 1px solid #bbf7d0; font-size: 12px; font-weight: 700; color: #166534; }
 .location-box-body { background: #fff; padding: 12px 14px; }
-.location-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  font-size: 12.5px; color: var(--grey-70); margin-bottom: 7px; line-height: 1.45;
-}
+.location-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--grey-70); margin-bottom: 7px; line-height: 1.45; }
 .location-row:last-child { margin-bottom: 0; }
 .location-row a { color: var(--purple); text-decoration: none; }
 .location-row a:hover { text-decoration: underline; }
-
-/* ── Search wrap ─────────────────────────────────────────── */
-.search-wrap { position: relative; }
-.search-dropdown {
-  display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-  background: #fff; border: 1.5px solid var(--grey-20);
-  border-radius: 10px; box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-  max-height: 240px; overflow-y: auto; z-index: 50;
-}
-.search-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 13px; cursor: pointer; border-radius: 8px; margin: 2px;
-  transition: background 0.1s;
-}
-.search-row:hover { background: var(--purple-lt); }
-.search-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
-}
-.search-name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
-.search-dept { font-size: 11px; color: var(--grey-50); }
-.search-add-row {
-  border-top: 1px solid var(--grey-20); margin: 2px; padding: 9px 13px;
-  display: flex; align-items: center; gap: 8px; cursor: pointer;
-  font-size: 13px; font-weight: 600; color: var(--purple); border-radius: 8px;
-  transition: background 0.1s;
-}
-.search-add-row:hover { background: var(--purple-lt); }
-.search-clear {
-  position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; font-size: 15px; color: var(--grey-40);
-  cursor: pointer; display: none; line-height: 1; padding: 2px 4px;
-}
-.user-chip {
-  display: none; align-items: center; gap: 10px;
-  padding: 10px 12px;
-  background: var(--purple-lt); border: 1px solid var(--purple-mid);
-  border-radius: 10px; margin-top: -4px; margin-bottom: 4px;
-}
-.user-chip.show { display: flex; }
-.user-chip-info .name { font-size: 13px; font-weight: 600; color: var(--grey-90); }
-.user-chip-info .sub  { font-size: 11px; color: var(--grey-50); margin-top: 1px; }
-.chip-clear { margin-left: auto; background: none; border: none; cursor: pointer; font-size: 16px; color: var(--grey-40); padding: 2px 6px; line-height: 1; }
-.chip-clear:hover { color: var(--grey-70); }
-.new-user-box {
-  display: none; background: #F8F7FF; border: 1px solid var(--purple-mid);
-  border-radius: 10px; padding: 14px; margin-top: 8px;
-}
-
-/* ── Section heading ─────────────────────────────────────── */
-.section-heading {
-  font-size: 11px; font-weight: 700; color: var(--grey-70);
-  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 10px;
-}
+.section-heading { font-size: 11px; font-weight: 700; color: var(--grey-70); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
 .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--grey-20); }
-
-/* ── Footer ──────────────────────────────────────────────── */
-.form-footer {
-  padding: 16px 32px; border-top: 1px solid var(--grey-20);
-  background: var(--grey-10); display: flex; align-items: center;
-  justify-content: space-between; gap: 8px;
-}
+.form-footer { padding: 16px 32px; border-top: 1px solid var(--grey-20); background: var(--grey-10); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .footer-hint { font-size: 11px; color: var(--grey-50); flex: 1; }
 .footer-btns { display: flex; gap: 8px; align-items: center; }
-.btn {
-  padding: 9px 18px; border-radius: 8px; font-size: 13px;
-  font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; border: none;
-  display: inline-flex; align-items: center; gap: 5px;
-  transition: background 0.15s, transform 0.1s;
-}
+.btn { padding: 9px 18px; border-radius: 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 5px; transition: background 0.15s, transform 0.1s; }
 .btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 2px 6px rgba(91,75,231,0.3); }
 .btn-primary:hover { background: var(--purple-h); }
@@ -533,240 +209,76 @@ body {
 .btn-success:hover { background: #189960; }
 .btn-danger  { background: var(--red); color: #fff; }
 .btn-danger:hover { background: #c73040; }
-
-/* ── Success ─────────────────────────────────────────────── */
 .success-screen { text-align: center; padding: 52px 32px; }
 .success-icon { font-size: 56px; margin-bottom: 18px; }
 .success-title { font-size: 22px; font-weight: 700; color: var(--grey-90); margin-bottom: 8px; letter-spacing: -0.3px; }
 .success-msg   { font-size: 14px; color: var(--grey-50); line-height: 1.7; max-width: 420px; margin: 0 auto 28px; }
-.success-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--purple-lt); border: 1px solid var(--purple-mid);
-  border-radius: 10px; padding: 10px 18px;
-  font-size: 12px; font-weight: 600; color: var(--purple-txt); margin-bottom: 24px;
-}
-.start-over-btn {
-  font-size: 12px; color: var(--grey-50); background: none; border: none;
-  cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
-  font-family: 'DM Sans', sans-serif;
-}
-
-/* ── Toast ───────────────────────────────────────────────── */
-.toast-host {
-  position: fixed; bottom: 24px; right: 24px; z-index: 999;
-  display: flex; flex-direction: column; gap: 8px; pointer-events: none;
-}
-.toast {
-  background: var(--navy); color: rgba(255,255,255,0.9);
-  padding: 10px 16px; border-radius: 10px; font-size: 13px;
-  font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 20px rgba(18,21,42,0.25);
-  border-left: 3px solid var(--purple); animation: toast-in 0.2s ease; pointer-events: all;
-}
+.success-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-lt); border: 1px solid var(--purple-mid); border-radius: 10px; padding: 10px 18px; font-size: 12px; font-weight: 600; color: var(--purple-txt); margin-bottom: 24px; }
+.start-over-btn { font-size: 12px; color: var(--grey-50); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; font-family: 'DM Sans', sans-serif; }
+.toast-host { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--navy); color: rgba(255,255,255,0.9); padding: 10px 16px; border-radius: 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 20px rgba(18,21,42,0.25); border-left: 3px solid var(--purple); animation: toast-in 0.2s ease; pointer-events: all; }
 .toast.success { border-left-color: var(--green); }
 .toast.error   { border-left-color: var(--red); }
 @keyframes toast-in { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
-
-/* ── Loading ─────────────────────────────────────────────── */
-.loading-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(18,21,42,0.55); z-index: 500;
-  align-items: center; justify-content: center;
-}
+.loading-overlay { display: none; position: fixed; inset: 0; background: rgba(18,21,42,0.55); z-index: 500; align-items: center; justify-content: center; }
 .loading-overlay.show { display: flex; }
-.loading-card {
-  background: #fff; border-radius: 14px; padding: 28px 36px;
-  display: flex; flex-direction: column; align-items: center; gap: 14px;
-  border: 1px solid var(--grey-20); box-shadow: 0 16px 48px rgba(18,21,42,0.15);
-}
-.loading-spinner {
-  width: 36px; height: 36px; border: 3px solid var(--purple-lt);
-  border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite;
-}
+.loading-card { background: #fff; border-radius: 14px; padding: 28px 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; border: 1px solid var(--grey-20); box-shadow: 0 16px 48px rgba(18,21,42,0.15); }
+.loading-spinner { width: 36px; height: 36px; border: 3px solid var(--purple-lt); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite; }
 .loading-label { font-size: 13px; font-weight: 600; color: var(--grey-50); }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.site-footer {
-  background: var(--navy); padding: 14px 32px; text-align: center;
-  font-size: 11px; color: rgba(255,255,255,0.22); flex-shrink: 0;
-  border-top: 1px solid var(--navy-border);
-}
+.site-footer { background: var(--navy); padding: 14px 32px; text-align: center; font-size: 11px; color: rgba(255,255,255,0.22); flex-shrink: 0; border-top: 1px solid var(--navy-border); }
 .site-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
-
-/* ═══════════════════════════════════════════════════════════
-   ADMIN PANEL STYLES
-═══════════════════════════════════════════════════════════ */
-.admin-modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(18,21,42,0.7); z-index: 600;
-  align-items: flex-start; justify-content: center; padding: 20px;
-  overflow-y: auto;
-}
+/* Admin */
+.admin-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(18,21,42,0.7); z-index: 600; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; }
 .admin-modal-overlay.show { display: flex; animation: fade-in 0.18s ease; }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-
-.admin-modal {
-  background: #fff; border-radius: 16px;
-  width: 100%; max-width: 580px;
-  box-shadow: 0 24px 64px rgba(18,21,42,0.3);
-  border: 1px solid var(--grey-20);
-  overflow: hidden;
-  animation: modal-up 0.22s ease;
-  margin: auto;
-}
+.admin-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 580px; box-shadow: 0 24px 64px rgba(18,21,42,0.3); border: 1px solid var(--grey-20); overflow: hidden; animation: modal-up 0.22s ease; margin: auto; }
 @keyframes modal-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
-
-.admin-modal-hdr {
-  background: var(--navy); padding: 20px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 2;
-}
-.admin-modal-title {
-  font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px;
-  display: flex; align-items: center; gap: 8px;
-}
-.admin-modal-title svg { opacity: 0.7; }
-.admin-close {
-  background: none; border: none; color: rgba(255,255,255,0.4); font-size: 20px;
-  cursor: pointer; padding: 2px 6px; line-height: 1; transition: color 0.1s;
-}
+.admin-modal-hdr { background: var(--navy); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2; }
+.admin-modal-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; display: flex; align-items: center; gap: 8px; }
+.admin-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 20px; cursor: pointer; padding: 2px 6px; line-height: 1; transition: color 0.1s; }
 .admin-close:hover { color: rgba(255,255,255,0.8); }
-
-/* Admin tabs */
-.admin-tabs {
-  display: flex; border-bottom: 1px solid var(--grey-20);
-  background: #fafafa; padding: 0 24px; gap: 0;
-}
-.admin-tab {
-  padding: 11px 14px; font-size: 12px; font-weight: 600;
-  color: var(--grey-50); cursor: pointer; border: none; background: none;
-  font-family: 'DM Sans', sans-serif; border-bottom: 2px solid transparent;
-  margin-bottom: -1px; transition: color 0.15s, border-color 0.15s;
-  display: flex; align-items: center; gap: 6px; white-space: nowrap;
-}
+.admin-tabs { display: flex; border-bottom: 1px solid var(--grey-20); background: #fafafa; padding: 0 24px; gap: 0; }
+.admin-tab { padding: 11px 14px; font-size: 12px; font-weight: 600; color: var(--grey-50); cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .admin-tab:hover { color: var(--grey-90); }
 .admin-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
 .admin-tab svg { width: 13px; height: 13px; }
-
 .admin-modal-body { padding: 24px; max-height: 70vh; overflow-y: auto; }
 .admin-tab-pane { display: none; }
 .admin-tab-pane.active { display: block; }
-
-/* Auth screen */
 .admin-auth { text-align: center; padding: 12px 0 4px; }
 .admin-auth-icon { font-size: 40px; margin-bottom: 12px; }
 .admin-auth-title { font-size: 16px; font-weight: 700; color: var(--grey-90); margin-bottom: 4px; }
 .admin-auth-sub   { font-size: 12px; color: var(--grey-50); margin-bottom: 20px; }
 .admin-pin-wrap { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
-.admin-pin-input {
-  width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 700;
-  border: 2px solid var(--grey-20); border-radius: 10px; background: var(--grey-10);
-  font-family: 'DM Sans', sans-serif; color: var(--grey-90);
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
+.admin-pin-input { width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 700; border: 2px solid var(--grey-20); border-radius: 10px; background: var(--grey-10); font-family: 'DM Sans', sans-serif; color: var(--grey-90); transition: border-color 0.15s, box-shadow 0.15s; }
 .admin-pin-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
 .admin-pin-input.error { border-color: var(--red); background: #fef2f2; }
-
-/* Admin form */
-.admin-section-title {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
-  color: var(--grey-70); margin-bottom: 14px; padding-bottom: 8px;
-  border-bottom: 1px solid var(--grey-20);
-  display: flex; align-items: center; gap: 8px;
-}
-.admin-day-editor {
-  background: var(--grey-10); border: 1px solid var(--grey-20);
-  border-radius: 10px; padding: 14px; margin-bottom: 10px;
-  position: relative;
-}
-.admin-day-editor.archived {
-  opacity: 0.6; border-style: dashed; background: #fafafa;
-}
-.admin-day-editor-hdr {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-}
+.admin-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--grey-70); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--grey-20); display: flex; align-items: center; gap: 8px; }
+.admin-day-editor { background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 10px; padding: 14px; margin-bottom: 10px; position: relative; }
+.admin-day-editor-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .admin-day-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .admin-day-label { font-size: 13px; font-weight: 700; color: var(--grey-90); flex: 1; }
-.admin-capacity-badge {
-  font-size: 11px; font-weight: 600; color: var(--grey-50);
-  background: #fff; border: 1px solid var(--grey-20);
-  border-radius: 6px; padding: 2px 8px;
-}
-.admin-archived-badge {
-  font-size: 10px; font-weight: 700; color: #92400e;
-  background: #fffbeb; border: 1px solid #fde68a;
-  border-radius: 6px; padding: 2px 8px;
-  text-transform: uppercase; letter-spacing: 0.4px;
-}
+.admin-capacity-badge { font-size: 11px; font-weight: 600; color: var(--grey-50); background: #fff; border: 1px solid var(--grey-20); border-radius: 6px; padding: 2px 8px; }
 .admin-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.admin-field { }
 .admin-field label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--grey-70); margin-bottom: 5px; }
-.admin-field input, .admin-field select {
-  width: 100%; border: 1.5px solid var(--grey-20); border-radius: 7px;
-  padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif;
-  color: var(--grey-90); background: #fff;
-  transition: border-color 0.15s;
-}
-.admin-field input[type="date"] {
-  cursor: pointer;
-}
-.admin-field input:focus, .admin-field select:focus {
-  outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12);
-}
-.admin-note {
-  font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5;
-}
-.admin-modal-footer {
-  padding: 16px 24px; border-top: 1px solid var(--grey-20);
-  background: var(--grey-10); display: flex; gap: 8px; justify-content: flex-end;
-  position: sticky; bottom: 0; z-index: 2;
-}
-
-/* Day remove button */
-.admin-day-remove {
-  background: none; border: none; cursor: pointer;
-  color: var(--grey-40); font-size: 16px; padding: 2px 5px;
-  line-height: 1; transition: color 0.1s; border-radius: 4px;
-}
-.admin-day-remove:hover { color: var(--red); background: #fef2f2; }
-
-/* Add day button */
-.admin-add-day-btn {
-  width: 100%; border: 1.5px dashed var(--grey-30);
-  border-radius: 10px; padding: 11px; background: #fafafa;
-  font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 600;
-  color: var(--grey-50); cursor: pointer; display: flex; align-items: center;
-  justify-content: center; gap: 7px; transition: all 0.15s; margin-bottom: 14px;
-}
-.admin-add-day-btn:hover { border-color: var(--purple-mid); color: var(--purple); background: var(--purple-lt); }
-
-/* Archive section */
-.archive-list { display: flex; flex-direction: column; gap: 8px; }
-.archive-item {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--grey-10); border: 1px solid var(--grey-20);
-  border-radius: 8px; padding: 10px 14px;
-}
-.archive-item-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.archive-item-info { flex: 1; min-width: 0; }
-.archive-item-title { font-size: 13px; font-weight: 600; color: var(--grey-90); }
-.archive-item-date { font-size: 11px; color: var(--grey-50); margin-top: 1px; }
-.archive-empty { text-align: center; color: var(--grey-40); font-size: 13px; padding: 28px 0; }
-
-/* Suggested date banner */
-.suggest-banner {
-  background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
-  padding: 10px 14px; font-size: 12px; color: #92400e;
-  display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px;
-}
-.suggest-banner strong { font-weight: 700; }
-.suggest-apply-btn {
-  font-size: 11px; font-weight: 700; color: var(--purple);
-  background: var(--purple-lt); border: 1px solid var(--purple-mid);
-  border-radius: 5px; padding: 2px 8px; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  white-space: nowrap; margin-left: auto; flex-shrink: 0; transition: background 0.12s;
-}
-.suggest-apply-btn:hover { background: var(--purple-mid); }
-
+.admin-field input, .admin-field select { width: 100%; border: 1.5px solid var(--grey-20); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--grey-90); background: #fff; transition: border-color 0.15s; }
+.admin-field input[type="date"] { cursor: pointer; }
+.admin-field input:focus, .admin-field select:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
+.admin-note { font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5; }
+.admin-modal-footer { padding: 16px 24px; border-top: 1px solid var(--grey-20); background: var(--grey-10); display: flex; gap: 8px; justify-content: flex-end; position: sticky; bottom: 0; z-index: 2; }
+/* Warning modal */
+.warn-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(18,21,42,0.7); z-index: 700; align-items: center; justify-content: center; padding: 20px; }
+.warn-modal-overlay.show { display: flex; }
+.warn-modal { background: #fff; border-radius: 14px; max-width: 440px; width: 100%; padding: 28px; box-shadow: 0 24px 64px rgba(18,21,42,0.3); border: 1px solid var(--grey-20); animation: modal-up 0.22s ease; }
+.warn-modal-icon { font-size: 40px; text-align: center; margin-bottom: 12px; }
+.warn-modal-title { font-size: 16px; font-weight: 700; color: var(--grey-90); text-align: center; margin-bottom: 8px; }
+.warn-modal-msg { font-size: 13px; color: var(--grey-50); text-align: center; line-height: 1.6; margin-bottom: 20px; }
+.warn-modal-btns { display: flex; gap: 8px; justify-content: center; }
+/* Previous attendees section */
+.prev-att-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 16px; margin-top: 20px; }
+.prev-att-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+.prev-att-body { font-size: 12.5px; line-height: 1.7; color: var(--grey-70); white-space: pre-wrap; background: #fff; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-family: 'DM Sans', sans-serif; }
 @media (max-width: 560px) {
   .site-header { padding: 0 16px; }
   .form-hdr, .form-body { padding-left: 20px; padding-right: 20px; }
@@ -791,7 +303,20 @@ body {
 <!-- Toast host -->
 <div class="toast-host" id="toastHost"></div>
 
-<!-- ═══ ADMIN MODAL ═══════════════════════════════════════════════ -->
+<!-- Both-days warning modal -->
+<div class="warn-modal-overlay" id="bothDaysWarnModal">
+  <div class="warn-modal">
+    <div class="warn-modal-icon">⚠️</div>
+    <div class="warn-modal-title">Same Delegate — Both Days?</div>
+    <div class="warn-modal-msg">This delegate is registered for <strong>both accounting training days</strong>. Please note that both days cover the same agenda. Are you sure you want them to attend both?</div>
+    <div class="warn-modal-btns">
+      <button class="btn btn-ghost" onclick="cancelBothDays()">No — change selection</button>
+      <button class="btn btn-primary" onclick="confirmBothDays()">Yes — add to both days</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
 <div class="admin-modal-overlay" id="adminModal">
   <div class="admin-modal">
     <div class="admin-modal-hdr">
@@ -801,8 +326,6 @@ body {
       </div>
       <button class="admin-close" onclick="closeAdmin()">&#10005;</button>
     </div>
-
-    <!-- Auth screen shown first — outside tabs -->
     <div id="adminAuthScreen">
       <div class="admin-modal-body">
         <div class="admin-auth">
@@ -820,128 +343,61 @@ body {
         </div>
       </div>
     </div>
-
-    <!-- Admin editor with tabs -->
     <div id="adminEditorScreen" style="display:none;">
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="switchAdminTab('dates')" id="tabDates">
           <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 1v3M11 1v3M2 7h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Dates &amp; Capacity
         </button>
-        <button class="admin-tab" onclick="switchAdminTab('new')" id="tabNew">
-          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          New Training Day
-        </button>
-        <button class="admin-tab" onclick="switchAdminTab('archive')" id="tabArchive">
-          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M3 6v7a1 1 0 001 1h8a1 1 0 001-1V6" stroke="currentColor" stroke-width="1.4"/><path d="M6 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          Archive
-        </button>
       </div>
-
       <div class="admin-modal-body">
-
-        <!-- ── Tab: Dates & Capacity ── -->
         <div class="admin-tab-pane active" id="paneDates">
           <div class="info-box blue" style="margin-bottom:16px;">
-            <span>ℹ️</span><span>Changes here update the form immediately. The booking sheet dates are set in the Apps Script — update those separately after republishing.</span>
+            <span>ℹ️</span><span>Update the dates for the two accounting training days below. Dates are TBC — update when confirmed with Stella.</span>
           </div>
-
-          <div class="admin-section-title">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Training Days
+          <div class="admin-section-title">Accounting Training Day 1</div>
+          <div class="admin-day-editor">
+            <div class="admin-field-row">
+              <div class="admin-field">
+                <label>Date</label>
+                <input type="date" id="adminDay1Date" oninput="adminAutoFillShort('adminDay1Short','adminDay1Date')">
+              </div>
+              <div class="admin-field">
+                <label>Short Label</label>
+                <input type="text" id="adminDay1Short" placeholder="e.g. Tue 1 Jul">
+              </div>
+            </div>
           </div>
-
-          <!-- Dynamic day editors injected here -->
-          <div id="adminDayEditorsList"></div>
-
-          <div class="admin-section-title" style="margin-top:20px;">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Capacity Settings
+          <div class="admin-section-title">Accounting Training Day 2</div>
+          <div class="admin-day-editor">
+            <div class="admin-field-row">
+              <div class="admin-field">
+                <label>Date</label>
+                <input type="date" id="adminDay2Date" oninput="adminAutoFillShort('adminDay2Short','adminDay2Date')">
+              </div>
+              <div class="admin-field">
+                <label>Short Label</label>
+                <input type="text" id="adminDay2Short" placeholder="e.g. Wed 2 Jul">
+              </div>
+            </div>
           </div>
+          <div class="admin-section-title" style="margin-top:20px;">Capacity Settings</div>
           <div class="admin-day-editor">
             <div class="admin-field-row">
               <div class="admin-field">
                 <label>Max Seats Per Day</label>
-                <input type="number" id="adminMaxSeats" min="1" max="200" value="38">
-                <div class="admin-note">Applies to all training days.</div>
+                <input type="number" id="adminMaxSeats" min="1" max="200" value="30">
+                <div class="admin-note">Room capacity: 30</div>
               </div>
             </div>
-          </div>
-
-          <div class="info-box amber" style="margin-top:4px;">
-            <span>⚠️</span><span><strong>Remember:</strong> After saving, update the date text in your Google Apps Script and redeploy so future bookings record the correct date label in the sheet.</span>
           </div>
         </div>
-
-        <!-- ── Tab: New Training Day ── -->
-        <div class="admin-tab-pane" id="paneNew">
-          <div class="info-box purple" style="margin-bottom:16px;">
-            <span>✨</span><span>Create a new training day type. It will appear as a selectable option in the booking form.</span>
-          </div>
-
-          <div class="admin-day-editor" style="background:#fff;">
-            <div class="admin-field" style="margin-bottom:10px;">
-              <label>Training Day Title</label>
-              <input type="text" id="newDayTitle" placeholder="e.g. Advanced Sales Training">
-            </div>
-            <div class="admin-field" style="margin-bottom:10px;">
-              <label>Category / Module Tag</label>
-              <input type="text" id="newDayTag" placeholder="e.g. Sales Module, Lettings Module">
-            </div>
-            <div class="admin-field-row" style="margin-bottom:10px;">
-              <div class="admin-field">
-                <label>Date</label>
-                <input type="date" id="newDayDate" oninput="autoFillNewShort()">
-                <div class="admin-note">Short label auto-fills on selection.</div>
-              </div>
-              <div class="admin-field">
-                <label>Short Label (chips)</label>
-                <input type="text" id="newDayShort" placeholder="e.g. Mon 14 Sep">
-              </div>
-            </div>
-            <div class="admin-field-row" style="margin-bottom:10px;">
-              <div class="admin-field">
-                <label>Colour</label>
-                <select id="newDayColour">
-                  <option value="purple">Purple (Sales)</option>
-                  <option value="green">Green (Lettings)</option>
-                  <option value="blue">Blue</option>
-                  <option value="amber">Amber</option>
-                  <option value="red">Red</option>
-                </select>
-              </div>
-              <div class="admin-field">
-                <label>Max Seats</label>
-                <input type="number" id="newDaySeats" min="1" max="200" placeholder="e.g. 38">
-                <div class="admin-note">Leave blank to use global setting.</div>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="createNewTrainingDay()">
-              + Create Training Day
-            </button>
-          </div>
-        </div>
-
-        <!-- ── Tab: Archive ── -->
-        <div class="admin-tab-pane" id="paneArchive">
-          <div id="archiveSuggestBanner" style="display:none;"></div>
-          <div class="admin-section-title">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M3 6v7a1 1 0 001 1h8a1 1 0 001-1V6" stroke="currentColor" stroke-width="1.4"/><path d="M6 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            Archived Days
-          </div>
-          <div id="archiveList" class="archive-list">
-            <div class="archive-empty">No archived days yet.</div>
-          </div>
-        </div>
-
-      </div><!-- /admin-modal-body -->
-
-      <div class="admin-modal-footer" id="adminModalFooter">
-        <button class="btn btn-ghost" onclick="closeAdmin()">Cancel</button>
-        <button class="btn btn-primary" id="adminSaveBtn" onclick="saveAdmin()">Save &amp; Apply Changes</button>
       </div>
-    </div><!-- /adminEditorScreen -->
-
+      <div class="admin-modal-footer">
+        <button class="btn btn-ghost" onclick="closeAdmin()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveAdmin()">Save &amp; Apply Changes</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -955,13 +411,9 @@ body {
   </a>
   <div class="header-divider"></div>
   <nav class="nav-links">
-    <a href="#" class="nav-link">
-      <svg viewBox="0 0 16 16" fill="none"><path d="M2 6l6-4 6 4v7a1 1 0 01-1 1H3a1 1 0 01-1-1V6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      Dashboard
-    </a>
     <a href="#" class="nav-link active">
       <svg viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-      Open Training Bookings
+      Accounting Training Day Bookings
     </a>
   </nav>
   <div class="header-spacer"></div>
@@ -975,19 +427,18 @@ body {
   </a>
 </header>
 
-<!-- Page -->
 <div class="page-wrap">
   <div class="form-shell">
     <div class="form-card">
 
       <!-- Header -->
       <div class="form-hdr">
-        <div class="form-hdr-eyebrow">Street Open Training Days</div>
-        <div class="form-hdr-title">Book a Training Day Place</div>
-        <div class="form-hdr-desc">Register attendees for an open training day at Street HQ. Select your training day(s), add delegates, and we'll generate a cost breakdown and template email to send to your client.</div>
+        <div class="form-hdr-eyebrow">Street Accounting Training Days</div>
+        <div class="form-hdr-title">Book an Accounting Training Day Place</div>
+        <div class="form-hdr-desc">Refer a client onto the Street Accounting Open Training Day. This event is designed for staff who handle client accounting — those who move money between accounts, receipt funds, reconcile banks, and manage ledgers. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
         <div class="date-pills">
-          <div class="date-pill" id="headerPillSales"><span class="date-pill-dot"></span> <span id="headerPillSalesText">Loading…</span></div>
-          <div class="date-pill" id="headerPillLettings"><span class="date-pill-dot green"></span> <span id="headerPillLettingsText">Loading…</span></div>
+          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Accounting Day 1 — Date TBC</span></div>
+          <div class="date-pill"><span class="date-pill-dot amber"></span> <span id="headerPillDay2Text">Accounting Day 2 — Date TBC</span></div>
         </div>
       </div>
 
@@ -999,75 +450,38 @@ body {
       <!-- Form body -->
       <div class="form-body">
 
-        <!-- ─── Step 1: Referred By ─────────────────────────────── -->
+        <!-- ─── Step 1: Referrer ────────────────────────────────── -->
         <div class="pane active" id="pane1">
-          <div class="pane-title">Who's Submitting This?</div>
-          <div class="pane-sub">Tell us who in your team is referring this booking, and which department they're in.</div>
+          <div class="pane-title">Who's Submitting This Referral?</div>
+          <div class="pane-sub">Tell us who in the Street team is referring this client booking.</div>
 
-          <div class="field">
-            <label class="field-label req">Your Name (Referrer)</label>
-            <div class="search-wrap">
-              <input id="userSearch" type="text" class="field-input" placeholder="Start typing your name…"
-                autocomplete="off" spellcheck="false" style="padding-right: 32px;"
-                oninput="handleUserSearch()" onkeydown="userSearchKey(event)">
-              <button class="search-clear" id="searchClear" onclick="clearUserSearch()">&#10005;</button>
-              <div class="search-dropdown" id="searchDropdown"></div>
-            </div>
-            <div class="user-chip" id="userChip">
-              <div class="search-avatar" id="chipAvatar"></div>
-              <div class="user-chip-info">
-                <div class="name" id="chipName"></div>
-                <div class="sub"  id="chipSub"></div>
-              </div>
-              <button class="chip-clear" onclick="clearUserSearch()">&#10005;</button>
-            </div>
+          <div class="info-box purple">
+            <span>👥</span>
+            <span>Bookings can be submitted by: <strong>CSMs, Onboarding, Support, Accounting Onboarding, or Product Training</strong> teams.</span>
           </div>
 
-          <div class="new-user-box" id="newUserBox">
-            <div class="info-box blue" style="margin-bottom:12px;">
-              <span>ℹ️</span><span>Not found? Fill in your details below to continue.</span>
-            </div>
-            <div class="field-2col">
-              <div class="field">
-                <label class="field-label req">First Name</label>
-                <input type="text" class="field-input" id="newFirst" placeholder="e.g. Amy">
-              </div>
-              <div class="field">
-                <label class="field-label req">Last Name</label>
-                <input type="text" class="field-input" id="newLast" placeholder="e.g. Dawber">
-              </div>
+          <div class="field-2col">
+            <div class="field">
+              <label class="field-label req">Your First Name</label>
+              <input type="text" class="field-input" id="referrerFirst" placeholder="e.g. Amy">
             </div>
             <div class="field">
-              <label class="field-label req">Your Team / Department</label>
-              <select class="field-select" id="newDept">
-                <option value="">— Select department —</option>
-                <option>Onboarding</option>
-                <option>Sales</option>
-                <option>Customer Success</option>
-                <option>Support</option>
-                <option>Lettings</option>
-                <option>Operations</option>
-                <option>Other</option>
-              </select>
+              <label class="field-label req">Your Last Name</label>
+              <input type="text" class="field-input" id="referrerLast" placeholder="e.g. Dawber">
             </div>
           </div>
-
-          <div class="field" id="existingTeamRow" style="display:none;">
+          <div class="field">
             <label class="field-label req">Your Team / Department</label>
-            <select class="field-select" id="existingTeam">
-              <option value="">— Select department —</option>
+            <select class="field-select" id="referrerDept">
+              <option value="">— Select your team —</option>
+              <option>CSM</option>
               <option>Onboarding</option>
-              <option>Sales</option>
-              <option>Customer Success</option>
               <option>Support</option>
-              <option>Lettings</option>
-              <option>Operations</option>
+              <option>Accounting Onboarding</option>
+              <option>Product Training</option>
               <option>Other</option>
             </select>
           </div>
-
-          <input type="hidden" id="selectedUserName">
-          <input type="hidden" id="selectedUserTeam">
         </div>
 
         <!-- ─── Step 2: Client / Stakeholder ───────────────────── -->
@@ -1096,94 +510,98 @@ body {
 
           <div class="info-box amber">
             <span>⚠️</span>
-            <span><strong>Invoice payment required 1 week in advance.</strong> Make sure the stakeholder is aware of the cost before submitting.</span>
+            <span><strong>Invoice payment required 1 week in advance.</strong> Cost is <strong>£200–£250 per person per day</strong> (confirm pricing with Stella). Make sure the stakeholder is aware of the cost before submitting.</span>
+          </div>
+          <div class="info-box red">
+            <span>🚫</span>
+            <span><strong>Do not refer:</strong> Newton Fallowell, Enterprise Clients, TPFG, Connells, or RJ Group clients.</span>
           </div>
         </div>
 
         <!-- ─── Step 3: Training Days & Attendees ──────────────── -->
         <div class="pane" id="pane3">
-          <div class="pane-title">Training Days &amp; Attendees</div>
-          <div class="pane-sub">Select which day(s) to attend, then add each delegate. A cost breakdown will update automatically.</div>
+          <div class="pane-title">Training Days &amp; Delegates</div>
+          <div class="pane-sub">Select which accounting day(s) to attend, then add each delegate. Cost updates automatically at £250 per person per day.</div>
 
-          <!-- Training day selection -->
           <div class="field">
             <label class="field-label req">Which training day(s)?</label>
             <div class="training-day-grid">
 
-              <div class="training-day-card" id="card-sales" onclick="toggleDay('sales')">
+              <div class="training-day-card" id="card-day1" onclick="toggleDay('day1')">
                 <div class="day-card-inner">
                   <div class="day-card-check">
-                    <input type="checkbox" id="chk-sales" onchange="toggleDay('sales')" onclick="event.stopPropagation()">
+                    <input type="checkbox" id="chk-day1" onchange="toggleDay('day1')" onclick="event.stopPropagation()">
                   </div>
                   <div class="day-card-body">
-                    <div class="day-card-title">Sales Basic Training</div>
-                    <div class="day-card-meta" id="meta-sales">—</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
+                    <div class="day-card-title">Accounting Training — Day 1</div>
+                    <div class="day-card-meta" id="meta-day1">Date TBC · Street HQ, Manchester</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:00am – 4:30pm (1hr lunch)</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
-                      <span class="day-tag">Sales Module</span>
-                      <span id="salesSoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
+                      <span class="day-tag">Accounting Module</span>
+                      <span id="day1SoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
                     </div>
-                    <div class="capacity-wrap" id="capacityWrapSales">
+                    <div class="capacity-wrap" id="capacityWrapDay1">
                       <div class="capacity-row">
                         <span class="capacity-label">Seats available</span>
-                        <span class="capacity-count" id="capacityCountSales">—</span>
+                        <span class="capacity-count" id="capacityCountDay1">—</span>
                       </div>
                       <div class="capacity-bar-track">
-                        <div class="capacity-bar-fill" id="capacityBarSales" style="width:0%"></div>
+                        <div class="capacity-bar-fill" id="capacityBarDay1" style="width:0%"></div>
                       </div>
                     </div>
                   </div>
                   <div class="day-card-price">
-                    <div class="price-amount">£100</div>
+                    <div class="price-amount">£250</div>
                     <div class="price-sub">per person</div>
                   </div>
                 </div>
               </div>
 
-              <div class="training-day-card" id="card-lettings" onclick="toggleDay('lettings')">
+              <div class="training-day-card" id="card-day2" onclick="toggleDay('day2')">
                 <div class="day-card-inner">
                   <div class="day-card-check">
-                    <input type="checkbox" id="chk-lettings" onchange="toggleDay('lettings')" onclick="event.stopPropagation()">
+                    <input type="checkbox" id="chk-day2" onchange="toggleDay('day2')" onclick="event.stopPropagation()">
                   </div>
                   <div class="day-card-body">
-                    <div class="day-card-title">Lettings Basic Training</div>
-                    <div class="day-card-meta" id="meta-lettings">—</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
+                    <div class="day-card-title">Accounting Training — Day 2</div>
+                    <div class="day-card-meta" id="meta-day2">Date TBC · Street HQ, Manchester</div>
+                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:00am – 4:30pm (1hr lunch)</div>
                     <div class="day-card-tags">
                       <span class="day-tag">🏢 In Person</span>
-                      <span class="day-tag green-tag">Lettings Module</span>
-                      <span id="lettingsSoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
+                      <span class="day-tag">Accounting Module</span>
+                      <span id="day2SoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
                     </div>
-                    <div class="capacity-wrap" id="capacityWrapLettings">
+                    <div class="capacity-wrap" id="capacityWrapDay2">
                       <div class="capacity-row">
                         <span class="capacity-label">Seats available</span>
-                        <span class="capacity-count" id="capacityCountLettings">—</span>
+                        <span class="capacity-count" id="capacityCountDay2">—</span>
                       </div>
                       <div class="capacity-bar-track">
-                        <div class="capacity-bar-fill" id="capacityBarLettings" style="width:0%"></div>
+                        <div class="capacity-bar-fill" id="capacityBarDay2" style="width:0%"></div>
                       </div>
                     </div>
                   </div>
                   <div class="day-card-price">
-                    <div class="price-amount">£100</div>
+                    <div class="price-amount">£250</div>
                     <div class="price-sub">per person</div>
                   </div>
                 </div>
               </div>
 
-            </div><!-- /training-day-grid -->
-            <!-- Extra custom training days rendered here by JS -->
-            <div id="extraTrainingCards"></div>
-          </div><!-- /field -->
+            </div>
+          </div>
 
-          <!-- Attendees -->
+          <!-- Attendees list -->
           <div class="section-heading" style="margin-top:20px;">Delegates</div>
           <div id="attendeeList" class="attendee-list"></div>
 
           <!-- Add attendee -->
           <div class="add-attendee-box">
             <div class="box-title">➕ Add Delegate</div>
+            <div class="info-box blue" style="margin-bottom:12px;margin-top:0;">
+              <span>ℹ️</span><span>This event is for <strong>staff who handle client accounting</strong> — those who move money between accounts (e.g. client to TDS, DPS, or business accounts). Not for general admin staff.</span>
+            </div>
             <div class="field-2col">
               <div class="field" style="margin-bottom:0;">
                 <label class="field-label req">First Name</label>
@@ -1196,24 +614,24 @@ body {
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:0;">
               <label class="field-label">Job Title <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
-              <input type="text" class="field-input" id="attRole" placeholder="e.g. Senior Negotiator">
+              <input type="text" class="field-input" id="attRole" placeholder="e.g. Accounts Manager">
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:0;">
               <label class="field-label req">Which day(s) is this delegate attending?</label>
               <div class="delegate-day-group" id="delegateDayGroup">
-                <label class="delegate-day-chip" id="chipSalesWrap">
-                  <input type="checkbox" id="attDaySales" value="sales">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span><span id="chipSalesLabel">Sales</span></span>
+                <label class="delegate-day-chip" id="chipDay1Wrap">
+                  <input type="checkbox" id="attDay1" value="day1">
+                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span><span id="chipDay1Label">Day 1 — TBC</span></span>
                 </label>
-                <label class="delegate-day-chip" id="chipLettingsWrap">
-                  <input type="checkbox" id="attDayLettings" value="lettings">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-green"></span><span id="chipLettingsLabel">Lettings</span></span>
+                <label class="delegate-day-chip" id="chipDay2Wrap">
+                  <input type="checkbox" id="attDay2" value="day2">
+                  <span class="ddc-inner"><span class="ddc-dot ddc-amber"></span><span id="chipDay2Label">Day 2 — TBC</span></span>
                 </label>
               </div>
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:10px;">
-              <label class="field-label">Dietary Requirements <span style="font-weight:400;color:var(--grey-50);">optional</span></label>
-              <input type="text" class="field-input" id="attDiet" placeholder="e.g. Vegetarian, Nut Allergy — leave blank if none">
+              <label class="field-label req">Dietary Requirements</label>
+              <input type="text" class="field-input" id="attDiet" placeholder="e.g. Vegetarian, Nut Allergy — enter 'None' if no requirements">
             </div>
             <button type="button" class="btn btn-ghost" onclick="addAttendee()" style="width:100%;justify-content:center;">
               + Add Delegate
@@ -1237,7 +655,15 @@ body {
         <!-- ─── Step 4: Confirm & Email ────────────────────────── -->
         <div class="pane" id="pane4">
           <div class="pane-title">Review &amp; Template Email</div>
-          <div class="pane-sub">Check the booking summary below, copy the template email to send to your client, then submit.</div>
+          <div class="pane-sub">Check the booking summary, copy the template email to send to your client, then submit. A HubSpot ticket will be raised automatically on submission.</div>
+
+          <div class="info-box amber" style="font-size:13px;">
+            <span>📧</span>
+            <div>
+              <strong>Don't forget to send the emails below!</strong><br>
+              <span style="font-size:12px;">Once submitted, copy and send the <strong>Booking Confirmation Email</strong> to the client stakeholder and all delegates. If there are any previous attendees from this company, also send them the <strong>Previous Attendees Re-invite Draft</strong>.</span>
+            </div>
+          </div>
 
           <div class="info-box green" id="summaryBox">
             <span>✅</span>
@@ -1250,16 +676,16 @@ body {
             <div class="location-box-body">
               <div class="location-row">🚗 <span><strong>Parking:</strong> <a href="https://en.parkopedia.co.uk/parking/spear_street_manchester/?arriving=202602231000&leaving=202602231200" target="_blank">Nearby parking via Parkopedia →</a></span></div>
               <div class="location-row">🚊 <span><strong>9 min walk</strong> from Manchester Piccadilly or Manchester Victoria railway station</span></div>
-              <div class="location-row">🍽️ <span><strong>Dietary Requirements:</strong> Please advise when confirming booking</span></div>
+              <div class="location-row">🍽️ <span><strong>Dietary Requirements:</strong> Collected per delegate at time of booking</span></div>
             </div>
           </div>
 
-          <div class="section-heading" style="margin-top:20px;">Template Email</div>
+          <div class="section-heading" style="margin-top:20px;">Invite Email — Client &amp; Delegates</div>
           <div class="email-template-box">
             <div class="email-template-hdr">
               <div class="email-template-hdr-title">
                 <svg style="width:13px;height:13px;color:var(--purple);" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M2 5l6 5 6-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Email Template
+                Booking Confirmation Email
               </div>
               <div style="display:flex;gap:6px;">
                 <button class="copy-btn" onclick="copyEmail()" style="background:var(--grey-70);">
@@ -1278,6 +704,20 @@ body {
             </div>
             <div class="email-template-body" id="emailTemplateBody">—</div>
           </div>
+
+          <!-- Previous attendees re-invite draft -->
+          <div class="prev-att-box">
+            <div class="prev-att-title">📧 Previous Attendees — Re-invite Draft</div>
+            <p style="font-size:12px;color:#92400e;margin-bottom:6px;">Amy to send this to any previous attendees of past accounting training days. Copy and personalise as needed.</p>
+            <div class="prev-att-body" id="prevAttEmail">—</div>
+            <div style="display:flex;gap:6px;margin-top:10px;">
+              <button class="copy-btn" style="background:var(--amber);" onclick="copyPrevAtt()">
+                <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.2" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Copy Previous Attendee Email
+              </button>
+            </div>
+          </div>
+
         </div>
 
         <!-- ─── Step 5: Success ────────────────────────────────── -->
@@ -1285,7 +725,7 @@ body {
           <div class="success-screen">
             <div class="success-icon">🎉</div>
             <div class="success-title">Booking Submitted!</div>
-            <div class="success-msg" id="successMsg">Your training booking has been submitted and logged in the sheet.</div>
+            <div class="success-msg" id="successMsg">Your training booking has been submitted, logged in the sheet, and a HubSpot ticket has been raised.</div>
             <div class="success-badge" id="successRef">—</div><br><br>
             <button class="start-over-btn" onclick="resetForm()">Submit another booking</button>
           </div>
@@ -1307,445 +747,198 @@ body {
 </div>
 
 <footer class="site-footer">
-  Street.co.uk · Open Training Days · <a href="#">street.co.uk</a>
+  Street.co.uk · Accounting Open Training Days · <a href="#">street.co.uk</a>
 </footer>
 
 <script>
 // ══════════════════════════════════════════════════════════════
-// CONFIG  — edit these to update the form
+// CONFIG
 // ══════════════════════════════════════════════════════════════
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlVJXIkJNjQdkDhSzgg2r4N6UzkIrwQ10q7yuPdmF95pL1Hn05C573qCuAqkRuhIZl6A/exec';
-
-// ── Training day config (admin-editable in-session, persisted to localStorage) ──
-const DEFAULT_DAYS = {
-  sales: {
-    fullDate:  'Tuesday 19 May 2026',
-    shortDate: 'Tue 19 May',
-  },
-  lettings: {
-    fullDate:  'Wednesday 20 May 2026',
-    shortDate: 'Wed 20 May',
-  },
-};
-
-// Default training days array (multi-day support)
-const DEFAULT_TRAINING_DAYS = [
-  { id: 'sales',    title: 'Sales Basic Training',    tag: 'Sales Module',    colour: 'purple', fullDate: 'Tuesday 19 May 2026',    shortDate: 'Tue 19 May' },
-  { id: 'lettings', title: 'Lettings Basic Training', tag: 'Lettings Module', colour: 'green',  fullDate: 'Wednesday 20 May 2026',  shortDate: 'Wed 20 May' },
-];
-
-const MAX_SEATS_DEFAULT = 38;
-
-// ── Admin PIN (change this!) ──
+const PRICE_PER_PERSON_PER_DAY = 250;
+const MAX_SEATS_DEFAULT = 30;
 const ADMIN_PIN = '1234';
-
-// ══════════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════════
 const TOTAL = 4;
-let step = 1;
-let attendees = [];
-let selectedDays = { sales: false, lettings: false };
-const PRICE_PER_PERSON_PER_DAY = 100;
 
-// Load persisted config or defaults
+// ── Training day config ──────────────────────────────────────
 function loadDayConfig() {
   try {
-    const saved = JSON.parse(localStorage.getItem('streetTrainingDayConfig') || 'null');
-    if (saved && saved.sales && saved.lettings) return saved;
+    const s = JSON.parse(localStorage.getItem('accDayConfig') || 'null');
+    if (s && s.day1 && s.day2) return s;
   } catch(_) {}
-  return JSON.parse(JSON.stringify(DEFAULT_DAYS));
+  return { day1: { fullDate: 'Date TBC', shortDate: 'TBC' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
 }
-function saveDayConfig(cfg) {
-  try { localStorage.setItem('streetTrainingDayConfig', JSON.stringify(cfg)); } catch(_) {}
+function saveDayConfig() {
+  try { localStorage.setItem('accDayConfig', JSON.stringify(dayConfig)); } catch(_) {}
 }
+let dayConfig = loadDayConfig();
+let maxSeats = (() => { try { return parseInt(localStorage.getItem('accMaxSeats')) || MAX_SEATS_DEFAULT; } catch(_) { return MAX_SEATS_DEFAULT; } })();
 
-function loadTrainingDays() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('streetTrainingDaysV2') || 'null');
-    if (saved && Array.isArray(saved) && saved.length) return saved;
-  } catch(_) {}
-  return JSON.parse(JSON.stringify(DEFAULT_TRAINING_DAYS));
-}
-function saveTrainingDays() {
-  try { localStorage.setItem('streetTrainingDaysV2', JSON.stringify(trainingDays)); } catch(_) {}
-}
+// ── State ────────────────────────────────────────────────────
+let step = 1;
+let attendees = [];
+let selectedDays = { day1: false, day2: false };
+let liveCapacity = { day1: null, day2: null, loaded: false, error: false };
+let _pendingAttendee = null; // for both-days warning
 
-function loadArchivedDays() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('streetArchivedDays') || 'null');
-    if (saved && Array.isArray(saved)) return saved;
-  } catch(_) {}
-  return [];
-}
-function saveArchivedDays() {
-  try { localStorage.setItem('streetArchivedDays', JSON.stringify(archivedDays)); } catch(_) {}
-}
-
-let dayConfig      = loadDayConfig();
-let trainingDays   = loadTrainingDays();
-let archivedDays   = loadArchivedDays();
-let maxSeats = (() => {
-  try { return parseInt(localStorage.getItem('streetMaxSeats')) || MAX_SEATS_DEFAULT; } catch(_) { return MAX_SEATS_DEFAULT; }
-})();
-
-// Live capacity from sheet (fetched on load)
-let liveCapacity = { sales: null, lettings: null, loaded: false, error: false };
-
-// ── Avatar helpers ──────────────────────────────────────────
+// ── Avatar helpers ───────────────────────────────────────────
 const AVATAR_COLOURS = ['#5B4BE7','#1BAD72','#E03B4A','#F59E0B','#3B82F6','#8B5CF6','#EC4899','#14B8A6'];
-function avatarColour(name) {
-  let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
-  return AVATAR_COLOURS[Math.abs(h) % AVATAR_COLOURS.length];
-}
-function initials(name) { return name.split(' ').map(p => p[0] || '').join('').toUpperCase().slice(0,2); }
+function avatarColour(name) { let h=0; for(const c of name) h=(h*31+c.charCodeAt(0))&0xffffffff; return AVATAR_COLOURS[Math.abs(h)%AVATAR_COLOURS.length]; }
+function initials(name) { return name.split(' ').map(p=>p[0]||'').join('').toUpperCase().slice(0,2); }
 
 // ══════════════════════════════════════════════════════════════
-// CAPACITY — fetch from Google Sheet via Apps Script
+// CAPACITY
 // ══════════════════════════════════════════════════════════════
 async function fetchCapacity() {
-  // Show skeleton loaders
-  ['Sales','Lettings'].forEach(d => {
-    const bar = document.getElementById('capacityBar' + d);
-    if (bar) { bar.parentElement.innerHTML = '<div class="capacity-skeleton"></div>'; }
-    const cnt = document.getElementById('capacityCount' + d);
+  ['Day1','Day2'].forEach(d => {
+    const wrap = document.getElementById('capacityWrap'+d);
+    if (wrap) wrap.innerHTML = '<div class="capacity-skeleton"></div>';
+    const cnt = document.getElementById('capacityCount'+d);
     if (cnt) cnt.textContent = '…';
   });
-
   try {
-    const url = SCRIPT_URL + '?action=getCapacity';
-    const res  = await fetch(url, { method: 'GET', mode: 'no-cors' });
-    // no-cors means we can't read the response body directly.
-    // Use a CORS-enabled pattern instead (the Apps Script doGet returns JSON).
-    // If CORS is not enabled on the sheet, capacity will fall back to the
-    // "could not load" state gracefully.
-    throw new Error('Use JSONP fallback'); // jump to JSONP
-  } catch(_) {
-    // Try JSONP / script tag approach as fallback (works with no-cors restriction)
     fetchCapacityViaScript();
+  } catch(_) {
+    handleCapacityError('Failed');
   }
 }
 
 function fetchCapacityViaScript() {
-  const callbackName = '__streetCapacityCB_' + Date.now();
+  const cbName = '__accCap_' + Date.now();
   const script = document.createElement('script');
-  const timeoutId = setTimeout(() => {
-    handleCapacityError('Request timed out');
-    script.remove();
-    delete window[callbackName];
-  }, 8000);
-
-  window[callbackName] = function(data) {
-    clearTimeout(timeoutId);
-    script.remove();
-    delete window[callbackName];
+  const tid = setTimeout(() => { handleCapacityError('Timeout'); script.remove(); delete window[cbName]; }, 8000);
+  window[cbName] = function(data) {
+    clearTimeout(tid); script.remove(); delete window[cbName];
     if (data && data.ok) {
-      liveCapacity.sales    = data.salesBooked    || 0;
-      liveCapacity.lettings = data.lettingsBooked || 0;
-      liveCapacity.loaded   = true;
-      liveCapacity.error    = false;
+      liveCapacity.day1 = data.day1Booked || 0;
+      liveCapacity.day2 = data.day2Booked || 0;
+      liveCapacity.loaded = true;
+      liveCapacity.error  = false;
       renderCapacity();
     } else {
-      handleCapacityError(data && data.error ? data.error : 'Unknown error');
+      handleCapacityError(data && data.error ? data.error : 'Error');
     }
   };
-
-  script.src = SCRIPT_URL + '?action=getCapacity&callback=' + callbackName;
+  script.src = SCRIPT_URL + '?action=getCapacity&callback=' + cbName;
   document.head.appendChild(script);
 }
 
 function handleCapacityError(msg) {
   console.warn('Capacity fetch failed:', msg);
-  liveCapacity.error  = true;
-  liveCapacity.loaded = false;
-  // Show graceful fallback — don't block the form
-  ['Sales','Lettings'].forEach(d => {
-    const wrap = document.getElementById('capacityWrap' + d);
-    if (wrap) {
-      wrap.innerHTML = `<div style="font-size:11px;color:var(--grey-40);margin-top:6px;font-style:italic;">Seat count unavailable — contact admin for availability</div>`;
-    }
+  liveCapacity.error = true;
+  ['Day1','Day2'].forEach(d => {
+    const w = document.getElementById('capacityWrap'+d);
+    if (w) w.innerHTML = '<div style="font-size:11px;color:var(--grey-40);margin-top:6px;font-style:italic;">Seat count unavailable — contact admin</div>';
   });
 }
 
 function renderCapacity() {
   if (!liveCapacity.loaded) return;
-  ['sales','lettings'].forEach(day => {
-    const booked  = liveCapacity[day];
-    const avail   = Math.max(0, maxSeats - booked);
-    const pct     = Math.min(100, Math.round((booked / maxSeats) * 100));
-    const cls     = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
-    const label   = avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
-    const D       = day.charAt(0).toUpperCase() + day.slice(1);
-
-    const wrap = document.getElementById('capacityWrap' + D);
+  ['day1','day2'].forEach(day => {
+    const booked = liveCapacity[day];
+    const avail  = Math.max(0, maxSeats - booked);
+    const pct    = Math.min(100, Math.round((booked / maxSeats) * 100));
+    const cls    = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
+    const label  = avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
+    const D      = day === 'day1' ? 'Day1' : 'Day2';
+    const wrap   = document.getElementById('capacityWrap'+D);
     if (!wrap) return;
-    wrap.innerHTML = `
-      <div class="capacity-row">
-        <span class="capacity-label">Seats available</span>
-        <span class="capacity-count ${cls}">${label}</span>
-      </div>
-      <div class="capacity-bar-track">
-        <div class="capacity-bar-fill ${cls}" id="capacityBar${D}" style="width:0%"></div>
-      </div>`;
-
-    // Animate bar in after paint
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const bar = document.getElementById('capacityBar' + D);
-        if (bar) bar.style.width = pct + '%';
-      });
-    });
-
-    // Mark sold out on the card
+    wrap.innerHTML = `<div class="capacity-row"><span class="capacity-label">Seats available</span><span class="capacity-count ${cls}">${label}</span></div><div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" id="capacityBar${D}" style="width:0%"></div></div>`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const bar = document.getElementById('capacityBar'+D);
+      if (bar) bar.style.width = pct + '%';
+    }));
     if (avail === 0) {
-      document.getElementById('card-' + day).classList.add('sold-out');
-      document.getElementById(day + 'SoldOutTag').style.display = 'inline-flex';
-      // Disable the delegate chip for this day
-      const chipWrap = document.getElementById('chip' + D + 'Wrap');
-      if (chipWrap) chipWrap.classList.add('chip-disabled');
+      document.getElementById('card-'+day).classList.add('sold-out');
+      document.getElementById(day+'SoldOutTag').style.display = 'inline-flex';
+      const cw = document.getElementById('chip'+D+'Wrap');
+      if (cw) cw.classList.add('chip-disabled');
     }
-
-    // Update admin badge
-    const adminBadge = document.getElementById('admin' + D + 'Capacity');
-    if (adminBadge) adminBadge.textContent = `${booked}/${maxSeats} booked`;
   });
-
-  // Re-render delegate chips with updated short dates
-  renderChipLabels();
 }
 
 // ══════════════════════════════════════════════════════════════
-// DATE LABEL RENDERING — apply dayConfig everywhere
+// DATE CONFIG APPLICATION
 // ══════════════════════════════════════════════════════════════
 function applyDayConfig() {
-  // Sync from trainingDays into dayConfig for backwards compat
-  syncDayConfigFromTrainingDays && syncDayConfigFromTrainingDays();
-
-  // Header pills
-  document.getElementById('headerPillSalesText').textContent    = dayConfig.sales.fullDate    + ' — Sales Basic Training';
-  document.getElementById('headerPillLettingsText').textContent = dayConfig.lettings.fullDate + ' — Lettings Basic Training';
-
-  // Card meta rows (legacy IDs still exist for sales/lettings)
-  const salesDay    = trainingDays.find(d => d.id === 'sales');
-  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
-  if (salesDay)    document.getElementById('meta-sales').textContent    = salesDay.fullDate    + ' · Street HQ, Manchester';
-  if (lettingsDay) document.getElementById('meta-lettings').textContent = lettingsDay.fullDate + ' · Street HQ, Manchester';
-
-  // Delegate chips
-  renderChipLabels();
-}
-
-function renderChipLabels() {
-  const salesAvail    = !liveCapacity.loaded || Math.max(0, maxSeats - (liveCapacity.sales    || 0)) > 0;
-  const lettingsAvail = !liveCapacity.loaded || Math.max(0, maxSeats - (liveCapacity.lettings || 0)) > 0;
-
-  const salChip  = document.getElementById('chipSalesWrap');
-  const letChip  = document.getElementById('chipLettingsWrap');
-  const salesDay    = trainingDays.find(d => d.id === 'sales');
-  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
-
-  if (salChip && salesDay) {
-    document.getElementById('chipSalesLabel').textContent = 'Sales — ' + salesDay.shortDate;
-    salChip.classList.toggle('chip-disabled', !salesAvail);
-  }
-  if (letChip && lettingsDay) {
-    document.getElementById('chipLettingsLabel').textContent = 'Lettings — ' + lettingsDay.shortDate;
-    letChip.classList.toggle('chip-disabled', !lettingsAvail);
-  }
-}
-
-// Dynamic training card renderer (for extra days beyond sales/lettings)
-function renderTrainingCards() {
-  // Update existing sales/lettings cards (always present in static HTML)
-  const salesDay    = trainingDays.find(d => d.id === 'sales');
-  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
-
-  if (salesDay) {
-    const metaEl = document.getElementById('meta-sales');
-    if (metaEl) metaEl.textContent = salesDay.fullDate + ' · Street HQ, Manchester';
-  }
-  if (lettingsDay) {
-    const metaEl = document.getElementById('meta-lettings');
-    if (metaEl) metaEl.textContent = lettingsDay.fullDate + ' · Street HQ, Manchester';
-  }
-
-  // Render custom (non-sales/lettings) days in an extra container
-  const extraContainer = document.getElementById('extraTrainingCards');
-  if (!extraContainer) return;
-  const customDays = trainingDays.filter(d => d.id !== 'sales' && d.id !== 'lettings');
-  if (!customDays.length) { extraContainer.innerHTML = ''; return; }
-
-  extraContainer.innerHTML = customDays.map(day => {
-    const dotColour = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
-    const tagCls    = COLOUR_MAP[day.colour]?.tagClass || '';
-    return `
-    <div class="training-day-card" id="card-${esc(day.id)}" onclick="toggleDay('${esc(day.id)}')">
-      <div class="day-card-inner">
-        <div class="day-card-check">
-          <input type="checkbox" id="chk-${esc(day.id)}" onchange="toggleDay('${esc(day.id)}')" onclick="event.stopPropagation()">
-        </div>
-        <div class="day-card-body">
-          <div class="day-card-title">${esc(day.title)}</div>
-          <div class="day-card-meta">${esc(day.fullDate)} · Street HQ, Manchester</div>
-          <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:30am – 4:30pm</div>
-          <div class="day-card-tags">
-            <span class="day-tag">🏢 In Person</span>
-            <span class="day-tag ${tagCls}">${esc(day.tag || day.title)}</span>
-          </div>
-        </div>
-        <div class="day-card-price">
-          <div class="price-amount">£100</div>
-          <div class="price-sub">per person</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  // Re-add chip labels for custom days
-  renderCustomChips(customDays);
-}
-
-function renderCustomChips(customDays) {
-  const group = document.getElementById('delegateDayGroup');
-  if (!group) return;
-  // Remove old custom chips
-  group.querySelectorAll('.chip-custom').forEach(el => el.remove());
-  customDays.forEach(day => {
-    const dotColour = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
-    const label = document.createElement('label');
-    label.className = 'delegate-day-chip chip-custom';
-    label.innerHTML = `
-      <input type="checkbox" id="attDay_${esc(day.id)}" value="${esc(day.id)}">
-      <span class="ddc-inner"><span class="ddc-dot" style="background:${dotColour}"></span><span>${esc(day.title.replace(' Training',''))} — ${esc(day.shortDate)}</span></span>`;
-    group.appendChild(label);
-  });
-}
-
-// ══════════════════════════════════════════════════════════════
-// TEAM SEARCH
-// ══════════════════════════════════════════════════════════════
-const TEAM_MEMBERS = [
-  { name: 'Amy Dawber',    dept: 'Onboarding' },
-  { name: 'James Taylor',  dept: 'Sales' },
-  { name: 'Sarah Collins', dept: 'Customer Success' },
-  { name: 'Tom Richards',  dept: 'Lettings' },
-  { name: 'Emma Clarke',   dept: 'Operations' },
-];
-
-let selectedUser = null;
-
-function handleUserSearch() {
-  const q  = document.getElementById('userSearch').value.trim().toLowerCase();
-  const dd = document.getElementById('searchDropdown');
-  document.getElementById('searchClear').style.display = q ? 'block' : 'none';
-  if (!q) { dd.style.display = 'none'; return; }
-  const hits = TEAM_MEMBERS.filter(u => u.name.toLowerCase().includes(q));
-  const rows = hits.map(u => `
-    <div class="search-row" tabindex="0" onclick="selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})" onkeydown="if(event.key==='Enter')selectUser(${JSON.stringify(u).replace(/"/g,'&quot;')})">
-      <div class="search-avatar" style="background:${avatarColour(u.name)}">${initials(u.name)}</div>
-      <div><div class="search-name">${u.name}</div><div class="search-dept">${u.dept}</div></div>
-    </div>`).join('');
-  dd.innerHTML = rows + `<div class="search-add-row" onclick="showNewUser()">+ I'm not listed — add me</div>`;
-  dd.style.display = 'block';
-}
-
-function userSearchKey(e) {
-  if (e.key === 'Escape') document.getElementById('searchDropdown').style.display = 'none';
-}
-
-function selectUser(u) {
-  selectedUser = u;
-  document.getElementById('selectedUserName').value = u.name;
-  document.getElementById('selectedUserTeam').value = u.dept;
-  document.getElementById('userSearch').value = '';
-  document.getElementById('searchDropdown').style.display = 'none';
-  document.getElementById('searchClear').style.display = 'none';
-  document.getElementById('newUserBox').style.display = 'none';
-  const chip = document.getElementById('userChip');
-  document.getElementById('chipAvatar').textContent = initials(u.name);
-  document.getElementById('chipAvatar').style.background = avatarColour(u.name);
-  document.getElementById('chipName').textContent = u.name;
-  document.getElementById('chipSub').textContent  = u.dept;
-  chip.classList.add('show');
-  document.getElementById('existingTeamRow').style.display = 'none';
-}
-
-function clearUserSearch() {
-  selectedUser = null;
-  document.getElementById('selectedUserName').value = '';
-  document.getElementById('selectedUserTeam').value = '';
-  document.getElementById('userSearch').value = '';
-  document.getElementById('searchDropdown').style.display = 'none';
-  document.getElementById('searchClear').style.display = 'none';
-  document.getElementById('userChip').classList.remove('show');
-  document.getElementById('newUserBox').style.display = 'none';
-  document.getElementById('existingTeamRow').style.display = 'none';
-  document.getElementById('userSearch').focus();
-}
-
-function showNewUser() {
-  document.getElementById('searchDropdown').style.display = 'none';
-  document.getElementById('userChip').classList.remove('show');
-  document.getElementById('userSearch').value = '';
-  document.getElementById('searchClear').style.display = 'none';
-  document.getElementById('selectedUserName').value = '__new__';
-  document.getElementById('newUserBox').style.display = 'block';
-  document.getElementById('newFirst').focus();
+  document.getElementById('headerPillDay1Text').textContent = dayConfig.day1.fullDate + ' — Accounting Day 1';
+  document.getElementById('headerPillDay2Text').textContent = dayConfig.day2.fullDate + ' — Accounting Day 2';
+  document.getElementById('meta-day1').textContent = dayConfig.day1.fullDate + ' · Street HQ, Manchester';
+  document.getElementById('meta-day2').textContent = dayConfig.day2.fullDate + ' · Street HQ, Manchester';
+  document.getElementById('chipDay1Label').textContent = 'Day 1 — ' + dayConfig.day1.shortDate;
+  document.getElementById('chipDay2Label').textContent = 'Day 2 — ' + dayConfig.day2.shortDate;
 }
 
 // ══════════════════════════════════════════════════════════════
 // TRAINING DAY TOGGLE
 // ══════════════════════════════════════════════════════════════
 function toggleDay(day) {
-  const card = document.getElementById('card-' + day);
+  const card = document.getElementById('card-'+day);
   if (card.classList.contains('sold-out')) return;
   selectedDays[day] = !selectedDays[day];
-  document.getElementById('chk-' + day).checked = selectedDays[day];
+  document.getElementById('chk-'+day).checked = selectedDays[day];
   card.classList.toggle('selected', selectedDays[day]);
 }
 
 // ══════════════════════════════════════════════════════════════
-// ATTENDEES
+// ATTENDEES — with both-days warning
 // ══════════════════════════════════════════════════════════════
 function addAttendee() {
-  const fn           = document.getElementById('attFirst').value.trim();
-  const ln           = document.getElementById('attLast').value.trim();
-  const role         = document.getElementById('attRole').value.trim();
-  const diet         = document.getElementById('attDiet').value.trim();
-  const daySales     = document.getElementById('attDaySales').checked;
-  const dayLettings  = document.getElementById('attDayLettings').checked;
-  // Collect any custom day checkboxes too
-  const customChecked = [];
-  document.querySelectorAll('.chip-custom input[type=checkbox]').forEach(cb => {
-    if (cb.checked) customChecked.push(cb.value);
-  });
+  const fn   = document.getElementById('attFirst').value.trim();
+  const ln   = document.getElementById('attLast').value.trim();
+  const role = document.getElementById('attRole').value.trim();
+  const diet = document.getElementById('attDiet').value.trim();
+  const d1   = document.getElementById('attDay1').checked;
+  const d2   = document.getElementById('attDay2').checked;
+
   if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
-  if (!daySales && !dayLettings && !customChecked.length) {
-    toast('Please select at least one training day for this delegate', 'error'); return;
-  }
-  // Capacity check before adding
+  if (!d1 && !d2) { toast('Please select at least one training day for this delegate', 'error'); return; }
+  if (!diet) { toast('Please enter dietary requirements (or type "None" if none)', 'error'); return; }
+
+  // Capacity check
   if (liveCapacity.loaded) {
-    if (daySales) {
-      const salesBooked  = attendees.filter(a => a.days && a.days.includes('sales')).length + (liveCapacity.sales || 0);
-      if (salesBooked >= maxSeats) { toast('Sales day is fully booked — no seats remaining', 'error'); return; }
+    if (d1) {
+      const d1b = attendees.filter(a => a.days.includes('day1')).length + (liveCapacity.day1||0);
+      if (d1b >= maxSeats) { toast('Day 1 is fully booked — no seats remaining', 'error'); return; }
     }
-    if (dayLettings) {
-      const lettingsBooked = attendees.filter(a => a.days && a.days.includes('lettings')).length + (liveCapacity.lettings || 0);
-      if (lettingsBooked >= maxSeats) { toast('Lettings day is fully booked — no seats remaining', 'error'); return; }
+    if (d2) {
+      const d2b = attendees.filter(a => a.days.includes('day2')).length + (liveCapacity.day2||0);
+      if (d2b >= maxSeats) { toast('Day 2 is fully booked — no seats remaining', 'error'); return; }
     }
   }
-  const days = [];
-  if (daySales)    days.push('sales');
-  if (dayLettings) days.push('lettings');
-  customChecked.forEach(d => days.push(d));
-  const att = { id: Date.now(), name: fn + ' ' + ln, role, diet, days };
+
+  const att = { id: Date.now(), firstName: fn, lastName: ln, name: fn + ' ' + ln, role, diet, days: [] };
+  if (d1) att.days.push('day1');
+  if (d2) att.days.push('day2');
+
+  // Warn if attending both days (same agenda)
+  if (d1 && d2) {
+    _pendingAttendee = att;
+    document.getElementById('bothDaysWarnModal').classList.add('show');
+    return;
+  }
+
+  commitAttendee(att);
+}
+
+function cancelBothDays() {
+  _pendingAttendee = null;
+  document.getElementById('bothDaysWarnModal').classList.remove('show');
+}
+
+function confirmBothDays() {
+  document.getElementById('bothDaysWarnModal').classList.remove('show');
+  if (_pendingAttendee) { commitAttendee(_pendingAttendee); _pendingAttendee = null; }
+}
+
+function commitAttendee(att) {
   attendees.push(att);
   document.getElementById('attFirst').value = '';
   document.getElementById('attLast').value  = '';
   document.getElementById('attRole').value  = '';
   document.getElementById('attDiet').value  = '';
-  document.getElementById('attDaySales').checked    = false;
-  document.getElementById('attDayLettings').checked = false;
+  document.getElementById('attDay1').checked = false;
+  document.getElementById('attDay2').checked = false;
   renderAttendees();
   updateCost();
   toast(att.name + ' added', 'success');
@@ -1753,31 +946,19 @@ function addAttendee() {
 
 function removeAttendee(id) {
   attendees = attendees.filter(a => a.id !== id);
-  renderAttendees();
-  updateCost();
+  renderAttendees(); updateCost();
 }
 
 function renderAttendees() {
   const list = document.getElementById('attendeeList');
   if (!attendees.length) { list.innerHTML = ''; return; }
   list.innerHTML = attendees.map(a => {
-    const dayTags = (a.days || []).map(d => {
-      if (d === 'sales') {
-        const sd = trainingDays.find(x => x.id === 'sales');
-        return `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Sales ${sd ? sd.shortDate : dayConfig.sales.shortDate}</span>`;
-      }
-      if (d === 'lettings') {
-        const ld = trainingDays.find(x => x.id === 'lettings');
-        return `<span style="font-size:10px;font-weight:700;background:#f0fdf4;color:#166534;border-radius:10px;padding:2px 8px;white-space:nowrap;">Lettings ${ld ? ld.shortDate : dayConfig.lettings.shortDate}</span>`;
-      }
-      // Custom day
-      const cd = trainingDays.find(x => x.id === d);
-      const dotColour = cd ? (COLOUR_MAP[cd.colour]?.dot || 'var(--purple)') : 'var(--grey-50)';
-      const label = cd ? cd.title.replace(' Training','') + ' ' + cd.shortDate : d;
-      return `<span style="font-size:10px;font-weight:700;background:var(--grey-10);color:var(--grey-70);border-radius:10px;padding:2px 8px;white-space:nowrap;">${esc(label)}</span>`;
+    const dayTags = (a.days||[]).map(d => {
+      if (d==='day1') return `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Day 1 — ${dayConfig.day1.shortDate}</span>`;
+      if (d==='day2') return `<span style="font-size:10px;font-weight:700;background:#fffbeb;color:#92400e;border-radius:10px;padding:2px 8px;white-space:nowrap;">Day 2 — ${dayConfig.day2.shortDate}</span>`;
+      return '';
     }).join(' ');
-    return `
-    <div class="attendee-row">
+    return `<div class="attendee-row">
       <div class="attendee-avatar" style="background:${avatarColour(a.name)}">${initials(a.name)}</div>
       <div class="attendee-info">
         <div class="attendee-name">${esc(a.name)}</div>
@@ -1794,15 +975,14 @@ function renderAttendees() {
 // ══════════════════════════════════════════════════════════════
 function updateCost() {
   const box = document.getElementById('costPreview');
-  if (!attendees.length) { box.style.display = 'none'; return; }
-  const salesCount    = attendees.filter(a => a.days && a.days.includes('sales')).length;
-  const lettingsCount = attendees.filter(a => a.days && a.days.includes('lettings')).length;
-  if (!salesCount && !lettingsCount) { box.style.display = 'none'; return; }
+  const d1c = attendees.filter(a => a.days.includes('day1')).length;
+  const d2c = attendees.filter(a => a.days.includes('day2')).length;
+  if (!attendees.length || (!d1c && !d2c)) { box.style.display = 'none'; return; }
   box.style.display = 'block';
   const rows = [];
-  if (salesCount)    rows.push(`<div class="cost-row"><span class="label">Sales Basic (${dayConfig.sales.shortDate}) &times; ${salesCount} ${salesCount===1?'person':'people'}</span><span>&pound;${salesCount*100}</span></div>`);
-  if (lettingsCount) rows.push(`<div class="cost-row"><span class="label">Lettings Basic (${dayConfig.lettings.shortDate}) &times; ${lettingsCount} ${lettingsCount===1?'person':'people'}</span><span>&pound;${lettingsCount*100}</span></div>`);
-  const total = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
+  if (d1c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 1 (${dayConfig.day1.shortDate}) &times; ${d1c} ${d1c===1?'person':'people'}</span><span>&pound;${d1c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
+  if (d2c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 2 (${dayConfig.day2.shortDate}) &times; ${d2c} ${d2c===1?'person':'people'}</span><span>&pound;${d2c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
+  const total = (d1c + d2c) * PRICE_PER_PERSON_PER_DAY;
   document.getElementById('costRows').innerHTML = rows.join('');
   document.getElementById('costTotal').textContent = '£' + total;
 }
@@ -1814,72 +994,115 @@ function buildSummary() {
   const company  = document.getElementById('company').value.trim();
   const stkName  = document.getElementById('stakeholderName').value.trim();
   const stkEmail = document.getElementById('stakeholderEmail').value.trim();
-
-  const salesDelegates    = attendees.filter(a => a.days && a.days.includes('sales'));
-  const lettingsDelegates = attendees.filter(a => a.days && a.days.includes('lettings'));
-  const salesCost    = salesDelegates.length * 100;
-  const lettingsCost = lettingsDelegates.length * 100;
-  const total        = salesCost + lettingsCost;
+  const d1Dels = attendees.filter(a => a.days.includes('day1'));
+  const d2Dels = attendees.filter(a => a.days.includes('day2'));
+  const d1Cost = d1Dels.length * PRICE_PER_PERSON_PER_DAY;
+  const d2Cost = d2Dels.length * PRICE_PER_PERSON_PER_DAY;
+  const total  = d1Cost + d2Cost;
 
   const daysSummary = [
-    salesDelegates.length    ? `Sales (${salesDelegates.length}p)` : '',
-    lettingsDelegates.length ? `Lettings (${lettingsDelegates.length}p)` : ''
+    d1Dels.length ? `Day 1 (${d1Dels.length}p)` : '',
+    d2Dels.length ? `Day 2 (${d2Dels.length}p)` : ''
   ].filter(Boolean).join(' & ');
 
   document.getElementById('summaryText').innerHTML =
-    `<strong>${company}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${daysSummary} · <strong>Total: £${total}</strong><br>
-    Stakeholder: ${stkName} · ${stkEmail}`;
+    `<strong>${esc(company)}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${daysSummary} · <strong>Total: £${total}</strong><br>Stakeholder: ${esc(stkName)} · ${esc(stkEmail)}`;
 
-  const attLines = attendees.map((a, i) => {
-    const dayLabel = (a.days || []).map(d => d === 'sales'
-      ? `Sales (${dayConfig.sales.fullDate}, 10:30am–4:30pm)`
-      : `Lettings (${dayConfig.lettings.fullDate}, 10:30am–4:30pm)`
+  const attLines = attendees.map((a,i) => {
+    const dl = (a.days||[]).map(d => d==='day1'
+      ? `Day 1 (${dayConfig.day1.fullDate}, 10:00am–4:30pm)`
+      : `Day 2 (${dayConfig.day2.fullDate}, 10:00am–4:30pm)`
     ).join(' + ');
-    return `  ${i+1}. ${a.name}${a.role ? ' (' + a.role + ')' : ''} — ${dayLabel}${a.diet ? ' — Dietary: ' + a.diet : ''}`;
+    return `  ${i+1}. ${a.name}${a.role?' ('+a.role+')':''} — ${dl}${a.diet?' — Dietary: '+a.diet:''}`;
   }).join('\n');
 
   const costLines = [];
-  if (salesDelegates.length)    costLines.push(`  Sales Basic (${dayConfig.sales.fullDate}, 10:30am–4:30pm): ${salesDelegates.length} × £100 = £${salesCost}`);
-  if (lettingsDelegates.length) costLines.push(`  Lettings Basic (${dayConfig.lettings.fullDate}, 10:30am–4:30pm): ${lettingsDelegates.length} × £100 = £${lettingsCost}`);
+  if (d1Dels.length) costLines.push(`  Accounting Day 1 (${dayConfig.day1.fullDate}): ${d1Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d1Cost}`);
+  if (d2Dels.length) costLines.push(`  Accounting Day 2 (${dayConfig.day2.fullDate}): ${d2Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d2Cost}`);
 
   const email = `Hi ${stkName},
 
-Thank you for booking onto the Street Open Training Day(s). We're looking forward to welcoming your team!
+Thank you for booking onto the Street Accounting Open Training Day — we're looking forward to welcoming your team!
 
-Here's a summary of your booking:
+This event is designed for staff who handle client accounting on Street — specifically those who move money between accounts (client to business, TDS, DPS, etc). It's a great opportunity to build confidence, sharpen best-practice workflows, and get your questions answered directly with our accounting specialists.
+
+📋 Booking Summary:
 
 Company: ${company}
 Training Day(s): ${daysSummary}
-Time: 10:30am – 4:30pm
+Time: 10:00am – 4:30pm (1 hour lunch break)
+Location: North Square, 11–13 Spear St, Manchester M1 1JU
 
 Delegates (${attendees.length} ${attendees.length===1?'person':'people'}):
 ${attLines}
 
-Cost Breakdown:
+💰 Cost Breakdown:
 ${costLines.join('\n')}
   ──────────────────────────
-  Total: £${total}
+  Total Due: £${total}
 
-Important: Payment is required at least 1 week before your training date. Please ensure your invoice is settled in advance to confirm your places.
+⚠️ Payment is required at least 1 week before the training date. Please ensure your invoice is settled in advance to confirm your places.
 
-Location: North Square, 11-13 Spear St, Manchester M1 1JU
-Parking: https://en.parkopedia.co.uk/parking/spear_street_manchester/?arriving=202602231000&leaving=202602231200
-9 Min Walk From: Manchester Piccadilly or Manchester Victoria railway station
+🎯 What to Expect on the Day:
+✔ Accounting overview and best-practice setup
+✔ Receipting money and reconciling bank transactions
+✔ Tenant and owner ledgers
+✔ Charges, fees, supplier and contractor payments
+✔ Owner statements and payment runs
+✔ Statement imports and rent/deposit handling
+✔ Common mistakes and how to avoid them
+✔ Open Q&A with accounting specialists
 
-Dietary Requirements: Please let us know of any requirements by replying to this email.
+Please note: This session covers standard workflows. Niche topics (HMOs, direct debits, service charges, ground rents) are not included in the standard agenda.
 
-If you have any questions, feel free to get in touch.
+🚗 Getting Here:
+Parking: https://en.parkopedia.co.uk/parking/spear_street_manchester/
+9 min walk from Manchester Piccadilly or Manchester Victoria railway station
+
+If you have any questions, please don't hesitate to get in touch by replying to this email.
 
 Kind regards,
 Street Training Team`;
 
-  const subject = `Street Open Training Day Booking Confirmation — ${company}`;
+  const prevEmail = `Hi [First Name],
+
+I hope you're well! 😊
+
+We're excited to announce that Street is hosting an Accounting Open Training Day, and we'd love to have you join us again.
+
+As someone who has attended a previous session, you'll know how valuable a day like this can be — and we've refreshed the agenda to make sure it covers the latest updates, including Renters' Rights Act changes, Making Tax Digital queries, and handling upfront rent and arrears.
+
+📅 Date: ${dayConfig.day1.fullDate !== 'Date TBC' ? dayConfig.day1.fullDate : '[Date TBC — watch this space]'}
+📍 Location: Street HQ, North Square, 11–13 Spear St, Manchester M1 1JU
+🕙 Time: 10:00am – 4:30pm
+
+🎯 What's covered:
+• Accounting best practice setup and overview
+• Receipting, reconciling, and ledger management
+• Charges, fees, statements, and payment runs
+• Deposits workflow and NRL
+• Rent Review and Arrears management
+• Open Q&A with Street accounting specialists
+• Latest Street updates — what's changed and what's coming
+
+💰 Cost: £250 per person per day
+
+To register your interest or book a place, reply to this email or speak to your CSM.
+
+We'd love to see you there!
+
+Kind regards,
+Amy Dawber
+Head of Product Training — Street.co.uk`;
+
+  const subject = `Street Accounting Training Day — Booking Confirmation: ${company}`;
   _emailSubject = subject;
-  _emailTo      = stkEmail;
+  _emailTo = stkEmail;
 
   document.getElementById('emailMetaTo').textContent      = `${stkName} <${stkEmail}>`;
   document.getElementById('emailMetaSubject').textContent = subject;
   document.getElementById('emailTemplateBody').textContent = email;
+  document.getElementById('prevAttEmail').textContent = prevEmail;
 }
 
 let _emailSubject = '';
@@ -1888,15 +1111,18 @@ let _emailTo      = '';
 function copyEmail() {
   const subject = document.getElementById('emailMetaSubject').textContent;
   const body    = document.getElementById('emailTemplateBody').textContent;
-  const full    = `Subject: ${subject}\n\n${body}`;
-  navigator.clipboard.writeText(full).then(() => toast('Email copied to clipboard!', 'success'));
+  navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => toast('Email copied to clipboard!', 'success'));
+}
+
+function copyPrevAtt() {
+  navigator.clipboard.writeText(document.getElementById('prevAttEmail').textContent).then(() => toast('Previous attendee email copied!', 'success'));
 }
 
 function openMailto() {
-  const to      = encodeURIComponent(_emailTo);
-  const subject = encodeURIComponent(_emailSubject);
-  const body    = encodeURIComponent(document.getElementById('emailTemplateBody').textContent);
-  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+  const to  = encodeURIComponent(_emailTo);
+  const sub = encodeURIComponent(_emailSubject);
+  const bdy = encodeURIComponent(document.getElementById('emailTemplateBody').textContent);
+  window.location.href = `mailto:${to}?subject=${sub}&body=${bdy}`;
   return false;
 }
 
@@ -1904,31 +1130,30 @@ function openMailto() {
 // NAVIGATION
 // ══════════════════════════════════════════════════════════════
 function renderProgress() {
-  const labels = ['Referrer', 'Client Details', 'Days & Attendees', 'Review & Submit'];
+  const labels = ['Referrer', 'Client Details', 'Days & Delegates', 'Review & Submit'];
   const track  = document.getElementById('progressTrack');
   track.innerHTML = labels.map((label, i) => {
-    const n = i + 1; const done = n < step; const act = n === step;
-    return `<div class="step-dot ${done?'done':''} ${act?'active':''}">${done?'✓':n}<span class="step-label">${label}</span></div>
-      ${i < labels.length-1 ? `<div class="step-line ${done?'done':''}"></div>` : ''}`;
+    const n = i+1; const done = n < step; const act = n === step;
+    return `<div class="step-dot ${done?'done':''} ${act?'active':''}">${done?'✓':n}<span class="step-label">${label}</span></div>${i<labels.length-1?`<div class="step-line ${done?'done':''}"></div>`:''}`;
   }).join('');
 }
 
 function updateNav() {
   const isLast = step === TOTAL;
-  document.getElementById('backBtn').style.display  = step > 1 ? 'inline-flex' : 'none';
-  document.getElementById('nextBtn').textContent    = isLast ? '✓ Submit Booking' : 'Continue →';
-  document.getElementById('nextBtn').className      = isLast ? 'btn btn-success'  : 'btn btn-primary';
+  document.getElementById('backBtn').style.display = step > 1 ? 'inline-flex' : 'none';
+  document.getElementById('nextBtn').textContent   = isLast ? '✓ Submit Booking' : 'Continue →';
+  document.getElementById('nextBtn').className     = isLast ? 'btn btn-success'  : 'btn btn-primary';
 }
 
 function showPane(n) {
   document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
-  document.getElementById('pane' + n).classList.add('active');
+  document.getElementById('pane'+n).classList.add('active');
 }
 
 function nextStep() {
   if (!validate(step)) return;
   if (step === TOTAL) { submitForm(); return; }
-  if (step === TOTAL - 1) buildSummary();
+  if (step === TOTAL-1) buildSummary();
   step++;
   showPane(step); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1946,21 +1171,18 @@ function prevStep() {
 // ══════════════════════════════════════════════════════════════
 function validate(s) {
   if (s === 1) {
-    const picker = document.getElementById('selectedUserName').value;
-    if (!picker) { toast('Please select your name or add yourself', 'error'); return false; }
-    if (picker === '__new__') {
-      const fn = document.getElementById('newFirst').value.trim();
-      const ln = document.getElementById('newLast').value.trim();
-      const dp = document.getElementById('newDept').value;
-      if (!fn || !ln || !dp) { toast('Please enter your name and department', 'error'); return false; }
-    }
+    const fn = document.getElementById('referrerFirst').value.trim();
+    const ln = document.getElementById('referrerLast').value.trim();
+    const dp = document.getElementById('referrerDept').value;
+    if (!fn || !ln) { toast('Please enter your first and last name', 'error'); return false; }
+    if (!dp) { toast('Please select your team / department', 'error'); return false; }
   }
   if (s === 2) {
-    const co   = document.getElementById('company').value.trim();
-    const stkN = document.getElementById('stakeholderName').value.trim();
-    const stkE = document.getElementById('stakeholderEmail').value.trim();
-    if (!co || !stkN || !stkE) { toast('Company name, stakeholder name and email are required', 'error'); return false; }
-    if (!/^[^@]+@[^@]+\.[^@]+$/.test(stkE)) { toast('Please enter a valid stakeholder email address', 'error'); return false; }
+    const co  = document.getElementById('company').value.trim();
+    const sn  = document.getElementById('stakeholderName').value.trim();
+    const se  = document.getElementById('stakeholderEmail').value.trim();
+    if (!co||!sn||!se) { toast('Company name, stakeholder name and email are required', 'error'); return false; }
+    if (!/^[^@]+@[^@]+\.[^@]+$/.test(se)) { toast('Please enter a valid stakeholder email', 'error'); return false; }
   }
   if (s === 3) {
     if (!attendees.length) { toast('Please add at least one delegate', 'error'); return false; }
@@ -1975,29 +1197,28 @@ async function submitForm() {
   document.getElementById('loadingLabel').textContent = 'Submitting booking…';
   document.getElementById('loadingOverlay').classList.add('show');
 
-  let referrerName = document.getElementById('selectedUserName').value;
-  let referrerTeam = document.getElementById('selectedUserTeam').value || document.getElementById('existingTeam').value || '';
-  if (referrerName === '__new__') {
-    referrerName = document.getElementById('newFirst').value.trim() + ' ' + document.getElementById('newLast').value.trim();
-    referrerTeam = document.getElementById('newDept').value;
-  }
-
+  const referrerName = document.getElementById('referrerFirst').value.trim() + ' ' + document.getElementById('referrerLast').value.trim();
+  const referrerTeam = document.getElementById('referrerDept').value;
   const company      = document.getElementById('company').value.trim();
   const stkName      = document.getElementById('stakeholderName').value.trim();
   const stkEmail     = document.getElementById('stakeholderEmail').value.trim();
   const stkPhone     = document.getElementById('stakeholderPhone').value.trim();
-  const salesCount   = attendees.filter(a => a.days && a.days.includes('sales')).length;
-  const lettingsCount= attendees.filter(a => a.days && a.days.includes('lettings')).length;
-  const total        = (salesCount + lettingsCount) * PRICE_PER_PERSON_PER_DAY;
-  const days         = [
-    salesCount    ? `Sales Basic (${dayConfig.sales.fullDate}) ×${salesCount}` : '',
-    lettingsCount ? `Lettings Basic (${dayConfig.lettings.fullDate}) ×${lettingsCount}` : ''
+
+  const d1Dels = attendees.filter(a => a.days.includes('day1'));
+  const d2Dels = attendees.filter(a => a.days.includes('day2'));
+  const total  = (d1Dels.length + d2Dels.length) * PRICE_PER_PERSON_PER_DAY;
+  const days   = [
+    d1Dels.length ? `Accounting Day 1 (${dayConfig.day1.fullDate}) ×${d1Dels.length}` : '',
+    d2Dels.length ? `Accounting Day 2 (${dayConfig.day2.fullDate}) ×${d2Dels.length}` : ''
   ].filter(Boolean).join(', ');
-  const attJSON      = JSON.stringify(attendees.map(a => ({ name: a.name, role: a.role, diet: a.diet })));
-  const dietaryList  = attendees.filter(a => a.diet).map(a => a.name + ': ' + a.diet).join('; ') || 'None';
+
+  const attJSON = JSON.stringify(attendees.map(a => ({
+    firstName: a.firstName, lastName: a.lastName, name: a.name, role: a.role, diet: a.diet, days: a.days
+  })));
+  const dietaryList = attendees.filter(a => a.diet && a.diet.toLowerCase() !== 'none').map(a => a.name + ': ' + a.diet).join('; ') || 'None';
 
   const params = new URLSearchParams({
-    action:         'submitOpenTraining',
+    action:         'submitAccounting',
     referredByName: referrerName,
     referredByTeam: referrerTeam,
     company, stakeholderName: stkName, stakeholderEmail: stkEmail, stakeholderPhone: stkPhone,
@@ -2014,17 +1235,15 @@ async function submitForm() {
 
   try {
     await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    document.getElementById('successMsg').textContent =
-      `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'}. ${days}. Total: £${total}.`;
-    document.getElementById('successRef').textContent =
-      `${company} · £${total} · Referred by ${referrerName}`;
+    const daysSummary = [d1Dels.length?`Day 1 (${d1Dels.length}p)`:'', d2Dels.length?`Day 2 (${d2Dels.length}p)`:''].filter(Boolean).join(' & ');
+    document.getElementById('successMsg').textContent = `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'}. ${daysSummary}. Total: £${total}.`;
+    document.getElementById('successRef').textContent = `${company} · £${total} · Referred by ${referrerName}`;
     step = 5;
     showPane(5);
     document.getElementById('formFooter').style.display = 'none';
     document.getElementById('progressTrack').style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast('Booking submitted!', 'success');
-    // Refresh capacity after submission
     setTimeout(fetchCapacity, 1500);
   } catch(e) {
     toast('Something went wrong — please try again', 'error');
@@ -2037,21 +1256,17 @@ async function submitForm() {
 // RESET
 // ══════════════════════════════════════════════════════════════
 function resetForm() {
-  step = 1; attendees = []; selectedDays = { sales: false, lettings: false };
+  step = 1; attendees = []; selectedDays = { day1: false, day2: false };
   document.getElementById('formFooter').style.display = '';
   document.getElementById('progressTrack').style.display = '';
   document.querySelectorAll('.field-input,.field-select,.field-textarea').forEach(el => el.value = '');
-  // Uncheck all delegate day chips including custom ones
-  document.querySelectorAll('#delegateDayGroup input[type=checkbox]').forEach(cb => cb.checked = false);
-  clearUserSearch();
+  document.getElementById('attDay1').checked = false;
+  document.getElementById('attDay2').checked = false;
   renderAttendees(); updateCost();
-  document.getElementById('card-sales').classList.remove('selected');
-  document.getElementById('card-lettings').classList.remove('selected');
-  document.getElementById('chk-sales').checked = false;
-  document.getElementById('chk-lettings').checked = false;
-  // Uncheck custom day cards
-  document.querySelectorAll('#extraTrainingCards .training-day-card').forEach(c => c.classList.remove('selected'));
-  document.querySelectorAll('#extraTrainingCards input[type=checkbox]').forEach(c => c.checked = false);
+  ['day1','day2'].forEach(d => {
+    document.getElementById('card-'+d).classList.remove('selected');
+    document.getElementById('chk-'+d).checked = false;
+  });
   document.getElementById('costPreview').style.display = 'none';
   showPane(1); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2062,22 +1277,93 @@ function resetForm() {
 // ══════════════════════════════════════════════════════════════
 let adminUnlocked = false;
 
-// ── Colour map ──────────────────────────────────────────────
-const COLOUR_MAP = {
-  purple: { dot: 'var(--purple)', tag: '', tagClass: '' },
-  green:  { dot: 'var(--green)',  tag: 'green-tag', tagClass: 'green-tag' },
-  blue:   { dot: '#3B82F6',       tag: '',          tagClass: '' },
-  amber:  { dot: '#F59E0B',       tag: 'amber-tag', tagClass: 'amber-tag' },
-  red:    { dot: 'var(--red)',     tag: 'red-tag',   tagClass: 'red-tag' },
-};
+function openAdmin() {
+  document.getElementById('adminModal').classList.add('show');
+  if (!adminUnlocked) {
+    document.getElementById('adminAuthScreen').style.display = '';
+    document.getElementById('adminEditorScreen').style.display = 'none';
+  } else {
+    populateAdminFields();
+  }
+}
+
+function closeAdmin() { document.getElementById('adminModal').classList.remove('show'); }
+
+function pinInput(i) {
+  const inp = document.getElementById('pin'+i);
+  if (inp.value.length === 1 && i < 3) document.getElementById('pin'+(i+1)).focus();
+}
+
+function pinKey(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById('pin'+i).value && i > 0) document.getElementById('pin'+(i-1)).focus();
+  if (e.key === 'Enter') checkPin();
+}
+
+function checkPin() {
+  const pin = [0,1,2,3].map(i => document.getElementById('pin'+i).value).join('');
+  if (pin === ADMIN_PIN) {
+    adminUnlocked = true;
+    document.getElementById('adminAuthScreen').style.display = 'none';
+    document.getElementById('adminEditorScreen').style.display = '';
+    populateAdminFields();
+    document.getElementById('pinError').textContent = '';
+  } else {
+    document.getElementById('pinError').textContent = 'Incorrect PIN — try again';
+    [0,1,2,3].forEach(i => { const el = document.getElementById('pin'+i); el.value=''; el.classList.add('error'); });
+    setTimeout(() => [0,1,2,3].forEach(i => document.getElementById('pin'+i).classList.remove('error')), 800);
+    document.getElementById('pin0').focus();
+  }
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
+  document.getElementById('pane'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
+}
+
+function populateAdminFields() {
+  const d1iso = fullDateToIso(dayConfig.day1.fullDate);
+  const d2iso = fullDateToIso(dayConfig.day2.fullDate);
+  if (d1iso) document.getElementById('adminDay1Date').value = d1iso;
+  if (d2iso) document.getElementById('adminDay2Date').value = d2iso;
+  document.getElementById('adminDay1Short').value = dayConfig.day1.shortDate !== 'TBC' ? dayConfig.day1.shortDate : '';
+  document.getElementById('adminDay2Short').value = dayConfig.day2.shortDate !== 'TBC' ? dayConfig.day2.shortDate : '';
+  document.getElementById('adminMaxSeats').value  = maxSeats;
+}
+
+function adminAutoFillShort(shortId, dateId) {
+  const iso = document.getElementById(dateId).value;
+  if (iso) document.getElementById(shortId).value = isoToShortDate(iso);
+}
+
+function saveAdmin() {
+  const d1iso = document.getElementById('adminDay1Date').value;
+  const d2iso = document.getElementById('adminDay2Date').value;
+  const d1short = document.getElementById('adminDay1Short').value.trim();
+  const d2short = document.getElementById('adminDay2Short').value.trim();
+  const seats = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
+
+  dayConfig.day1.fullDate  = d1iso ? isoToFullDate(d1iso) : 'Date TBC';
+  dayConfig.day1.shortDate = d1short || (d1iso ? isoToShortDate(d1iso) : 'TBC');
+  dayConfig.day2.fullDate  = d2iso ? isoToFullDate(d2iso) : 'Date TBC';
+  dayConfig.day2.shortDate = d2short || (d2iso ? isoToShortDate(d2iso) : 'TBC');
+  maxSeats = seats;
+  saveDayConfig();
+  try { localStorage.setItem('accMaxSeats', seats); } catch(_) {}
+
+  applyDayConfig();
+  if (liveCapacity.loaded) renderCapacity();
+  closeAdmin();
+  toast('Training days updated!', 'success');
+}
 
 // ── Date helpers ─────────────────────────────────────────────
 function isoToFullDate(iso) {
-  // iso = "2026-05-19"
   if (!iso) return '';
   const d = new Date(iso + 'T12:00:00');
-  const days  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const months= ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 }
 function isoToShortDate(iso) {
@@ -2088,8 +1374,7 @@ function isoToShortDate(iso) {
   return dayS[d.getDay()] + ' ' + d.getDate() + ' ' + monS[d.getMonth()];
 }
 function fullDateToIso(fullDate) {
-  // "Tuesday 19 May 2026" -> "2026-05-19"
-  if (!fullDate) return '';
+  if (!fullDate || fullDate === 'Date TBC') return '';
   const months = {January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',July:'07',August:'08',September:'09',October:'10',November:'11',December:'12'};
   const parts = fullDate.split(' ');
   if (parts.length < 4) return '';
@@ -2098,347 +1383,8 @@ function fullDateToIso(fullDate) {
   const year  = parts[3];
   return year + '-' + month + '-' + day;
 }
-function suggestNextDate(iso, weeksAhead=4) {
-  // Suggest same weekday, 4 weeks later
-  if (!iso) return '';
-  const d = new Date(iso + 'T12:00:00');
-  d.setDate(d.getDate() + weeksAhead * 7);
-  return d.toISOString().slice(0,10);
-}
-function isDatePast(fullDate) {
-  if (!fullDate) return false;
-  const iso = fullDateToIso(fullDate);
-  if (!iso) return false;
-  const d = new Date(iso + 'T23:59:59');
-  return d < new Date();
-}
 
-// ── Admin open/close ─────────────────────────────────────────
-function openAdmin() {
-  document.getElementById('adminModal').classList.add('show');
-  if (!adminUnlocked) {
-    document.getElementById('adminAuthScreen').style.display = '';
-    document.getElementById('adminEditorScreen').style.display = 'none';
-    [0,1,2,3].forEach(i => {
-      const el = document.getElementById('pin' + i);
-      el.value = ''; el.classList.remove('error');
-    });
-    document.getElementById('pinError').textContent = '';
-    setTimeout(() => document.getElementById('pin0').focus(), 100);
-  } else {
-    showAdminEditor();
-  }
-}
-function closeAdmin() {
-  document.getElementById('adminModal').classList.remove('show');
-}
-
-// ── PIN ──────────────────────────────────────────────────────
-function pinInput(idx) {
-  const val = document.getElementById('pin' + idx).value;
-  if (val && idx < 3) document.getElementById('pin' + (idx+1)).focus();
-  const allFilled = [0,1,2,3].every(i => document.getElementById('pin' + i).value.length === 1);
-  if (allFilled) setTimeout(checkPin, 80);
-}
-function pinKey(e, idx) {
-  if (e.key === 'Backspace' && !document.getElementById('pin' + idx).value && idx > 0)
-    document.getElementById('pin' + (idx-1)).focus();
-  if (e.key === 'Enter') checkPin();
-}
-function checkPin() {
-  const entered = [0,1,2,3].map(i => document.getElementById('pin' + i).value).join('');
-  if (entered === ADMIN_PIN) {
-    adminUnlocked = true;
-    document.getElementById('pinError').textContent = '';
-    showAdminEditor();
-  } else {
-    [0,1,2,3].forEach(i => document.getElementById('pin' + i).classList.add('error'));
-    document.getElementById('pinError').textContent = 'Incorrect PIN — please try again';
-    setTimeout(() => {
-      [0,1,2,3].forEach(i => { document.getElementById('pin' + i).classList.remove('error'); document.getElementById('pin' + i).value = ''; });
-      document.getElementById('pin0').focus();
-    }, 1200);
-  }
-}
-
-// ── Tab switching ────────────────────────────────────────────
-function switchAdminTab(tab) {
-  ['dates','new','archive'].forEach(t => {
-    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
-    document.getElementById('pane' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
-  });
-  // Show/hide save button — only visible on dates tab
-  document.getElementById('adminSaveBtn').style.display = tab === 'dates' ? 'inline-flex' : 'none';
-  if (tab === 'archive') renderArchiveTab();
-}
-
-// ── Show editor ──────────────────────────────────────────────
-function showAdminEditor() {
-  document.getElementById('adminAuthScreen').style.display   = 'none';
-  document.getElementById('adminEditorScreen').style.display = '';
-  switchAdminTab('dates');
-  renderDayEditors();
-  document.getElementById('adminMaxSeats').value = maxSeats;
-  checkAndArchivePastDays();
-}
-
-// ── Render day editors ───────────────────────────────────────
-function renderDayEditors() {
-  const container = document.getElementById('adminDayEditorsList');
-  container.innerHTML = '';
-
-  trainingDays.forEach((day, idx) => {
-    const colourDot = COLOUR_MAP[day.colour]?.dot || 'var(--purple)';
-    const iso = fullDateToIso(day.fullDate);
-    const booked = liveCapacity.loaded ? (liveCapacity[day.id] || 0) : null;
-    const capacityText = booked !== null ? `${booked}/${maxSeats} booked` : 'Loading…';
-
-    const div = document.createElement('div');
-    div.className = 'admin-day-editor';
-    div.id = 'dayEditor_' + idx;
-    div.innerHTML = `
-      <div class="admin-day-editor-hdr">
-        <div class="admin-day-dot" style="background:${colourDot}"></div>
-        <div class="admin-day-label">${esc(day.title)}</div>
-        <div class="admin-capacity-badge" id="adminCap_${idx}">${capacityText}</div>
-        <button class="admin-day-remove" title="Remove this training day" onclick="removeTrainingDay(${idx})">✕</button>
-      </div>
-      <div class="admin-field-row">
-        <div class="admin-field">
-          <label>Date</label>
-          <input type="date" id="dayDate_${idx}" value="${iso}" oninput="autoFillShort(${idx})">
-          <div class="admin-note">Shown on the day card and in emails.</div>
-        </div>
-        <div class="admin-field">
-          <label>Short Label (for chips)</label>
-          <input type="text" id="dayShort_${idx}" value="${esc(day.shortDate)}" placeholder="e.g. Tue 19 May">
-          <div class="admin-note">Auto-fills when you pick a date.</div>
-        </div>
-      </div>`;
-    container.appendChild(div);
-  });
-}
-
-// ── Auto-fill short label when date changes ──────────────────
-function autoFillShort(idx) {
-  const iso = document.getElementById('dayDate_' + idx).value;
-  if (iso) {
-    document.getElementById('dayShort_' + idx).value = isoToShortDate(iso);
-  }
-}
-function autoFillNewShort() {
-  const iso = document.getElementById('newDayDate').value;
-  if (iso) {
-    document.getElementById('newDayShort').value = isoToShortDate(iso);
-  }
-}
-
-// ── Save admin ───────────────────────────────────────────────
-function saveAdmin() {
-  const newMaxSeats = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
-
-  // Read back each day editor
-  const updated = [];
-  for (let i = 0; i < trainingDays.length; i++) {
-    const iso   = document.getElementById('dayDate_' + i)?.value;
-    const short = document.getElementById('dayShort_' + i)?.value.trim();
-    if (!iso || !short) {
-      toast('Please fill in all date fields', 'error'); return;
-    }
-    updated.push({
-      ...trainingDays[i],
-      fullDate:  isoToFullDate(iso),
-      shortDate: short,
-    });
-  }
-
-  trainingDays = updated;
-  maxSeats = newMaxSeats;
-
-  // Keep backwards-compatible dayConfig for rest of app
-  syncDayConfigFromTrainingDays();
-  saveDayConfig(dayConfig);
-  saveTrainingDays();
-  try { localStorage.setItem('streetMaxSeats', maxSeats); } catch(_) {}
-
-  applyDayConfig();
-  if (liveCapacity.loaded) renderCapacity();
-  renderAttendees();
-  updateCost();
-  renderTrainingCards();
-
-  closeAdmin();
-  toast('Training days updated successfully!', 'success');
-}
-
-// ── Sync dayConfig from trainingDays (backwards compat) ─────
-function syncDayConfigFromTrainingDays() {
-  const salesDay    = trainingDays.find(d => d.id === 'sales');
-  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
-  if (salesDay)    { dayConfig.sales.fullDate    = salesDay.fullDate;    dayConfig.sales.shortDate    = salesDay.shortDate; }
-  if (lettingsDay) { dayConfig.lettings.fullDate = lettingsDay.fullDate; dayConfig.lettings.shortDate = lettingsDay.shortDate; }
-}
-
-// ── Remove a training day ────────────────────────────────────
-function removeTrainingDay(idx) {
-  if (trainingDays.length <= 1) { toast('You must keep at least one training day', 'error'); return; }
-  const day = trainingDays[idx];
-  if (!confirm(`Remove "${day.title}"? This cannot be undone.`)) return;
-  trainingDays.splice(idx, 1);
-  saveTrainingDays();
-  renderDayEditors();
-  renderTrainingCards();
-  toast(`"${day.title}" removed`, 'success');
-}
-
-// ── Create new training day ──────────────────────────────────
-function createNewTrainingDay() {
-  const title  = document.getElementById('newDayTitle').value.trim();
-  const tag    = document.getElementById('newDayTag').value.trim();
-  const iso    = document.getElementById('newDayDate').value;
-  const short  = document.getElementById('newDayShort').value.trim();
-  const colour = document.getElementById('newDayColour').value;
-  const seats  = parseInt(document.getElementById('newDaySeats').value) || null;
-
-  if (!title)  { toast('Please enter a title', 'error'); return; }
-  if (!iso)    { toast('Please select a date', 'error'); return; }
-  if (!short)  { toast('Please enter a short label', 'error'); return; }
-
-  const id = 'custom_' + Date.now();
-  trainingDays.push({ id, title, tag: tag || title, colour, fullDate: isoToFullDate(iso), shortDate: short, maxSeats: seats });
-  saveTrainingDays();
-  renderTrainingCards();
-  renderDayEditors();
-
-  // Clear form
-  document.getElementById('newDayTitle').value  = '';
-  document.getElementById('newDayTag').value    = '';
-  document.getElementById('newDayDate').value   = '';
-  document.getElementById('newDayShort').value  = '';
-  document.getElementById('newDaySeats').value  = '';
-
-  switchAdminTab('dates');
-  toast(`"${title}" training day created!`, 'success');
-}
-
-// ── Check & archive past days ────────────────────────────────
-function checkAndArchivePastDays() {
-  let archiveTriggered = false;
-  trainingDays.forEach((day, idx) => {
-    if (isDatePast(day.fullDate)) {
-      archiveTrainingDay(idx, true); // silent archive
-      archiveTriggered = true;
-    }
-  });
-  if (archiveTriggered) {
-    renderDayEditors();
-    renderTrainingCards();
-    switchAdminTab('archive');
-  }
-}
-
-function archiveTrainingDay(idx, silent=false) {
-  const day = trainingDays[idx];
-  if (!day) return;
-  // Move to archive
-  archivedDays.push({ ...day, archivedAt: new Date().toISOString() });
-  trainingDays.splice(idx, 1);
-  saveTrainingDays();
-  saveArchivedDays();
-  if (!silent) {
-    renderDayEditors();
-    renderTrainingCards();
-    toast(`"${day.title}" archived`, 'success');
-  }
-}
-
-// ── Archive tab ──────────────────────────────────────────────
-function renderArchiveTab() {
-  const list = document.getElementById('archiveList');
-  const bannerEl = document.getElementById('archiveSuggestBanner');
-
-  if (!archivedDays.length) {
-    list.innerHTML = '<div class="archive-empty">📭 No archived days yet.<br><span style="font-size:11px;">Past training days will appear here automatically.</span></div>';
-    bannerEl.style.display = 'none';
-    return;
-  }
-
-  // Check if any archived day needs a successor suggested
-  const suggestions = archivedDays
-    .filter(d => !d.successorCreated)
-    .map(d => {
-      const nextIso = suggestNextDate(fullDateToIso(d.fullDate));
-      return { day: d, nextIso, nextFull: isoToFullDate(nextIso), nextShort: isoToShortDate(nextIso) };
-    })
-    .filter(s => s.nextIso);
-
-  if (suggestions.length) {
-    const s = suggestions[0];
-    bannerEl.style.display = '';
-    bannerEl.innerHTML = `
-      <div class="suggest-banner">
-        <span>📅</span>
-        <div style="flex:1">
-          <strong>"${esc(s.day.title)}"</strong> has passed. Suggested next date: <strong>${esc(s.nextFull)}</strong>
-        </div>
-        <button class="suggest-apply-btn" onclick="applyDateSuggestion('${esc(s.day.id)}','${s.nextIso}','${esc(s.day.title)}')">Apply Date →</button>
-      </div>`;
-  } else {
-    bannerEl.style.display = 'none';
-  }
-
-  list.innerHTML = archivedDays.slice().reverse().map((d,i) => {
-    const colourDot = COLOUR_MAP[d.colour]?.dot || 'var(--purple)';
-    const archivedDate = d.archivedAt ? new Date(d.archivedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '';
-    return `
-      <div class="archive-item">
-        <div class="archive-item-dot" style="background:${colourDot}"></div>
-        <div class="archive-item-info">
-          <div class="archive-item-title">${esc(d.title)}</div>
-          <div class="archive-item-date">${esc(d.fullDate)} · Archived ${archivedDate}</div>
-        </div>
-        <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px;" onclick="restoreArchivedDay(${archivedDays.length - 1 - i})">Restore</button>
-      </div>`;
-  }).join('');
-}
-
-function applyDateSuggestion(dayId, newIso, title) {
-  // Re-add this day type to trainingDays with the new date
-  const archIdx = archivedDays.findIndex(d => d.id === dayId);
-  if (archIdx < 0) return;
-  const archived = archivedDays[archIdx];
-  const newDay = {
-    ...archived,
-    id: archived.id === 'sales' || archived.id === 'lettings' ? archived.id : 'custom_' + Date.now(),
-    fullDate: isoToFullDate(newIso),
-    shortDate: isoToShortDate(newIso),
-  };
-  delete newDay.archivedAt;
-  trainingDays.push(newDay);
-  // Mark as resolved in archive
-  archivedDays[archIdx].successorCreated = true;
-  saveTrainingDays(); saveArchivedDays();
-  renderDayEditors(); renderTrainingCards();
-  switchAdminTab('dates');
-  toast(`New date applied for "${title}"!`, 'success');
-}
-
-function restoreArchivedDay(archIdx) {
-  const day = archivedDays[archIdx];
-  if (!day) return;
-  const restored = { ...day };
-  delete restored.archivedAt; delete restored.successorCreated;
-  trainingDays.push(restored);
-  archivedDays.splice(archIdx, 1);
-  saveTrainingDays(); saveArchivedDays();
-  renderDayEditors(); renderTrainingCards();
-  renderArchiveTab();
-  toast(`"${day.title}" restored`, 'success');
-}
-
-// ══════════════════════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════════════════════
+// ── Helpers ──────────────────────────────────────────────────
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg, type='info', dur=3500) {
   const host = document.getElementById('toastHost');
@@ -2450,19 +1396,10 @@ function toast(msg, type='info', dur=3500) {
 // ══════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════
-// Sync dayConfig from loaded trainingDays before applying
-(function() {
-  const salesDay    = trainingDays.find(d => d.id === 'sales');
-  const lettingsDay = trainingDays.find(d => d.id === 'lettings');
-  if (salesDay)    { dayConfig.sales.fullDate    = salesDay.fullDate;    dayConfig.sales.shortDate    = salesDay.shortDate; }
-  if (lettingsDay) { dayConfig.lettings.fullDate = lettingsDay.fullDate; dayConfig.lettings.shortDate = lettingsDay.shortDate; }
-})();
-
 applyDayConfig();
 renderProgress();
 updateNav();
 fetchCapacity();
-renderTrainingCards();
 </script>
 </body>
 </html>
