@@ -437,7 +437,7 @@ body {
         <div class="form-hdr-title">Book an Accounting Training Day Place</div>
         <div class="form-hdr-desc">Refer a client onto the Street Accounting Open Training Day. This event is designed for staff who handle client accounting — those who move money between accounts, receipt funds, reconcile banks, and manage ledgers. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
         <div class="date-pills">
-          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Tuesday 15 July 2026 — Accounting Training Day</span></div>
+          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Wednesday 15 July 2026 — Accounting Training Day</span></div>
         </div>
       </div>
 
@@ -769,7 +769,7 @@ function loadDayConfig() {
     const s = JSON.parse(localStorage.getItem('accDayConfig') || 'null');
     if (s && s.day1 && s.day2) return s;
   } catch(_) {}
-  return { day1: { fullDate: 'Tuesday 15 July 2026', shortDate: 'Tue 15 Jul' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
+  return { day1: { fullDate: 'Wednesday 15 July 2026', shortDate: 'Wed 15 Jul' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
 }
 function saveDayConfig() {
   try { localStorage.setItem('accDayConfig', JSON.stringify(dayConfig)); } catch(_) {}
