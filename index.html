@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accounting Open Training Day — Street.co.uk</title>
+<title>Open Training Day — Street.co.uk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
 <style>
@@ -108,18 +108,14 @@ body {
 .field-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 520px) { .field-2col { grid-template-columns: 1fr; } }
 .training-day-grid { display: flex; flex-direction: column; gap: 10px; }
-.training-day-card { border: 2px solid var(--grey-20); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
-.training-day-card:hover:not(.sold-out) { border-color: var(--purple-mid); }
-.training-day-card.selected { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
-.training-day-card.sold-out { opacity: 0.6; cursor: not-allowed; border-color: var(--grey-20); }
+.training-day-card { border: 2px solid var(--grey-20); border-radius: 10px; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+.training-day-card.sold-out { opacity: 0.65; border-color: var(--grey-20); }
 .day-card-inner { display: flex; align-items: stretch; gap: 0; }
-.day-card-check { width: 44px; display: flex; align-items: center; justify-content: center; background: var(--grey-10); border-right: 1px solid var(--grey-20); flex-shrink: 0; transition: background 0.15s; }
-.training-day-card.selected .day-card-check { background: var(--purple-lt); border-right-color: var(--purple-mid); }
-.day-card-check input { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
 .day-card-body { padding: 14px 16px; flex: 1; }
 .day-card-title { font-size: 14px; font-weight: 700; color: var(--grey-90); margin-bottom: 2px; }
 .day-card-meta  { font-size: 12px; color: var(--grey-50); margin-bottom: 6px; }
-.day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.day-card-desc  { font-size: 12px; color: var(--grey-70); margin: 2px 0 8px; line-height: 1.55; }
+.day-card-tags  { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
 .day-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--purple-lt); color: var(--purple-txt); border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600; }
 .day-tag.green-tag  { background: #f0fdf4; color: #166534; }
 .day-tag.red-tag    { background: #fef2f2; color: #991b1b; }
@@ -141,6 +137,9 @@ body {
 .capacity-bar-fill.seats-full { background: var(--red); }
 .capacity-skeleton { height: 5px; background: var(--grey-20); border-radius: 10px; background: linear-gradient(90deg, var(--grey-20) 25%, var(--grey-10) 50%, var(--grey-20) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.empty-days-state { text-align: center; padding: 34px 20px; border: 1.5px dashed var(--grey-30); border-radius: 10px; background: #fafafa; }
+.empty-days-state .icon { font-size: 30px; margin-bottom: 10px; }
+.empty-days-state .msg { font-size: 13px; color: var(--grey-50); font-weight: 600; line-height: 1.6; max-width: 380px; margin: 0 auto; }
 .attendee-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
 .attendee-row { display: flex; align-items: center; gap: 8px; background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 8px; padding: 10px 12px; }
 .attendee-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
@@ -232,7 +231,7 @@ body {
 .admin-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(18,21,42,0.7); z-index: 600; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; }
 .admin-modal-overlay.show { display: flex; animation: fade-in 0.18s ease; }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-.admin-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 580px; box-shadow: 0 24px 64px rgba(18,21,42,0.3); border: 1px solid var(--grey-20); overflow: hidden; animation: modal-up 0.22s ease; margin: auto; }
+.admin-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 620px; box-shadow: 0 24px 64px rgba(18,21,42,0.3); border: 1px solid var(--grey-20); overflow: hidden; animation: modal-up 0.22s ease; margin: auto; }
 @keyframes modal-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
 .admin-modal-hdr { background: var(--navy); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2; }
 .admin-modal-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; display: flex; align-items: center; gap: 8px; }
@@ -255,30 +254,26 @@ body {
 .admin-pin-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
 .admin-pin-input.error { border-color: var(--red); background: #fef2f2; }
 .admin-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--grey-70); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--grey-20); display: flex; align-items: center; gap: 8px; }
-.admin-day-editor { background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 10px; padding: 14px; margin-bottom: 10px; position: relative; }
-.admin-day-editor-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.admin-day-editor { background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 10px; padding: 14px; margin-bottom: 12px; position: relative; }
+.admin-day-editor-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-right: 26px; }
 .admin-day-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.admin-day-label { font-size: 13px; font-weight: 700; color: var(--grey-90); flex: 1; }
-.admin-capacity-badge { font-size: 11px; font-weight: 600; color: var(--grey-50); background: #fff; border: 1px solid var(--grey-20); border-radius: 6px; padding: 2px 8px; }
+.admin-day-label { font-size: 13px; font-weight: 700; color: var(--grey-90); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-day-delete-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--grey-40); cursor: pointer; font-size: 15px; padding: 3px 6px; line-height: 1; border-radius: 5px; transition: color 0.1s, background 0.1s; }
+.admin-day-delete-btn:hover { color: var(--red); background: #fef2f2; }
 .admin-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .admin-field label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--grey-70); margin-bottom: 5px; }
-.admin-field input, .admin-field select { width: 100%; border: 1.5px solid var(--grey-20); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--grey-90); background: #fff; transition: border-color 0.15s; }
+.admin-field input, .admin-field select, .admin-field textarea { width: 100%; border: 1.5px solid var(--grey-20); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--grey-90); background: #fff; transition: border-color 0.15s; }
+.admin-field textarea { min-height: 56px; resize: vertical; }
 .admin-field input[type="date"] { cursor: pointer; }
-.admin-field input:focus, .admin-field select:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
+.admin-field input:focus, .admin-field select:focus, .admin-field textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,75,231,0.12); }
 .admin-note { font-size: 11px; color: var(--grey-50); margin-top: 4px; line-height: 1.5; }
 .admin-modal-footer { padding: 16px 24px; border-top: 1px solid var(--grey-20); background: var(--grey-10); display: flex; gap: 8px; justify-content: flex-end; position: sticky; bottom: 0; z-index: 2; }
-/* Warning modal */
-.warn-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(18,21,42,0.7); z-index: 700; align-items: center; justify-content: center; padding: 20px; }
-.warn-modal-overlay.show { display: flex; }
-.warn-modal { background: #fff; border-radius: 14px; max-width: 440px; width: 100%; padding: 28px; box-shadow: 0 24px 64px rgba(18,21,42,0.3); border: 1px solid var(--grey-20); animation: modal-up 0.22s ease; }
-.warn-modal-icon { font-size: 40px; text-align: center; margin-bottom: 12px; }
-.warn-modal-title { font-size: 16px; font-weight: 700; color: var(--grey-90); text-align: center; margin-bottom: 8px; }
-.warn-modal-msg { font-size: 13px; color: var(--grey-50); text-align: center; line-height: 1.6; margin-bottom: 20px; }
-.warn-modal-btns { display: flex; gap: 8px; justify-content: center; }
-/* Previous attendees section */
-.prev-att-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 16px; margin-top: 20px; }
-.prev-att-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
-.prev-att-body { font-size: 12.5px; line-height: 1.7; color: var(--grey-70); white-space: pre-wrap; background: #fff; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-family: 'DM Sans', sans-serif; }
+.switch { position: relative; display: inline-block; width: 38px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .slider { position: absolute; cursor: pointer; inset: 0; background: var(--grey-30); transition: 0.2s; border-radius: 22px; }
+.switch .slider::before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: #fff; transition: 0.2s; border-radius: 50%; }
+.switch input:checked + .slider { background: var(--green); }
+.switch input:checked + .slider::before { transform: translateX(16px); }
 @media (max-width: 560px) {
   .site-header { padding: 0 16px; }
   .form-hdr, .form-body { padding-left: 20px; padding-right: 20px; }
@@ -296,25 +291,12 @@ body {
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-card">
     <div class="loading-spinner"></div>
-    <div class="loading-label" id="loadingLabel">Submitting booking…</div>
+    <div class="loading-label" id="loadingLabel">Loading training days…</div>
   </div>
 </div>
 
 <!-- Toast host -->
 <div class="toast-host" id="toastHost"></div>
-
-<!-- Both-days warning modal -->
-<div class="warn-modal-overlay" id="bothDaysWarnModal">
-  <div class="warn-modal">
-    <div class="warn-modal-icon">⚠️</div>
-    <div class="warn-modal-title">Same Delegate — Both Days?</div>
-    <div class="warn-modal-msg">This delegate is registered for <strong>both accounting training days</strong>. Please note that both days cover the same agenda. Are you sure you want them to attend both?</div>
-    <div class="warn-modal-btns">
-      <button class="btn btn-ghost" onclick="cancelBothDays()">No — change selection</button>
-      <button class="btn btn-primary" onclick="confirmBothDays()">Yes — add to both days</button>
-    </div>
-  </div>
-</div>
 
 <!-- Admin Modal -->
 <div class="admin-modal-overlay" id="adminModal">
@@ -347,50 +329,18 @@ body {
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="switchAdminTab('dates')" id="tabDates">
           <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 1v3M11 1v3M2 7h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          Dates &amp; Capacity
+          Training Days
         </button>
       </div>
       <div class="admin-modal-body">
         <div class="admin-tab-pane active" id="paneDates">
           <div class="info-box blue" style="margin-bottom:16px;">
-            <span>ℹ️</span><span>Update the date for the accounting training day below.</span>
+            <span>ℹ️</span><span>Add, edit or remove training days. Only days marked <strong>Live</strong> are shown to people booking — everything else stays hidden from the form.</span>
           </div>
-          <div class="admin-section-title">Accounting Training Day 1</div>
-          <div class="admin-day-editor">
-            <div class="admin-field-row">
-              <div class="admin-field">
-                <label>Date</label>
-                <input type="date" id="adminDay1Date" oninput="adminAutoFillShort('adminDay1Short','adminDay1Date')">
-              </div>
-              <div class="admin-field">
-                <label>Short Label</label>
-                <input type="text" id="adminDay1Short" placeholder="e.g. Tue 1 Jul">
-              </div>
-            </div>
-          </div>
-          <div class="admin-section-title">Accounting Training Day 2</div>
-          <div class="admin-day-editor">
-            <div class="admin-field-row">
-              <div class="admin-field">
-                <label>Date</label>
-                <input type="date" id="adminDay2Date" oninput="adminAutoFillShort('adminDay2Short','adminDay2Date')">
-              </div>
-              <div class="admin-field">
-                <label>Short Label</label>
-                <input type="text" id="adminDay2Short" placeholder="e.g. Wed 2 Jul">
-              </div>
-            </div>
-          </div>
-          <div class="admin-section-title" style="margin-top:20px;">Capacity Settings</div>
-          <div class="admin-day-editor">
-            <div class="admin-field-row">
-              <div class="admin-field">
-                <label>Max Seats Per Day</label>
-                <input type="number" id="adminMaxSeats" min="1" max="200" value="30">
-                <div class="admin-note">Room capacity: 30</div>
-              </div>
-            </div>
-          </div>
+          <div id="adminDaysHost"></div>
+          <button type="button" class="btn btn-ghost admin-add-day-btn" style="width:100%;justify-content:center;margin-top:4px;" onclick="addAdminDay()">
+            + Add New Training Day
+          </button>
         </div>
       </div>
       <div class="admin-modal-footer">
@@ -413,7 +363,7 @@ body {
   <nav class="nav-links">
     <a href="#" class="nav-link active">
       <svg viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6h4M6 9h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-      Accounting Training Day Bookings
+      Open Training Day Bookings
     </a>
   </nav>
   <div class="header-spacer"></div>
@@ -433,11 +383,11 @@ body {
 
       <!-- Header -->
       <div class="form-hdr">
-        <div class="form-hdr-eyebrow">Street Accounting Training Days</div>
-        <div class="form-hdr-title">Book an Accounting Training Day Place</div>
-        <div class="form-hdr-desc">Refer a client onto the Street Accounting Open Training Day. This event is designed for staff who handle client accounting — those who move money between accounts, receipt funds, reconcile banks, and manage ledgers. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
-        <div class="date-pills">
-          <div class="date-pill"><span class="date-pill-dot"></span> <span id="headerPillDay1Text">Wednesday 15 July 2026 — Accounting Training Day</span></div>
+        <div class="form-hdr-eyebrow">Street Training Days</div>
+        <div class="form-hdr-title">Street Hosted Open Training Event</div>
+        <div class="form-hdr-desc">A Street-hosted training day at Street HQ with a set agenda, open to multiple clients or attendees. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
+        <div class="date-pills" id="datePillsWrap">
+          <div class="date-pill"><span class="date-pill-dot"></span> Loading…</div>
         </div>
       </div>
 
@@ -509,98 +459,27 @@ body {
 
           <div class="info-box amber">
             <span>⚠️</span>
-            <span><strong>Invoice payment required 1 week in advance.</strong> Cost is <strong>£250 + VAT per person per day</strong>. Make sure the stakeholder is aware of the cost before submitting.</span>
-          </div>
-          <div class="info-box red">
-            <span>🚫</span>
-            <span><strong>Do not refer:</strong> Newton Fallowell, Enterprise Clients, TPFG, Connells, or RJ Group clients.</span>
+            <span><strong>Invoice payment required 1 week in advance.</strong> Cost + VAT per person per day. Make sure the stakeholder is aware of the cost before submitting.</span>
           </div>
         </div>
 
         <!-- ─── Step 3: Training Days & Attendees ──────────────── -->
         <div class="pane" id="pane3">
-          <div class="pane-title">Training Days &amp; Delegates</div>
-          <div class="pane-sub">Select which accounting day(s) to attend, then add each delegate. Cost updates automatically at £250 + VAT per person per day.</div>
+          <div class="pane-title">Days &amp; Delegates</div>
+          <div class="pane-sub">Add each delegate and select which live training day(s) they're attending. Cost updates automatically based on the day(s) and price selected.</div>
 
-          <div class="field">
-            <label class="field-label req">Which training day(s)?</label>
-            <div class="training-day-grid">
-
-              <div class="training-day-card" id="card-day1" onclick="toggleDay('day1')">
-                <div class="day-card-inner">
-                  <div class="day-card-check">
-                    <input type="checkbox" id="chk-day1" onchange="toggleDay('day1')" onclick="event.stopPropagation()">
-                  </div>
-                  <div class="day-card-body">
-                    <div class="day-card-title">Accounting Training — Day 1</div>
-                    <div class="day-card-meta" id="meta-day1">Date TBC · Street HQ, Manchester</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:00am – 4:30pm (1hr lunch)</div>
-                    <div class="day-card-tags">
-                      <span class="day-tag">🏢 In Person</span>
-                      <span class="day-tag">Accounting Module</span>
-                      <span id="day1SoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
-                    </div>
-                    <div class="capacity-wrap" id="capacityWrapDay1">
-                      <div class="capacity-row">
-                        <span class="capacity-label">Seats available</span>
-                        <span class="capacity-count" id="capacityCountDay1">—</span>
-                      </div>
-                      <div class="capacity-bar-track">
-                        <div class="capacity-bar-fill" id="capacityBarDay1" style="width:0%"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="day-card-price">
-                    <div class="price-amount">£250</div>
-                    <div class="price-sub">+ VAT per person</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="training-day-card" id="card-day2" onclick="toggleDay('day2')" style="display:none;">
-                <div class="day-card-inner">
-                  <div class="day-card-check">
-                    <input type="checkbox" id="chk-day2" onchange="toggleDay('day2')" onclick="event.stopPropagation()">
-                  </div>
-                  <div class="day-card-body">
-                    <div class="day-card-title">Accounting Training — Day 2</div>
-                    <div class="day-card-meta" id="meta-day2">Date TBC · Street HQ, Manchester</div>
-                    <div class="day-card-meta" style="margin-bottom:6px;">🕙 10:00am – 4:30pm (1hr lunch)</div>
-                    <div class="day-card-tags">
-                      <span class="day-tag">🏢 In Person</span>
-                      <span class="day-tag">Accounting Module</span>
-                      <span id="day2SoldOutTag" style="display:none;" class="day-tag red-tag">Sold Out</span>
-                    </div>
-                    <div class="capacity-wrap" id="capacityWrapDay2">
-                      <div class="capacity-row">
-                        <span class="capacity-label">Seats available</span>
-                        <span class="capacity-count" id="capacityCountDay2">—</span>
-                      </div>
-                      <div class="capacity-bar-track">
-                        <div class="capacity-bar-fill" id="capacityBarDay2" style="width:0%"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="day-card-price">
-                    <div class="price-amount">£250</div>
-                    <div class="price-sub">+ VAT per person</div>
-                  </div>
-                </div><!-- /day-card-inner -->
-              </div><!-- /card-day2 -->
-
-            </div><!-- /training-day-grid -->
-          </div><!-- /field -->
+          <div class="section-heading" style="margin-top:0;">Available Training Days</div>
+          <div class="training-day-grid" id="trainingDayGrid">
+            <div class="empty-days-state"><div class="icon">⏳</div><div class="msg">Loading training days…</div></div>
+          </div>
 
           <!-- Attendees list -->
           <div class="section-heading" style="margin-top:20px;">Delegates</div>
           <div id="attendeeList" class="attendee-list"></div>
 
           <!-- Add attendee -->
-          <div class="add-attendee-box">
+          <div class="add-attendee-box" id="addDelegateBox" style="display:none;">
             <div class="box-title">➕ Add Delegate</div>
-            <div class="info-box blue" style="margin-bottom:12px;margin-top:0;">
-              <span>ℹ️</span><span>This event is for <strong>staff who handle client accounting</strong> — those who move money between accounts (e.g. client to TDS, DPS, or business accounts). Not for general admin staff.</span>
-            </div>
             <div class="field-2col">
               <div class="field" style="margin-bottom:0;">
                 <label class="field-label req">First Name</label>
@@ -617,16 +496,7 @@ body {
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:0;">
               <label class="field-label req">Which day(s) is this delegate attending?</label>
-              <div class="delegate-day-group" id="delegateDayGroup">
-                <label class="delegate-day-chip" id="chipDay1Wrap">
-                  <input type="checkbox" id="attDay1" value="day1">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-purple"></span><span id="chipDay1Label">Day 1 — TBC</span></span>
-                </label>
-                <label class="delegate-day-chip" id="chipDay2Wrap">
-                  <input type="checkbox" id="attDay2" value="day2">
-                  <span class="ddc-inner"><span class="ddc-dot ddc-amber"></span><span id="chipDay2Label">Day 2 — TBC</span></span>
-                </label>
-              </div>
+              <div class="delegate-day-group" id="delegateDayGroup"></div>
             </div>
             <div class="field" style="margin-top:10px;margin-bottom:0;">
               <label class="field-label req">Delegate Email</label>
@@ -663,8 +533,8 @@ body {
           <div class="info-box amber" style="font-size:13px;">
             <span>📧</span>
             <div>
-              <strong>Don't forget to send the emails below!</strong><br>
-              <span style="font-size:12px;">Once submitted, copy and send the <strong>Booking Confirmation Email</strong> to the client stakeholder and all delegates. If there are any previous attendees from this company, also send them the <strong>Previous Attendees Re-invite Draft</strong>.</span>
+              <strong>Don't forget to send the email below!</strong><br>
+              <span style="font-size:12px;">Once submitted, copy and send the <strong>Booking Confirmation Email</strong> to the client stakeholder and all delegates.</span>
             </div>
           </div>
 
@@ -708,19 +578,6 @@ body {
             <div class="email-template-body" id="emailTemplateBody">—</div>
           </div>
 
-          <!-- Previous attendees re-invite draft -->
-          <div class="prev-att-box">
-            <div class="prev-att-title">📧 Previous Attendees — Re-invite Draft</div>
-            <p style="font-size:12px;color:#92400e;margin-bottom:6px;">Amy to send this to any previous attendees of past accounting training days. Copy and personalise as needed.</p>
-            <div class="prev-att-body" id="prevAttEmail">—</div>
-            <div style="display:flex;gap:6px;margin-top:10px;">
-              <button class="copy-btn" style="background:var(--amber);" onclick="copyPrevAtt()">
-                <svg style="width:11px;height:11px;" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.2" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Copy Previous Attendee Email
-              </button>
-            </div>
-          </div>
-
         </div>
 
         <!-- ─── Step 5: Success ────────────────────────────────── -->
@@ -750,7 +607,7 @@ body {
 </div>
 
 <footer class="site-footer">
-  Street.co.uk · Accounting Open Training Days · <a href="#">street.co.uk</a>
+  Street.co.uk · Open Training Days · <a href="#">street.co.uk</a>
 </footer>
 
 <script>
@@ -758,31 +615,25 @@ body {
 // CONFIG
 // ══════════════════════════════════════════════════════════════
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlVJXIkJNjQdkDhSzgg2r4N6UzkIrwQ10q7yuPdmF95pL1Hn05C573qCuAqkRuhIZl6A/exec';
-const PRICE_PER_PERSON_PER_DAY = 250;
-const MAX_SEATS_DEFAULT = 30;
-const ADMIN_PIN = '1234';
+const ADMIN_PIN = '5983';
 const TOTAL = 4;
+const VAT_RATE = 0.2;
+const DEFAULT_MAX_SEATS = 30;
+const DEFAULT_PRICE = 250;
 
-// ── Training day config ──────────────────────────────────────
-function loadDayConfig() {
-  try {
-    const s = JSON.parse(localStorage.getItem('accDayConfig') || 'null');
-    if (s && s.day1 && s.day2) return s;
-  } catch(_) {}
-  return { day1: { fullDate: 'Wednesday 15 July 2026', shortDate: 'Wed 15 Jul' }, day2: { fullDate: 'Date TBC', shortDate: 'TBC' } };
-}
-function saveDayConfig() {
-  try { localStorage.setItem('accDayConfig', JSON.stringify(dayConfig)); } catch(_) {}
-}
-let dayConfig = loadDayConfig();
-let maxSeats = (() => { try { return parseInt(localStorage.getItem('accMaxSeats')) || MAX_SEATS_DEFAULT; } catch(_) { return MAX_SEATS_DEFAULT; } })();
+// ── Training days (source of truth = Google Sheet) ────────────
+let trainingDays  = [];
+let daysLoaded    = false;
+let daysLoadError = false;
 
-// ── State ────────────────────────────────────────────────────
+// ── Booking state ───────────────────────────────────────────
 let step = 1;
 let attendees = [];
-let selectedDays = { day1: false, day2: false };
-let liveCapacity = { day1: null, day2: null, loaded: false, error: false };
-let _pendingAttendee = null; // for both-days warning
+let liveCapacity = { counts: {}, loaded: false, error: false };
+
+// ── Admin state ─────────────────────────────────────────────
+let adminUnlocked = false;
+let adminDaysDraft = [];
 
 // ── Avatar helpers ───────────────────────────────────────────
 const AVATAR_COLOURS = ['#5B4BE7','#1BAD72','#E03B4A','#F59E0B','#3B82F6','#8B5CF6','#EC4899','#14B8A6'];
@@ -790,100 +641,185 @@ function avatarColour(name) { let h=0; for(const c of name) h=(h*31+c.charCodeAt
 function initials(name) { return name.split(' ').map(p=>p[0]||'').join('').toUpperCase().slice(0,2); }
 
 // ══════════════════════════════════════════════════════════════
+// JSONP HELPER — matches the pattern already proven for getCapacity
+// ══════════════════════════════════════════════════════════════
+function jsonp(action, extraParams, timeoutMs) {
+  extraParams = extraParams || {};
+  timeoutMs = timeoutMs || 10000;
+  return new Promise((resolve, reject) => {
+    const cbName = '__cb_' + Math.random().toString(36).slice(2) + Date.now();
+    const script = document.createElement('script');
+    const tid = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeoutMs);
+    function cleanup() { clearTimeout(tid); script.remove(); delete window[cbName]; }
+    window[cbName] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Script load error')); };
+    const params = new URLSearchParams(Object.assign({ action, callback: cbName }, extraParams));
+    script.src = SCRIPT_URL + '?' + params.toString();
+    document.head.appendChild(script);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// DATE HELPERS
+// ══════════════════════════════════════════════════════════════
+function isoToFullDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  if (isNaN(d.getTime())) return '';
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}
+function isoToShortDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  if (isNaN(d.getTime())) return '';
+  const dayS  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monS  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return dayS[d.getDay()] + ' ' + d.getDate() + ' ' + monS[d.getMonth()];
+}
+
+// ══════════════════════════════════════════════════════════════
+// TRAINING DAYS — load from sheet, normalise, sort
+// ══════════════════════════════════════════════════════════════
+function normalizeDay(d) {
+  const iso = d.date || '';
+  return {
+    id: d.id || ('day_' + Math.random().toString(36).slice(2,9)),
+    title: d.title || 'Untitled Training Day',
+    description: d.description || '',
+    date: iso,
+    fullDate: iso ? isoToFullDate(iso) : 'Date TBC',
+    shortDate: iso ? isoToShortDate(iso) : 'TBC',
+    maxSeats: parseInt(d.maxSeats) || DEFAULT_MAX_SEATS,
+    price: (d.price === 0 || d.price) ? parseFloat(d.price) : DEFAULT_PRICE,
+    live: d.live === true || d.live === 'Y' || d.live === 'true',
+  };
+}
+function sortDaysByDate(a, b) { return (a.date || '9999-99-99').localeCompare(b.date || '9999-99-99'); }
+function dayLabel(day) { return day.title + ' (' + day.shortDate + ')'; }
+
+async function loadTrainingDaysAndCapacity() {
+  document.getElementById('loadingLabel').textContent = 'Loading training days…';
+  document.getElementById('loadingOverlay').classList.add('show');
+  try {
+    const data = await jsonp('getTrainingDays');
+    if (data && data.ok) {
+      trainingDays = (data.days || []).map(normalizeDay).sort(sortDaysByDate);
+      daysLoaded = true; daysLoadError = false;
+    } else {
+      daysLoadError = true;
+    }
+  } catch (e) {
+    daysLoadError = true;
+  }
+  document.getElementById('loadingOverlay').classList.remove('show');
+  renderHeaderPills();
+  renderTrainingDayGrid();
+  renderDelegateDayChips();
+  fetchCapacity();
+}
+
+// ══════════════════════════════════════════════════════════════
 // CAPACITY
 // ══════════════════════════════════════════════════════════════
 async function fetchCapacity() {
-  ['Day1','Day2'].forEach(d => {
-    const wrap = document.getElementById('capacityWrap'+d);
-    if (wrap) wrap.innerHTML = '<div class="capacity-skeleton"></div>';
-    const cnt = document.getElementById('capacityCount'+d);
-    if (cnt) cnt.textContent = '…';
-  });
   try {
-    fetchCapacityViaScript();
-  } catch(_) {
-    handleCapacityError('Failed');
-  }
-}
-
-function fetchCapacityViaScript() {
-  const cbName = '__accCap_' + Date.now();
-  const script = document.createElement('script');
-  const tid = setTimeout(() => { handleCapacityError('Timeout'); script.remove(); delete window[cbName]; }, 8000);
-  window[cbName] = function(data) {
-    clearTimeout(tid); script.remove(); delete window[cbName];
+    const data = await jsonp('getCapacity');
     if (data && data.ok) {
-      liveCapacity.day1 = data.day1Booked || 0;
-      liveCapacity.day2 = data.day2Booked || 0;
+      liveCapacity.counts = data.counts || {};
       liveCapacity.loaded = true;
       liveCapacity.error  = false;
-      renderCapacity();
     } else {
-      handleCapacityError(data && data.error ? data.error : 'Error');
+      liveCapacity.error = true;
     }
-  };
-  script.src = SCRIPT_URL + '?action=getCapacity&callback=' + cbName;
-  document.head.appendChild(script);
+  } catch (e) {
+    liveCapacity.error = true;
+  }
+  renderTrainingDayGrid();
+  renderDelegateDayChips();
+}
+function bookedFor(day) { return (liveCapacity.counts && liveCapacity.counts[dayLabel(day)]) || 0; }
+function pendingLocalFor(day) { return attendees.filter(a => a.dayIds.includes(day.id)).length; }
+
+// ══════════════════════════════════════════════════════════════
+// RENDER — header pills, day grid, delegate chips
+// ══════════════════════════════════════════════════════════════
+function renderHeaderPills() {
+  const wrap = document.getElementById('datePillsWrap');
+  if (daysLoadError) { wrap.innerHTML = '<div class="date-pill"><span class="date-pill-dot amber"></span> Unable to load training days</div>'; return; }
+  const live = trainingDays.filter(d => d.live);
+  if (!live.length) { wrap.innerHTML = '<div class="date-pill"><span class="date-pill-dot amber"></span> No open days currently scheduled</div>'; return; }
+  wrap.innerHTML = live.map(d => `<div class="date-pill"><span class="date-pill-dot"></span> ${esc(d.title)} — ${esc(d.fullDate)}</div>`).join('');
 }
 
-function handleCapacityError(msg) {
-  console.warn('Capacity fetch failed:', msg);
-  liveCapacity.error = true;
-  ['Day1','Day2'].forEach(d => {
-    const w = document.getElementById('capacityWrap'+d);
-    if (w) w.innerHTML = '<div style="font-size:11px;color:var(--grey-40);margin-top:6px;font-style:italic;">Seat count unavailable — contact admin</div>';
-  });
+function toggleAddDelegateVisibility(show) {
+  const box = document.getElementById('addDelegateBox');
+  const cp  = document.getElementById('costPreview');
+  if (box) box.style.display = show ? '' : 'none';
+  if (!show && cp) cp.style.display = 'none';
 }
 
-function renderCapacity() {
-  if (!liveCapacity.loaded) return;
-  ['day1','day2'].forEach(day => {
-    const booked = liveCapacity[day];
-    const avail  = Math.max(0, maxSeats - booked);
-    const pct    = Math.min(100, Math.round((booked / maxSeats) * 100));
+function renderTrainingDayGrid() {
+  const host = document.getElementById('trainingDayGrid');
+  if (daysLoadError) {
+    host.innerHTML = `<div class="empty-days-state"><div class="icon">⚠️</div><div class="msg">Unable to load training days — please refresh, or contact the product training team.</div></div>`;
+    toggleAddDelegateVisibility(false);
+    return;
+  }
+  const live = trainingDays.filter(d => d.live);
+  if (!live.length) {
+    host.innerHTML = `<div class="empty-days-state"><div class="icon">📭</div><div class="msg">Currently we have no open days scheduled — please contact the product training team.</div></div>`;
+    toggleAddDelegateVisibility(false);
+    return;
+  }
+  toggleAddDelegateVisibility(true);
+  host.innerHTML = live.map(d => {
+    const booked = bookedFor(d) + pendingLocalFor(d);
+    const avail  = Math.max(0, d.maxSeats - booked);
+    const pct    = Math.min(100, Math.round((booked / d.maxSeats) * 100));
     const cls    = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
-    const label  = avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
-    const D      = day === 'day1' ? 'Day1' : 'Day2';
-    const wrap   = document.getElementById('capacityWrap'+D);
-    if (!wrap) return;
-    wrap.innerHTML = `<div class="capacity-row"><span class="capacity-label">Seats available</span><span class="capacity-count ${cls}">${label}</span></div><div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" id="capacityBar${D}" style="width:0%"></div></div>`;
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const bar = document.getElementById('capacityBar'+D);
-      if (bar) bar.style.width = pct + '%';
-    }));
-    if (avail === 0) {
-      document.getElementById('card-'+day).classList.add('sold-out');
-      document.getElementById(day+'SoldOutTag').style.display = 'inline-flex';
-      const cw = document.getElementById('chip'+D+'Wrap');
-      if (cw) cw.classList.add('chip-disabled');
-    }
-  });
+    const label  = !liveCapacity.loaded ? '…' : avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
+    return `<div class="training-day-card ${avail===0 && liveCapacity.loaded ? 'sold-out' : ''}">
+      <div class="day-card-inner">
+        <div class="day-card-body">
+          <div class="day-card-title">${esc(d.title)}</div>
+          <div class="day-card-meta">${esc(d.fullDate)} · Street HQ, Manchester</div>
+          ${d.description ? `<div class="day-card-desc">${esc(d.description)}</div>` : ''}
+          <div class="day-card-tags">
+            <span class="day-tag">🏢 In Person</span>
+            ${avail===0 && liveCapacity.loaded ? '<span class="day-tag red-tag">Sold Out</span>' : ''}
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-row"><span class="capacity-label">Seats available</span><span class="capacity-count ${cls}">${label}</span></div>
+            <div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" style="width:${liveCapacity.loaded ? pct : 0}%"></div></div>
+          </div>
+        </div>
+        <div class="day-card-price">
+          <div class="price-amount">£${d.price}</div>
+          <div class="price-sub">+ VAT per person</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDelegateDayChips() {
+  const host = document.getElementById('delegateDayGroup');
+  const live = trainingDays.filter(d => d.live);
+  if (!live.length) { host.innerHTML = ''; return; }
+  host.innerHTML = live.map((d, i) => {
+    const booked = bookedFor(d) + pendingLocalFor(d);
+    const soldOut = liveCapacity.loaded && booked >= d.maxSeats;
+    return `<label class="delegate-day-chip ${soldOut?'chip-disabled':''}">
+      <input type="checkbox" class="attDayChip" data-day-id="${esc(d.id)}" ${soldOut?'disabled':''}>
+      <span class="ddc-inner"><span class="ddc-dot ${i%2===0?'ddc-purple':'ddc-amber'}"></span><span>${esc(d.title)} — ${esc(d.shortDate)}</span></span>
+    </label>`;
+  }).join('');
 }
 
 // ══════════════════════════════════════════════════════════════
-// DATE CONFIG APPLICATION
-// ══════════════════════════════════════════════════════════════
-function applyDayConfig() {
-  document.getElementById('headerPillDay1Text').textContent = dayConfig.day1.fullDate + ' — Accounting Training Day';
-  document.getElementById('meta-day1').textContent = dayConfig.day1.fullDate + ' · Street HQ, Manchester';
-  document.getElementById('meta-day2').textContent = dayConfig.day2.fullDate + ' · Street HQ, Manchester';
-  document.getElementById('chipDay1Label').textContent = 'Day 1 — ' + dayConfig.day1.shortDate;
-  document.getElementById('chipDay2Label').textContent = 'Day 2 — ' + dayConfig.day2.shortDate;
-}
-
-// ══════════════════════════════════════════════════════════════
-// TRAINING DAY TOGGLE
-// ══════════════════════════════════════════════════════════════
-function toggleDay(day) {
-  const card = document.getElementById('card-'+day);
-  if (card.classList.contains('sold-out')) return;
-  selectedDays[day] = !selectedDays[day];
-  document.getElementById('chk-'+day).checked = selectedDays[day];
-  card.classList.toggle('selected', selectedDays[day]);
-}
-
-// ══════════════════════════════════════════════════════════════
-// ATTENDEES — with both-days warning
+// ATTENDEES
 // ══════════════════════════════════════════════════════════════
 function addAttendee() {
   const fn    = document.getElementById('attFirst').value.trim();
@@ -891,79 +827,51 @@ function addAttendee() {
   const role  = document.getElementById('attRole').value.trim();
   const email = document.getElementById('attEmail').value.trim();
   const diet  = document.getElementById('attDiet').value.trim();
-  const d1    = document.getElementById('attDay1').checked;
-  const d2    = document.getElementById('attDay2').checked;
+  const checkedIds = Array.from(document.querySelectorAll('.attDayChip:checked')).map(c => c.dataset.dayId);
 
   if (!fn || !ln) { toast('Please enter first and last name', 'error'); return; }
-  if (!d1 && !d2) { toast('Please select at least one training day for this delegate', 'error'); return; }
+  if (!checkedIds.length) { toast('Please select at least one training day for this delegate', 'error'); return; }
   if (!email) { toast('Please enter a delegate email address', 'error'); return; }
   if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { toast('Please enter a valid delegate email address', 'error'); return; }
   if (!diet) { toast('Please enter dietary requirements (or type "None" if none)', 'error'); return; }
 
-  // Capacity check
+  const days = checkedIds.map(id => trainingDays.find(d => d.id === id)).filter(Boolean);
+
   if (liveCapacity.loaded) {
-    if (d1) {
-      const d1b = attendees.filter(a => a.days.includes('day1')).length + (liveCapacity.day1||0);
-      if (d1b >= maxSeats) { toast('Day 1 is fully booked — no seats remaining', 'error'); return; }
-    }
-    if (d2) {
-      const d2b = attendees.filter(a => a.days.includes('day2')).length + (liveCapacity.day2||0);
-      if (d2b >= maxSeats) { toast('Day 2 is fully booked — no seats remaining', 'error'); return; }
+    for (const day of days) {
+      const booked = bookedFor(day) + pendingLocalFor(day);
+      if (booked >= day.maxSeats) { toast(`${day.title} (${day.shortDate}) is fully booked — no seats remaining`, 'error'); return; }
     }
   }
 
-  const att = { id: Date.now(), firstName: fn, lastName: ln, name: fn + ' ' + ln, role, email, diet, days: [] };
-  if (d1) att.days.push('day1');
-  if (d2) att.days.push('day2');
+  const att = {
+    id: Date.now(),
+    firstName: fn, lastName: ln, name: fn + ' ' + ln, role, email, diet,
+    dayIds: days.map(d => d.id),
+    dayLabels: days.map(d => dayLabel(d)),
+  };
 
-  // Warn if attending both days (same agenda)
-  if (d1 && d2) {
-    _pendingAttendee = att;
-    document.getElementById('bothDaysWarnModal').classList.add('show');
-    return;
-  }
-
-  commitAttendee(att);
-}
-
-function cancelBothDays() {
-  _pendingAttendee = null;
-  document.getElementById('bothDaysWarnModal').classList.remove('show');
-}
-
-function confirmBothDays() {
-  document.getElementById('bothDaysWarnModal').classList.remove('show');
-  if (_pendingAttendee) { commitAttendee(_pendingAttendee); _pendingAttendee = null; }
-}
-
-function commitAttendee(att) {
   attendees.push(att);
   document.getElementById('attFirst').value = '';
   document.getElementById('attLast').value  = '';
   document.getElementById('attRole').value  = '';
   document.getElementById('attEmail').value = '';
   document.getElementById('attDiet').value  = '';
-  document.getElementById('attDay1').checked = false;
-  document.getElementById('attDay2').checked = false;
-  renderAttendees();
-  updateCost();
+  document.querySelectorAll('.attDayChip').forEach(c => c.checked = false);
+  renderAttendees(); updateCost(); renderTrainingDayGrid(); renderDelegateDayChips();
   toast(att.name + ' added', 'success');
 }
 
 function removeAttendee(id) {
   attendees = attendees.filter(a => a.id !== id);
-  renderAttendees(); updateCost();
+  renderAttendees(); updateCost(); renderTrainingDayGrid(); renderDelegateDayChips();
 }
 
 function renderAttendees() {
   const list = document.getElementById('attendeeList');
   if (!attendees.length) { list.innerHTML = ''; return; }
   list.innerHTML = attendees.map(a => {
-    const dayTags = (a.days||[]).map(d => {
-      if (d==='day1') return `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">Day 1 — ${dayConfig.day1.shortDate}</span>`;
-      if (d==='day2') return `<span style="font-size:10px;font-weight:700;background:#fffbeb;color:#92400e;border-radius:10px;padding:2px 8px;white-space:nowrap;">Day 2 — ${dayConfig.day2.shortDate}</span>`;
-      return '';
-    }).join(' ');
+    const dayTags = (a.dayLabels||[]).map(l => `<span style="font-size:10px;font-weight:700;background:var(--purple-lt);color:var(--purple-txt);border-radius:10px;padding:2px 8px;white-space:nowrap;">${esc(l)}</span>`).join(' ');
     return `<div class="attendee-row">
       <div class="attendee-avatar" style="background:${avatarColour(a.name)}">${initials(a.name)}</div>
       <div class="attendee-info">
@@ -980,18 +888,26 @@ function renderAttendees() {
 // ══════════════════════════════════════════════════════════════
 // COST
 // ══════════════════════════════════════════════════════════════
+function computeTotals() {
+  const used = trainingDays.filter(d => attendees.some(a => a.dayIds.includes(d.id)));
+  let subtotal = 0;
+  const perDay = used.map(d => {
+    const n = attendees.filter(a => a.dayIds.includes(d.id)).length;
+    const cost = n * d.price;
+    subtotal += cost;
+    return { day: d, n, cost };
+  });
+  const vat = Math.round(subtotal * VAT_RATE);
+  const total = subtotal + vat;
+  return { used, perDay, subtotal, vat, total };
+}
+
 function updateCost() {
   const box = document.getElementById('costPreview');
-  const d1c = attendees.filter(a => a.days.includes('day1')).length;
-  const d2c = attendees.filter(a => a.days.includes('day2')).length;
-  if (!attendees.length || (!d1c && !d2c)) { box.style.display = 'none'; return; }
+  const { perDay, subtotal, vat, total } = computeTotals();
+  if (!attendees.length || !perDay.length) { box.style.display = 'none'; return; }
   box.style.display = 'block';
-  const rows = [];
-  if (d1c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 1 (${dayConfig.day1.shortDate}) &times; ${d1c} ${d1c===1?'person':'people'}</span><span>&pound;${d1c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
-  if (d2c) rows.push(`<div class="cost-row"><span class="label">Accounting Day 2 (${dayConfig.day2.shortDate}) &times; ${d2c} ${d2c===1?'person':'people'}</span><span>&pound;${d2c*PRICE_PER_PERSON_PER_DAY}</span></div>`);
-  const subtotal = (d1c + d2c) * PRICE_PER_PERSON_PER_DAY;
-  const vat = Math.round(subtotal * 0.2);
-  const total = subtotal + vat;
+  const rows = perDay.map(p => `<div class="cost-row"><span class="label">${esc(p.day.title)} (${esc(p.day.shortDate)}) &times; ${p.n} ${p.n===1?'person':'people'}</span><span>&pound;${p.cost}</span></div>`);
   rows.push(`<div class="cost-row"><span class="label" style="color:rgba(255,255,255,0.5);">Subtotal (ex. VAT)</span><span style="color:rgba(255,255,255,0.5);">&pound;${subtotal}</span></div>`);
   rows.push(`<div class="cost-row"><span class="label" style="color:rgba(255,255,255,0.5);">VAT (20%)</span><span style="color:rgba(255,255,255,0.5);">&pound;${vat}</span></div>`);
   document.getElementById('costRows').innerHTML = rows.join('');
@@ -1001,56 +917,46 @@ function updateCost() {
 // ══════════════════════════════════════════════════════════════
 // SUMMARY & EMAIL
 // ══════════════════════════════════════════════════════════════
+let _emailSubject = '';
+let _emailTo      = '';
+
 function buildSummary() {
   const company  = document.getElementById('company').value.trim();
   const stkName  = document.getElementById('stakeholderName').value.trim();
   const stkEmail = document.getElementById('stakeholderEmail').value.trim();
-  const d1Dels = attendees.filter(a => a.days.includes('day1'));
-  const d2Dels = attendees.filter(a => a.days.includes('day2'));
-  const d1Cost = d1Dels.length * PRICE_PER_PERSON_PER_DAY;
-  const d2Cost = d2Dels.length * PRICE_PER_PERSON_PER_DAY;
-  const subtotal  = d1Cost + d2Cost;
-  const vat = Math.round(subtotal * 0.2);
-  const total  = subtotal + vat;
+  const { used, perDay, vat, total } = computeTotals();
 
-  const daysSummary = [
-    d1Dels.length ? `Day 1 (${d1Dels.length}p)` : '',
-    d2Dels.length ? `Day 2 (${d2Dels.length}p)` : ''
-  ].filter(Boolean).join(' & ');
+  const daysSummary = perDay.map(p => `${p.day.title} (${p.n}p)`).join(' & ');
 
   document.getElementById('summaryText').innerHTML =
-    `<strong>${esc(company)}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${daysSummary} · <strong>Total: £${total}</strong><br>Stakeholder: ${esc(stkName)} · ${esc(stkEmail)}`;
+    `<strong>${esc(company)}</strong> — ${attendees.length} ${attendees.length===1?'delegate':'delegates'} · ${esc(daysSummary)} · <strong>Total: £${total}</strong><br>Stakeholder: ${esc(stkName)} · ${esc(stkEmail)}`;
 
   const attLines = attendees.map((a,i) => {
-    const dl = (a.days||[]).map(d => d==='day1'
-      ? `Day 1 (${dayConfig.day1.fullDate}, 10:00am–4:30pm)`
-      : `Day 2 (${dayConfig.day2.fullDate}, 10:00am–4:30pm)`
-    ).join(' + ');
+    const dl = (a.dayLabels||[]).join(' + ');
     return `  ${i+1}. ${a.name}${a.role?' ('+a.role+')':''} — ${dl}${a.diet?' — Dietary: '+a.diet:''}`;
   }).join('\n');
 
-  const costLines = [];
-  if (d1Dels.length) costLines.push(`  Accounting Day 1 (${dayConfig.day1.fullDate}): ${d1Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d1Cost} (ex. VAT)`);
-  if (d2Dels.length) costLines.push(`  Accounting Day 2 (${dayConfig.day2.fullDate}): ${d2Dels.length} × £${PRICE_PER_PERSON_PER_DAY} = £${d2Cost} (ex. VAT)`);
+  const costLines = perDay.map(p => `  ${p.day.title} (${p.day.fullDate}): ${p.n} × £${p.day.price} = £${p.cost} (ex. VAT)`);
   costLines.push(`  VAT (20%): £${vat}`);
   costLines.push(`  ──────────────────────────`);
   costLines.push(`  Total Due (inc. VAT): £${total}`);
 
+  const dayDetailBlocks = used.map(d => `📌 ${d.title} — ${d.fullDate}${d.description ? '\n' + d.description : ''}`).join('\n\n');
+
   const email = `Hi ${stkName},
 
-Thank you for booking onto the Street Accounting Open Training Day — we're looking forward to welcoming your team!
-
-This event is designed for staff who handle client accounting on Street — specifically those who move money between accounts (client to business, TDS, DPS, etc). It's a great opportunity to build confidence, sharpen best-practice workflows, and get your questions answered directly with our accounting specialists.
+Thank you for booking onto the Street Hosted Open Training Event — we're looking forward to welcoming your team!
 
 📋 Booking Summary:
 
 Company: ${company}
 Training Day(s): ${daysSummary}
-Time: 10:00am – 4:30pm (1 hour lunch break)
 Location: North Square, 11–13 Spear St, Manchester M1 1JU
 
 Delegates (${attendees.length} ${attendees.length===1?'person':'people'}):
 ${attLines}
+
+${dayDetailBlocks}
 
 💰 Cost Breakdown:
 ${costLines.join('\n')}
@@ -1065,18 +971,6 @@ Please submit all payments to the account details below, including your company 
   Account Number: 43899519
   Sort Code:      20-54-58
 
-🎯 What to Expect on the Day:
-✔ Accounting overview and best-practice setup
-✔ Receipting money and reconciling bank transactions
-✔ Tenant and owner ledgers
-✔ Charges, fees, supplier and contractor payments
-✔ Owner statements and payment runs
-✔ Statement imports and rent/deposit handling
-✔ Common mistakes and how to avoid them
-✔ Open Q&A with accounting specialists
-
-Please note: This session covers standard workflows. Niche topics (HMOs, direct debits, service charges, ground rents) are not included in the standard agenda.
-
 🚗 Getting Here:
 Parking: https://en.parkopedia.co.uk/parking/spear_street_manchester/
 9 min walk from Manchester Piccadilly or Manchester Victoria railway station
@@ -1086,58 +980,19 @@ If you have any questions, please don't hesitate to get in touch by replying to 
 Kind regards,
 Street Training Team`;
 
-  const prevEmail = `Hi [First Name],
-
-I hope you're well! 😊
-
-We're excited to announce that Street is hosting an Accounting Open Training Day, and we'd love to have you join us again.
-
-As someone who has attended a previous session, you'll know how valuable a day like this can be — and we've refreshed the agenda to make sure it covers the latest updates, including Renters' Rights Act changes, Making Tax Digital queries, and handling upfront rent and arrears.
-
-📅 Date: ${dayConfig.day1.fullDate !== 'Date TBC' ? dayConfig.day1.fullDate : '[Date TBC — watch this space]'}
-📍 Location: Street HQ, North Square, 11–13 Spear St, Manchester M1 1JU
-🕙 Time: 10:00am – 4:30pm
-
-🎯 What's covered:
-• Accounting best practice setup and overview
-• Receipting, reconciling, and ledger management
-• Charges, fees, statements, and payment runs
-• Deposits workflow and NRL
-• Rent Review and Arrears management
-• Open Q&A with Street accounting specialists
-• Latest Street updates — what's changed and what's coming
-
-💰 Cost: £250 + VAT per person
-
-To register your interest or book a place, reply to this email or speak to your CSM.
-
-We'd love to see you there!
-
-Kind regards,
-Amy Dawber
-Head of Product Training — Street.co.uk`;
-
-  const subject = `Street Accounting Training Day — Booking Confirmation: ${company}`;
+  const subject = `Street Open Training Day — Booking Confirmation: ${company}`;
   _emailSubject = subject;
   _emailTo = stkEmail;
 
   document.getElementById('emailMetaTo').textContent      = `${stkName} <${stkEmail}>`;
   document.getElementById('emailMetaSubject').textContent = subject;
   document.getElementById('emailTemplateBody').textContent = email;
-  document.getElementById('prevAttEmail').textContent = prevEmail;
 }
-
-let _emailSubject = '';
-let _emailTo      = '';
 
 function copyEmail() {
   const subject = document.getElementById('emailMetaSubject').textContent;
   const body    = document.getElementById('emailTemplateBody').textContent;
   navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => toast('Email copied to clipboard!', 'success'));
-}
-
-function copyPrevAtt() {
-  navigator.clipboard.writeText(document.getElementById('prevAttEmail').textContent).then(() => toast('Previous attendee email copied!', 'success'));
 }
 
 function openMailto() {
@@ -1226,26 +1081,20 @@ async function submitForm() {
   const stkEmail     = document.getElementById('stakeholderEmail').value.trim();
   const stkPhone     = document.getElementById('stakeholderPhone').value.trim();
 
-  const d1Dels = attendees.filter(a => a.days.includes('day1'));
-  const d2Dels = attendees.filter(a => a.days.includes('day2'));
-  const subtotal  = (d1Dels.length + d2Dels.length) * PRICE_PER_PERSON_PER_DAY;
-  const total  = subtotal + Math.round(subtotal * 0.2);
-  const days   = [
-    d1Dels.length ? `Accounting Day 1 (${dayConfig.day1.fullDate}) ×${d1Dels.length}` : '',
-    d2Dels.length ? `Accounting Day 2 (${dayConfig.day2.fullDate}) ×${d2Dels.length}` : ''
-  ].filter(Boolean).join(', ');
+  const { perDay, total } = computeTotals();
+  const daysStr = perDay.map(p => `${dayLabel(p.day)} ×${p.n}`).join(', ');
 
   const attJSON = JSON.stringify(attendees.map(a => ({
-    firstName: a.firstName, lastName: a.lastName, name: a.name, role: a.role, diet: a.diet, days: a.days
+    firstName: a.firstName, lastName: a.lastName, name: a.name, role: a.role, email: a.email, diet: a.diet, dayLabels: a.dayLabels
   })));
   const dietaryList = attendees.filter(a => a.diet && a.diet.toLowerCase() !== 'none').map(a => a.name + ': ' + a.diet).join('; ') || 'None';
 
   const params = new URLSearchParams({
-    action:         'submitAccounting',
+    action:         'submitBooking',
     referredByName: referrerName,
     referredByTeam: referrerTeam,
     company, stakeholderName: stkName, stakeholderEmail: stkEmail, stakeholderPhone: stkPhone,
-    trainingDays:   days,
+    trainingDays:   daysStr,
     attendeeCount:  attendees.length,
     attendees:      attJSON,
     dietaryReqs:    dietaryList,
@@ -1258,7 +1107,7 @@ async function submitForm() {
 
   try {
     await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    const daysSummary = [d1Dels.length?`Day 1 (${d1Dels.length}p)`:'', d2Dels.length?`Day 2 (${d2Dels.length}p)`:''].filter(Boolean).join(' & ');
+    const daysSummary = perDay.map(p => `${p.day.title} (${p.n}p)`).join(' & ');
     document.getElementById('successMsg').textContent = `Booking logged for ${company} — ${attendees.length} ${attendees.length===1?'delegate':'delegates'}. ${daysSummary}. Total: £${total}.`;
     document.getElementById('successRef').textContent = `${company} · £${total} · Referred by ${referrerName}`;
     step = 5;
@@ -1279,17 +1128,12 @@ async function submitForm() {
 // RESET
 // ══════════════════════════════════════════════════════════════
 function resetForm() {
-  step = 1; attendees = []; selectedDays = { day1: false, day2: false };
+  step = 1; attendees = [];
   document.getElementById('formFooter').style.display = '';
   document.getElementById('progressTrack').style.display = '';
   document.querySelectorAll('.field-input,.field-select,.field-textarea').forEach(el => el.value = '');
-  document.getElementById('attDay1').checked = false;
-  document.getElementById('attDay2').checked = false;
-  renderAttendees(); updateCost();
-  ['day1','day2'].forEach(d => {
-    document.getElementById('card-'+d).classList.remove('selected');
-    document.getElementById('chk-'+d).checked = false;
-  });
+  document.querySelectorAll('.attDayChip').forEach(c => c.checked = false);
+  renderAttendees(); updateCost(); renderTrainingDayGrid(); renderDelegateDayChips();
   document.getElementById('costPreview').style.display = 'none';
   showPane(1); renderProgress(); updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1298,15 +1142,13 @@ function resetForm() {
 // ══════════════════════════════════════════════════════════════
 // ADMIN PANEL
 // ══════════════════════════════════════════════════════════════
-let adminUnlocked = false;
-
 function openAdmin() {
   document.getElementById('adminModal').classList.add('show');
   if (!adminUnlocked) {
     document.getElementById('adminAuthScreen').style.display = '';
     document.getElementById('adminEditorScreen').style.display = 'none';
   } else {
-    populateAdminFields();
+    startAdminEdit();
   }
 }
 
@@ -1328,7 +1170,7 @@ function checkPin() {
     adminUnlocked = true;
     document.getElementById('adminAuthScreen').style.display = 'none';
     document.getElementById('adminEditorScreen').style.display = '';
-    populateAdminFields();
+    startAdminEdit();
     document.getElementById('pinError').textContent = '';
   } else {
     document.getElementById('pinError').textContent = 'Incorrect PIN — try again';
@@ -1345,69 +1187,122 @@ function switchAdminTab(tab) {
   document.getElementById('pane'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
 }
 
-function populateAdminFields() {
-  const d1iso = fullDateToIso(dayConfig.day1.fullDate);
-  const d2iso = fullDateToIso(dayConfig.day2.fullDate);
-  if (d1iso) document.getElementById('adminDay1Date').value = d1iso;
-  if (d2iso) document.getElementById('adminDay2Date').value = d2iso;
-  document.getElementById('adminDay1Short').value = dayConfig.day1.shortDate !== 'TBC' ? dayConfig.day1.shortDate : '';
-  document.getElementById('adminDay2Short').value = dayConfig.day2.shortDate !== 'TBC' ? dayConfig.day2.shortDate : '';
-  document.getElementById('adminMaxSeats').value  = maxSeats;
+function startAdminEdit() {
+  adminDaysDraft = trainingDays.map(d => Object.assign({}, d));
+  renderAdminDayEditors();
 }
 
-function adminAutoFillShort(shortId, dateId) {
-  const iso = document.getElementById(dateId).value;
-  if (iso) document.getElementById(shortId).value = isoToShortDate(iso);
+function renderAdminDayEditors() {
+  const host = document.getElementById('adminDaysHost');
+  if (!adminDaysDraft.length) {
+    host.innerHTML = '<div class="info-box amber" style="margin-bottom:4px;">No training days configured yet — add one below.</div>';
+    return;
+  }
+  host.innerHTML = adminDaysDraft.map((d, i) => `
+    <div class="admin-day-editor">
+      <button type="button" class="admin-day-delete-btn" onclick="removeAdminDay(${i})" title="Delete this day">&#10005;</button>
+      <div class="admin-day-editor-hdr">
+        <span class="admin-day-dot" style="background:${d.live?'var(--green)':'var(--grey-30)'}"></span>
+        <span class="admin-day-label">${esc(d.title || 'Untitled Training Day')}</span>
+      </div>
+      <div class="admin-field" style="margin-bottom:10px;">
+        <label>Title</label>
+        <input type="text" value="${esc(d.title)}" oninput="updateAdminDay(${i},'title',this.value)" placeholder="e.g. Sales Fundamentals">
+      </div>
+      <div class="admin-field" style="margin-bottom:10px;">
+        <label>Event Description</label>
+        <textarea oninput="updateAdminDay(${i},'description',this.value)" placeholder="What this session covers…">${esc(d.description)}</textarea>
+      </div>
+      <div class="admin-field-row" style="margin-bottom:10px;">
+        <div class="admin-field">
+          <label>Date</label>
+          <input type="date" value="${d.date||''}" oninput="updateAdminDay(${i},'date',this.value)">
+        </div>
+        <div class="admin-field">
+          <label>Price / Delegate (£, ex. VAT)</label>
+          <input type="number" min="0" step="1" value="${d.price}" oninput="updateAdminDay(${i},'price',this.value)">
+        </div>
+      </div>
+      <div class="admin-field-row">
+        <div class="admin-field">
+          <label>Max Seats</label>
+          <input type="number" min="1" max="500" value="${d.maxSeats}" oninput="updateAdminDay(${i},'maxSeats',this.value)">
+        </div>
+        <div class="admin-field">
+          <label>Live — open for booking</label>
+          <label class="switch" style="margin-top:6px;">
+            <input type="checkbox" ${d.live?'checked':''} onchange="updateAdminDay(${i},'live',this.checked)">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
-function saveAdmin() {
-  const d1iso = document.getElementById('adminDay1Date').value;
-  const d2iso = document.getElementById('adminDay2Date').value;
-  const d1short = document.getElementById('adminDay1Short').value.trim();
-  const d2short = document.getElementById('adminDay2Short').value.trim();
-  const seats = parseInt(document.getElementById('adminMaxSeats').value) || MAX_SEATS_DEFAULT;
-
-  dayConfig.day1.fullDate  = d1iso ? isoToFullDate(d1iso) : 'Date TBC';
-  dayConfig.day1.shortDate = d1short || (d1iso ? isoToShortDate(d1iso) : 'TBC');
-  dayConfig.day2.fullDate  = d2iso ? isoToFullDate(d2iso) : 'Date TBC';
-  dayConfig.day2.shortDate = d2short || (d2iso ? isoToShortDate(d2iso) : 'TBC');
-  maxSeats = seats;
-  saveDayConfig();
-  try { localStorage.setItem('accMaxSeats', seats); } catch(_) {}
-
-  applyDayConfig();
-  if (liveCapacity.loaded) renderCapacity();
-  closeAdmin();
-  toast('Training days updated!', 'success');
+function updateAdminDay(i, field, value) {
+  if (!adminDaysDraft[i]) return;
+  adminDaysDraft[i][field] = field === 'live' ? !!value : value;
+  if (field === 'title' || field === 'live') {
+    const editors = document.querySelectorAll('.admin-day-editor');
+    const el = editors[i];
+    if (el) {
+      const dot = el.querySelector('.admin-day-dot');
+      const lbl = el.querySelector('.admin-day-label');
+      if (dot) dot.style.background = adminDaysDraft[i].live ? 'var(--green)' : 'var(--grey-30)';
+      if (lbl) lbl.textContent = adminDaysDraft[i].title || 'Untitled Training Day';
+    }
+  }
 }
 
-// ── Date helpers ─────────────────────────────────────────────
-function isoToFullDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso + 'T12:00:00');
-  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-}
-function isoToShortDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso + 'T12:00:00');
-  const dayS  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const monS  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return dayS[d.getDay()] + ' ' + d.getDate() + ' ' + monS[d.getMonth()];
-}
-function fullDateToIso(fullDate) {
-  if (!fullDate || fullDate === 'Date TBC') return '';
-  const months = {January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',July:'07',August:'08',September:'09',October:'10',November:'11',December:'12'};
-  const parts = fullDate.split(' ');
-  if (parts.length < 4) return '';
-  const day   = String(parseInt(parts[1])).padStart(2,'0');
-  const month = months[parts[2]] || '01';
-  const year  = parts[3];
-  return year + '-' + month + '-' + day;
+function addAdminDay() {
+  adminDaysDraft.push({ id: 'day_' + Math.random().toString(36).slice(2,9), title: '', description: '', date: '', maxSeats: DEFAULT_MAX_SEATS, price: DEFAULT_PRICE, live: false });
+  renderAdminDayEditors();
 }
 
-// ── Helpers ──────────────────────────────────────────────────
+function removeAdminDay(i) {
+  adminDaysDraft.splice(i, 1);
+  renderAdminDayEditors();
+}
+
+async function saveAdmin() {
+  for (const d of adminDaysDraft) {
+    if (!d.title || !d.title.trim()) { toast('Every training day needs a title', 'error'); return; }
+    if (!d.date) { toast(`Please set a date for "${d.title}"`, 'error'); return; }
+  }
+  const normalized = adminDaysDraft.map(d => ({
+    id: d.id,
+    title: d.title.trim(),
+    description: (d.description||'').trim(),
+    date: d.date,
+    maxSeats: parseInt(d.maxSeats) || DEFAULT_MAX_SEATS,
+    price: parseFloat(d.price) || 0,
+    live: !!d.live,
+  }));
+
+  document.getElementById('loadingLabel').textContent = 'Saving training days…';
+  document.getElementById('loadingOverlay').classList.add('show');
+  try {
+    const res = await jsonp('saveTrainingDays', { days: JSON.stringify(normalized) });
+    if (res && res.ok) {
+      trainingDays = normalized.map(normalizeDay).sort(sortDaysByDate);
+      renderHeaderPills(); renderTrainingDayGrid(); renderDelegateDayChips();
+      closeAdmin();
+      toast('Training days updated!', 'success');
+      fetchCapacity();
+    } else {
+      toast('Save failed: ' + (res && res.error ? res.error : 'unknown error'), 'error');
+    }
+  } catch (e) {
+    toast('Could not reach the server — changes not saved', 'error');
+  } finally {
+    document.getElementById('loadingOverlay').classList.remove('show');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════════
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg, type='info', dur=3500) {
   const host = document.getElementById('toastHost');
@@ -1419,10 +1314,9 @@ function toast(msg, type='info', dur=3500) {
 // ══════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════
-applyDayConfig();
 renderProgress();
 updateNav();
-fetchCapacity();
+loadTrainingDaysAndCapacity();
 </script>
 </body>
 </html>
