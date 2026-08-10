@@ -120,6 +120,9 @@ body {
 .day-tag.green-tag  { background: #f0fdf4; color: #166534; }
 .day-tag.red-tag    { background: #fef2f2; color: #991b1b; }
 .day-tag.amber-tag  { background: #fffbeb; color: #92400e; }
+.day-card-hosts { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+.host-pill { font-size: 11px; color: var(--grey-70); background: var(--grey-10, #f4f5f9); border-radius: 12px; padding: 2px 9px; }
+.host-pill strong { color: var(--grey-90); font-weight: 700; }
 .day-card-price { padding: 10px 16px 10px 0; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; flex-shrink: 0; }
 .price-amount { font-size: 18px; font-weight: 700; color: var(--purple); }
 .price-sub { font-size: 10px; color: var(--grey-50); font-weight: 500; }
@@ -589,6 +592,8 @@ function normalizeDay(d) {
     maxSeats: parseInt(d.maxSeats) || 0,
     price: parseFloat(d.price) || 0,
     live: d.live === true || d.live === 'Y' || d.live === 'true',
+    trainingHost: d.trainingHost || '',
+    qaHost: d.qaHost || '',
   };
 }
 function sortDaysByDate(a, b) { return (a.date || '9999-99-99').localeCompare(b.date || '9999-99-99'); }
@@ -685,6 +690,10 @@ function renderTrainingDayGrid() {
             <span class="day-tag">🏢 In Person</span>
             ${avail===0 && liveCapacity.loaded ? '<span class="day-tag red-tag">Sold Out</span>' : ''}
           </div>
+          ${(d.trainingHost || d.qaHost) ? `<div class="day-card-hosts">
+            ${d.trainingHost ? `<span class="host-pill">🎓 Training Host: <strong>${esc(d.trainingHost)}</strong></span>` : ''}
+            ${d.qaHost ? `<span class="host-pill">🔎 QA Host: <strong>${esc(d.qaHost)}</strong></span>` : ''}
+          </div>` : ''}
           <div class="capacity-wrap">
             <div class="capacity-row"><span class="capacity-label">Seats available</span><span class="capacity-count ${cls}">${label}</span></div>
             <div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" style="width:${liveCapacity.loaded ? pct : 0}%"></div></div>
