@@ -79,6 +79,9 @@ body {
 .form-hdr-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
 .form-hdr-title { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 1; }
 .form-hdr-desc { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.65; position: relative; z-index: 1; }
+.form-hdr-desc strong { color: rgba(255,255,255,0.68); font-weight: 600; }
+.form-hdr-desc ul { margin: 4px 0 8px; padding-left: 18px; }
+.form-hdr-desc li { margin: 2px 0; }
 .date-pills { display: flex; gap: 10px; margin-top: 14px; position: relative; z-index: 1; flex-wrap: wrap; }
 .date-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); }
 .date-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
@@ -287,8 +290,21 @@ body {
       <!-- Header -->
       <div class="form-hdr">
         <div class="form-hdr-eyebrow">Street Training Days</div>
-        <div class="form-hdr-title">Street Hosted Open Training Event</div>
-        <div class="form-hdr-desc">A Street-hosted training day at Street HQ with a set agenda, open to multiple clients or attendees. Select delegate(s), add their details, and we'll generate the cost breakdown and template email.</div>
+        <div class="form-hdr-title">Training Day at Street</div>
+        <div class="form-hdr-desc">A Street-hosted training day at Street HQ with a set agenda, open to multiple clients and attendees.<br><br>
+This form is for internal Street team use only and should not be sent to or completed by the client.<br>
+Please complete the form once the client has confirmed they would like to attend the training.<br><br>
+<strong>Client details / Stakeholder</strong><br>
+This is the person responsible for approving and paying for the training. They should have already confirmed the booking and will be the main contact for the invoice.<br><br>
+<strong>Delegate(s)</strong><br>
+These are the people who will actually be attending the training day.<br>
+For every delegate attending, please make sure you collect and provide:
+<ul>
+<li>Full name</li>
+<li>Email address</li>
+<li>Dietary requirements</li>
+</ul>
+Please ensure all delegate information is confirmed before submitting the form, as we&rsquo;ll use these details to manage the booking, calculate the cost and send the relevant training information.</div>
         <div class="date-pills" id="datePillsWrap">
           <div class="date-pill"><span class="date-pill-dot"></span> Loading…</div>
         </div>
