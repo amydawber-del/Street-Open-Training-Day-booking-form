@@ -86,6 +86,23 @@ body {
 .date-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); }
 .date-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
 .date-pill-dot.amber { background: var(--amber); }
+/* Header seat tiles: one per live training day, with a seats-left counter */
+.day-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 16px; position: relative; z-index: 1; }
+.day-tile { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 11px 13px 12px; display: flex; flex-direction: column; gap: 3px; }
+.day-tile.seats-full { opacity: 0.7; }
+.day-tile-title { font-size: 12.5px; font-weight: 700; color: #fff; line-height: 1.3; }
+.day-tile-date  { font-size: 11.5px; color: rgba(255,255,255,0.55); }
+.day-tile-seats { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 7px; }
+.day-tile-left  { font-size: 12px; font-weight: 700; }
+.day-tile-left.seats-good { color: #4ADE9B; }
+.day-tile-left.seats-low  { color: #FBBF24; }
+.day-tile-left.seats-full { color: #F87171; }
+.day-tile-booked { font-size: 10.5px; color: rgba(255,255,255,0.45); white-space: nowrap; }
+.day-tile-track { width: 100%; height: 5px; background: rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; margin-top: 4px; }
+.day-tile-fill  { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
+.day-tile-fill.seats-good { background: var(--green); }
+.day-tile-fill.seats-low  { background: var(--amber); }
+.day-tile-fill.seats-full { background: var(--red); }
 .progress-wrap { background: var(--navy-80); border-bottom: 1px solid var(--navy-border); padding: 16px 32px 0; }
 .progress-track { display: flex; align-items: center; gap: 0; padding-bottom: 34px; }
 .step-dot { width: 27px; height: 27px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; position: relative; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.12); transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s; z-index: 1; cursor: default; }
@@ -606,6 +623,8 @@ function normalizeDay(d) {
     fullDate: iso ? isoToFullDate(iso) : 'Date TBC',
     shortDate: iso ? isoToShortDate(iso) : 'TBC',
     maxSeats: parseInt(d.maxSeats) || 0,
+    // Seats booked as calculated in the sheet (used until live counts load)
+    sheetBooked: parseInt(d.booked) || 0,
     price: parseFloat(d.price) || 0,
     live: d.live === true || d.live === 'Y' || d.live === 'true',
     trainingHost: d.trainingHost || '',
@@ -652,10 +671,17 @@ async function fetchCapacity() {
   } catch (e) {
     liveCapacity.error = true;
   }
+  renderHeaderPills();
   renderTrainingDayGrid();
   renderDelegateDayChips();
 }
-function bookedFor(day) { return (liveCapacity.counts && liveCapacity.counts[dayLabel(day)]) || 0; }
+// Seats already booked: live count if we have it, otherwise the sheet's figure
+function bookedFor(day) {
+  const counts = liveCapacity.counts || {};
+  const label = dayLabel(day);
+  if (liveCapacity.loaded && Object.prototype.hasOwnProperty.call(counts, label)) return counts[label] || 0;
+  return day.sheetBooked || 0;
+}
 function pendingLocalFor(day) { return attendees.filter(a => a.dayIds.includes(day.id)).length; }
 
 // ══════════════════════════════════════════════════════════════
@@ -663,10 +689,27 @@ function pendingLocalFor(day) { return attendees.filter(a => a.dayIds.includes(d
 // ══════════════════════════════════════════════════════════════
 function renderHeaderPills() {
   const wrap = document.getElementById('datePillsWrap');
+  wrap.className = 'date-pills';
   if (daysLoadError) { wrap.innerHTML = '<div class="date-pill"><span class="date-pill-dot amber"></span> Unable to load training days</div>'; return; }
   const live = trainingDays.filter(d => d.live);
   if (!live.length) { wrap.innerHTML = '<div class="date-pill"><span class="date-pill-dot amber"></span> No open days currently scheduled</div>'; return; }
-  wrap.innerHTML = live.map(d => `<div class="date-pill"><span class="date-pill-dot"></span> ${esc(d.title)} — ${esc(d.fullDate)}</div>`).join('');
+  wrap.className = 'day-tiles';
+  wrap.innerHTML = live.map(d => {
+    const booked = Math.min(bookedFor(d), d.maxSeats || bookedFor(d));
+    const avail  = Math.max(0, d.maxSeats - booked);
+    const pct    = d.maxSeats ? Math.min(100, Math.round((booked / d.maxSeats) * 100)) : 0;
+    const cls    = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
+    const left   = avail === 0 ? 'Sold out' : avail === 1 ? '1 seat left' : `${avail} seats left`;
+    return `<div class="day-tile ${cls}">
+      <div class="day-tile-title">${esc(d.title)}</div>
+      <div class="day-tile-date">${esc(d.fullDate)}</div>
+      <div class="day-tile-seats">
+        <span class="day-tile-left ${cls}">${left}</span>
+        <span class="day-tile-booked">${booked} of ${d.maxSeats} booked</span>
+      </div>
+      <div class="day-tile-track"><div class="day-tile-fill ${cls}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
 }
 
 function toggleAddDelegateVisibility(show) {
@@ -695,8 +738,8 @@ function renderTrainingDayGrid() {
     const avail  = Math.max(0, d.maxSeats - booked);
     const pct    = Math.min(100, Math.round((booked / d.maxSeats) * 100));
     const cls    = avail === 0 ? 'seats-full' : avail <= 5 ? 'seats-low' : 'seats-good';
-    const label  = !liveCapacity.loaded ? '…' : avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
-    return `<div class="training-day-card ${avail===0 && liveCapacity.loaded ? 'sold-out' : ''}">
+    const label  = avail === 0 ? '0 seats left — SOLD OUT' : avail === 1 ? '1 seat left' : `${avail} seats left`;
+    return `<div class="training-day-card ${avail===0 ? 'sold-out' : ''}">
       <div class="day-card-inner">
         <div class="day-card-body">
           <div class="day-card-title">${esc(d.title)}</div>
@@ -704,7 +747,7 @@ function renderTrainingDayGrid() {
           ${d.description ? `<div class="day-card-desc">${esc(d.description)}</div>` : ''}
           <div class="day-card-tags">
             <span class="day-tag">🏢 In Person</span>
-            ${avail===0 && liveCapacity.loaded ? '<span class="day-tag red-tag">Sold Out</span>' : ''}
+            ${avail===0 ? '<span class="day-tag red-tag">Sold Out</span>' : ''}
           </div>
           ${(d.trainingHost || d.qaHost) ? `<div class="day-card-hosts">
             ${d.trainingHost ? `<span class="host-pill">🎓 Training Host: <strong>${esc(d.trainingHost)}</strong></span>` : ''}
@@ -712,7 +755,7 @@ function renderTrainingDayGrid() {
           </div>` : ''}
           <div class="capacity-wrap">
             <div class="capacity-row"><span class="capacity-label">Seats available</span><span class="capacity-count ${cls}">${label}</span></div>
-            <div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" style="width:${liveCapacity.loaded ? pct : 0}%"></div></div>
+            <div class="capacity-bar-track"><div class="capacity-bar-fill ${cls}" style="width:${pct}%"></div></div>
           </div>
         </div>
         <div class="day-card-price">
